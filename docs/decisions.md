@@ -35,6 +35,27 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - Training time = wall-clock of the training loop summed over resumed sessions. Model load, preflight,
   checkpoint writing and syncing are timed separately.
 
+### Step 2 — L2-SP (handout p. 4)
+
+- The penalty gradient λ(θ − θ0) is added to `.grad` after `scaler.unscale_` and before clipping, so the large
+  penalty term never passes through FP16 loss scaling. Clipping applies to the total (SFT + penalty) gradient.
+  It is added as two in-place adds (λθ, then −λθ0) in chunks of 16 tensors, so there is no 2.4 GB temporary.
+- θ0 is an FP32 copy of every unique parameter (tied embedding/LM head once), taken from the freshly loaded model
+  before any checkpoint is restored, and never saved. For L2-SP it stays on the GPU; for Full FT, which only needs
+  it for displacement, it stays in CPU memory.
+- Logged Ω is computed at the parameters the update's loss was computed on (before the optimizer step), so
+  total_loss = SFT loss + λΩ refers to one point. Displacement ‖θ − θ0‖₂ = √(2Ω) is logged after the step at
+  updates 625 and 1250, for both Full FT and L2-SP.
+
+### Step 4 — OPLoRA (handout p. 4)
+
+- The projection B̃, Ã is computed in FP32 inside each forward with autocast disabled; under FP16 autocast it would
+  otherwise only be orthogonal to FP16 precision.
+- SVD bases are computed once from the loaded W0 (FP16 copy of the original BF16 weights, upcast to FP32; BF16
+  values in the normal range are exact in FP16), saved to `outputs/task1/oplora_bases.pt`, and reused on resume and
+  by the diagnostics.
+- Identical init: every adapter run records a sha256 of its initial A matrices; `lora16` and `oplora16` must match.
+
 ### Recovery checkpoints (handout p. 3 "Checkpoint and evaluation schedule")
 
 - Besides the required checkpoints at updates 312/625/937/1250, rolling recovery checkpoints are written every

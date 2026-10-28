@@ -5,5 +5,4 @@ alpha: 32
 protect_k: 128
 lora_dropout: 0.05
 lora_targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
-bases_path: outputs/task1/oplora_bases.pt
 ckpt_every: 50

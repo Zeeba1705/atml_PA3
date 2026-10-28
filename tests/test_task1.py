@@ -11,9 +11,10 @@ from task1.data import build_example, collate, normalize_question, select_exampl
 from task1.diagnostics import activation_ratio, eta, rho_k
 from task1.losses import accumulate_sft_grads, ce_sum, count_tokens
 from task1.merge import merge_adapters
+import task1.methods.l2sp as l2sp
 from task1.methods.l2sp import add_l2sp_grad, l2sp_omega, snapshot_params, unique_params
 from task1.methods.lora import LoRALinear, add_lora
-from task1.methods.oplora import add_oplora, project_factors, svd_bases
+from task1.methods.oplora import OPLoRALinear, add_oplora, oplora_constraint_check, project_factors, svd_bases
 
 MODEL_NAME= "Qwen/Qwen3-0.6B"
 TARGETS= ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
@@ -253,7 +254,11 @@ class TiedToy(nn.Module):
         return self.head(self.emb(ids) * self.norm)
 
 
-def test_l2sp_omega_counts_tied_weight_once():
+@pytest.mark.parametrize("chunk", [1, 2, 16])
+def test_l2sp_omega_counts_tied_weight_once(chunk, monkeypatch):
+    #chunk sizes 1 and 2 make the foreach loop cross chunk boundaries
+    monkeypatch.setattr(l2sp, "CHUNK", chunk)
+
     model= TiedToy()
 
     params= unique_params(model)
@@ -396,3 +401,23 @@ def test_merged_vs_unmerged_logits_match(method):
 
     assert (merged - unmerged).abs().max().item() < 1e-5
     assert (merged - base_logits).abs().max().item() > 1e-3
+
+
+def test_oplora_projection_stays_fp32_under_autocast():
+    model= tiny_qwen3()
+    add_oplora(model, TARGETS, rank=4, alpha=8, dropout=0.0, seed=6304, k=4)
+
+    with torch.no_grad():
+        for m in model.modules():
+            if isinstance(m, LoRALinear):
+                m.lora_B.normal_(0, 0.1)
+
+    layer= next(m for m in model.modules() if isinstance(m, OPLoRALinear))
+
+    with torch.autocast(device_type="cpu", dtype=torch.bfloat16):
+        A_t, B_t= layer.factors()
+
+    assert A_t.dtype == torch.float32 and B_t.dtype == torch.float32
+
+    worst_B, worst_A= oplora_constraint_check(model)
+    assert worst_B < 1e-5 and worst_A < 1e-5

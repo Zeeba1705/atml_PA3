@@ -1,5 +1,6 @@
 import argparse
 import functools
+import hashlib
 import json
 import math
 import os
@@ -25,7 +26,9 @@ from common.io import (
 from common.seed import get_rng_state, seed_everything, set_rng_state
 from task1.data import collate
 from task1.methods.full_ft import full_ft_train
+from task1.methods.l2sp import l2sp_omega, l2sp_train, snapshot_params, unique_params
 from task1.methods.lora import add_lora, lora_train
+from task1.methods.oplora import add_oplora, load_or_compute_bases, oplora_constraint_check, oplora_train
 
 BASE_CONFIG= "configs/task1/base.yaml"
 ADAPTER_METHODS= ["lora", "oplora"]
@@ -80,7 +83,21 @@ def load_examples(cfg, output_dir):
     return data["examples"], data["pad_id"]
 
 
-def build_model(cfg, device):
+def init_A_hash(model):
+    #lora16 and oplora16 must start from identical A (and zero B), compared across runs in make_tables
+    h= hashlib.sha256()
+
+    for name, p in model.named_parameters():
+        if name.endswith("lora_A"):
+            h.update(p.detach().cpu().numpy().tobytes())
+
+    return h.hexdigest()
+
+
+def build_model(cfg, device, output_dir):
+    #overhead: method-specific costs we report (svd time, basis storage)
+    overhead= {}
+
     if cfg["smoke"]:
         config= Qwen3Config(**cfg["smoke_model"], tie_word_embeddings=True)
 
@@ -103,12 +120,43 @@ def build_model(cfg, device):
             dropout=cfg["lora_dropout"],
             seed=cfg["seed"]
         )
+    elif cfg["method"] == "oplora":
+        #smoke bases get their own file so they can never be picked up by a real run
+        bases_file= "oplora_bases_smoke.pt" if cfg["smoke"] else "oplora_bases.pt"
+        bases_path= os.path.join(output_dir, "task1", bases_file)
+        os.makedirs(os.path.dirname(bases_path), exist_ok=True)
+
+        bases, svd_seconds= load_or_compute_bases(
+            model,
+            cfg["lora_targets"],
+            cfg["protect_k"],
+            bases_path,
+            "smoke" if cfg["smoke"] else cfg["model_name"]
+        )
+
+        add_oplora(
+            model,
+            cfg["lora_targets"],
+            rank=cfg["rank"],
+            alpha=cfg["alpha"],
+            dropout=cfg["lora_dropout"],
+            seed=cfg["seed"],
+            k=cfg["protect_k"],
+            bases=bases
+        )
+
+        overhead["svd_seconds"]= svd_seconds
+        overhead["bases_bytes"]= sum(4 * (U.numel() + V.numel()) for U, V in bases.values())
+        overhead["bases_path"]= bases_path
+
+    if cfg["method"] in ADAPTER_METHODS:
+        overhead["init_A_sha256"]= init_A_hash(model)
 
     if cfg["grad_checkpointing"]:
         model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
         model.config.use_cache= False
 
-    return model
+    return model, overhead
 
 
 def make_optimizer(model, cfg, device):
@@ -228,7 +276,25 @@ def main(args):
     examples_per_update= cfg["micro_batch"] * cfg["grad_accum"]
     assert len(examples) >= cfg["num_updates"] * examples_per_update
 
-    model= build_model(cfg, device)
+    t_load= time.time()
+    model, overhead= build_model(cfg, device, args.output_dir)
+    overhead["model_load_seconds"]= time.time() - t_load
+
+    #theta0 = the starting params, snapshotted before any checkpoint is loaded (never saved, rebuilt from hf)
+    #l2sp needs it every update so it stays on the gpu, full ft only for displacement so it waits on cpu
+    l2sp_params= None
+    theta0= None
+    if cfg["method"] in ["full_ft", "l2sp"]:
+        t_snap= time.time()
+
+        l2sp_params= unique_params(model)
+        theta0_device= device if cfg["method"] == "l2sp" else torch.device("cpu")
+        theta0= snapshot_params(l2sp_params, theta0_device)
+
+        overhead["theta0_seconds"]= time.time() - t_snap
+        overhead["theta0_bytes"]= sum(4 * t.numel() for t in theta0)
+        overhead["theta0_device"]= str(theta0_device)
+
     optimizer, params= make_optimizer(model, cfg, device)
 
     scheduler= torch.optim.lr_scheduler.LambdaLR(
@@ -245,7 +311,8 @@ def main(args):
         "examples_consumed": 0,
         "skipped_updates": 0,
         "train_seconds": 0.0,
-        "ckpt_seconds": 0.0
+        "ckpt_seconds": 0.0,
+        "peak_mem_bytes": 0
     }
 
     if ckpt_path is None:
@@ -269,6 +336,7 @@ def main(args):
     meta["run_name"]= args.run_name
     meta["trainable_params"]= n_trainable
     meta["dtype"]= "fp16 autocast" if use_fp16 else "fp32"
+    meta["overhead"]= overhead
     write_json(os.path.join(results_dir, "config.json"), meta)
 
     #data order is fixed: resume by skipping exactly the examples already consumed
@@ -305,6 +373,20 @@ def main(args):
                 use_fp16=use_fp16,
                 max_grad_norm=cfg["max_grad_norm"]
             )
+        elif cfg["method"] == "l2sp":
+            loss, grad_norm, n_tokens, skipped, omega= l2sp_train(
+                model=model,
+                params=params,
+                l2sp_params=l2sp_params,
+                theta0=theta0,
+                microbatches=microbatches,
+                optimizer=optimizer,
+                scaler=scaler,
+                device=device,
+                use_fp16=use_fp16,
+                max_grad_norm=cfg["max_grad_norm"],
+                lambda_l2sp=cfg["lambda_l2sp"]
+            )
         elif cfg["method"] == "lora":
             loss, grad_norm, n_tokens, skipped= lora_train(
                 model=model,
@@ -316,14 +398,30 @@ def main(args):
                 use_fp16=use_fp16,
                 max_grad_norm=cfg["max_grad_norm"]
             )
+        elif cfg["method"] == "oplora":
+            loss, grad_norm, n_tokens, skipped= oplora_train(
+                model=model,
+                params=params,
+                microbatches=microbatches,
+                optimizer=optimizer,
+                scaler=scaler,
+                device=device,
+                use_fp16=use_fp16,
+                max_grad_norm=cfg["max_grad_norm"]
+            )
         else:
-            raise ValueError(f"method {cfg['method']} not wired into the loop yet")
+            raise ValueError(f"unknown method {cfg['method']}")
 
         #schedule advances on every update, skipped or not
         scheduler.step()
 
         #one host sync per update
-        loss_val, grad_norm_val= torch.stack([loss.float(), grad_norm.float()]).tolist()
+        scalars= [loss.float(), grad_norm.float()]
+        if cfg["method"] == "l2sp":
+            scalars.append(omega.float())
+
+        values= torch.stack(scalars).tolist()
+        loss_val, grad_norm_val= values[0], values[1]
 
         state["update"]+= 1
         state["examples_consumed"]+= examples_per_update
@@ -340,6 +438,22 @@ def main(args):
             "n_tokens": n_tokens,
             "examples_consumed": state["examples_consumed"]
         }
+
+        if cfg["method"] == "l2sp":
+            #sft loss and the penalty logged separately, total = sft + lambda*omega
+            omega_val= values[2]
+
+            row["omega"]= omega_val
+            row["lambda_omega"]= cfg["lambda_l2sp"] * omega_val
+            row["total_loss"]= loss_val + cfg["lambda_l2sp"] * omega_val
+
+        #||theta - theta0||_2 = sqrt(2 * omega), at the evaluated checkpoints (after this update's step)
+        if theta0 is not None and state["update"] in cfg["eval_milestones"]:
+            row["displacement"]= math.sqrt(2.0 * l2sp_omega(l2sp_params, theta0).item())
+
+        if device.type == "cuda":
+            state["peak_mem_bytes"]= max(state["peak_mem_bytes"], torch.cuda.max_memory_allocated(device))
+
         append_jsonl(log_path, row)
 
         if skipped:
@@ -380,6 +494,33 @@ def main(args):
             state["ckpt_seconds"]+= time.time() - t1
             last_ckpt_time= time.time()
             print("saved", path)
+
+    #checkpoint sizes: trainable state (what the run actually learned) and the full resumable checkpoint
+    ckpt_sizes= {}
+    for update in cfg["milestones"]:
+        ckpt_dir= os.path.join(run_dir, "milestones", f"ckpt_{update:05d}")
+        if os.path.isdir(ckpt_dir):
+            ckpt_sizes[update]= {
+                "trainable_bytes": os.path.getsize(os.path.join(ckpt_dir, "trainable.pt")),
+                "total_bytes": sum(os.path.getsize(os.path.join(ckpt_dir, f)) for f in os.listdir(ckpt_dir))
+            }
+
+    summary= run_metadata(cfg, device)
+    summary["run_name"]= args.run_name
+    summary["trainable_params"]= n_trainable
+    summary["progress"]= state
+    summary["overhead"]= overhead
+    summary["checkpoint_sizes"]= ckpt_sizes
+    summary["displacement"]= {r["update"]: r["displacement"] for r in read_jsonl(log_path) if "displacement" in r}
+
+    if cfg["method"] == "oplora":
+        #re-verify the projection constraints on the trained adapters
+        worst_B, worst_A= oplora_constraint_check(model)
+        summary["oplora_max_UkT_Bt"]= worst_B
+        summary["oplora_max_At_Vk"]= worst_A
+        print("oplora constraints on trained adapters:", worst_B, worst_A)
+
+    write_json(os.path.join(results_dir, "train_summary.json"), summary)
 
     print(
         f"finished {args.run_name}: "

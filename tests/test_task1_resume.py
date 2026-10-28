@@ -11,7 +11,9 @@ REPO= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #smoke run: 20 updates, rolling checkpoint every 5, milestones at 10 and 20 (configs/task1/base.yaml "smoke")
 METHODS= {
     "full_ft": ["--config", "configs/task1/full_ft.yaml"],
-    "lora": ["--config", "configs/task1/lora.yaml", "--rank", "4", "--alpha", "8"]
+    "l2sp": ["--config", "configs/task1/l2sp.yaml"],
+    "lora": ["--config", "configs/task1/lora.yaml", "--rank", "4", "--alpha", "8"],
+    "oplora": ["--config", "configs/task1/oplora.yaml"]
 }
 
 
@@ -56,11 +58,9 @@ def assert_same_run(method, root_a, root_b):
     #one row per update, no duplicates from the crashed session
     assert [r["update"] for r in log_b] == list(range(1, 21))
 
+    #whole rows: loss, lr, grad norm, examples consumed, and omega / displacement where logged
     for a, b in zip(log_a, log_b):
-        assert a["loss"] == b["loss"], a["update"]
-        assert a["lr"] == b["lr"], a["update"]
-        assert a["grad_norm"] == b["grad_norm"], a["update"]
-        assert a["examples_consumed"] == b["examples_consumed"], a["update"]
+        assert a == b, a["update"]
 
     params_a= final_params(method, root_a)
     params_b= final_params(method, root_b)
@@ -77,7 +77,17 @@ def uninterrupted(request, tmp_path_factory):
 
     code, out= run_train(method, root)
     assert code == 0, out
-    assert len(read_log(method, root)) == 20
+
+    log= read_log(method, root)
+    assert len(log) == 20
+
+    #method-specific logging
+    if method in ["full_ft", "l2sp"]:
+        assert [r["update"] for r in log if "displacement" in r] == [10, 20]
+    if method == "l2sp":
+        assert log[0]["omega"] == 0.0
+        assert log[-1]["omega"] > 0.0
+        assert log[-1]["total_loss"] == log[-1]["loss"] + log[-1]["lambda_omega"]
 
     return method, root
 

@@ -41,6 +41,7 @@ smoke:
   grad_accum: 4
   warmup_updates: 3
   ckpt_every: 5
+  protect_k: 4
   milestones: [10, 20]
   eval_milestones: [10, 20]
   min_len: 8
