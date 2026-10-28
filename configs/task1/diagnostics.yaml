@@ -1,0 +1,16 @@
+#step 6 diagnostics (handout p. 5). probe ids are row indices into these splits = lm-eval doc ids
+probe_path: splits/task1/probe_ids.json
+n_probe_per_set: 32
+probe_sets:
+  gsm8k:
+    dataset: openai/gsm8k
+    file: main/test-00000-of-00001.parquet
+    revision: 740312add88f781978c0658806c59bc2815b9866
+    text_field: question
+  hellaswag:
+    dataset: Rowan/hellaswag
+    file: data/validation-00000-of-00001.parquet
+    revision: 218ec52e09a7e7462a5400043bb9a69a41d06b76
+    text_field: ctx
+layers: [0, 13, 27]
+module: down_proj
