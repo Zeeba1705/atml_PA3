@@ -133,8 +133,9 @@ formats, before any answer). R(z) = ‖ΔW z‖₂ / (‖W0 z‖₂ + 1e-8), mat
 All 24 prompts in `first_plot_questions.yaml` × 7 conditions = 168 greedy responses, thinking off, 512 new tokens,
 saved grouped by question and format with truncation flags.
 HARD RULE: the annotations are MINE. Build `results/task1/annotation_sheet.csv` for the first and last questions
-in plain-question order × 3 formats × 7 conditions = 42 rows, with empty columns format_compliance,
-coherence_relevance, repetition, math_framing, inappropriate, notes, excerpt. Never fill, suggest or pre-fill them.
+in plain-question order × 3 formats × 7 conditions = 42 rows, with empty yes/no columns format_compliant,
+coherent_relevant, repetition, unnecessary_math_framing, inappropriate_content, an auto-filled truncated column,
+and empty excerpt and notes columns (see docs/decisions.md). Never fill, suggest or pre-fill them.
 
 Run names: `full_ft`, `l2sp`, `lora4`, `lora16`, `oplora16`. `task1/make_tables.py` → `results/task1/summary.csv`,
 resources table, diagnostics table, figures in `results/task1/figures/` (combined SFT-loss curves, L2-SP Ω/λΩ/total).
