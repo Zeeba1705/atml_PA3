@@ -1,0 +1,4 @@
+method: full_ft
+lr: 2.0e-5
+lambda_l2sp: 0.0
+ckpt_every: 100

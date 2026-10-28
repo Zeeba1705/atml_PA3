@@ -1,0 +1,6 @@
+#rank/alpha come from the command line: --rank 4 --alpha 8 or --rank 16 --alpha 32
+method: lora
+lr: 2.0e-4
+lora_dropout: 0.05
+lora_targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+ckpt_every: 50

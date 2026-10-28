@@ -1,0 +1,51 @@
+#shared Task 1 recipe (handout p. 3). method files override/add to this.
+model_name: Qwen/Qwen3-0.6B
+enable_thinking: false
+seed: 6304
+
+#data
+dataset_name: meta-math/MetaMathQA
+n_examples: 40000
+max_length: 2048
+tokenized_path: outputs/task1/data/train_tokenized.pt
+
+#optimization
+num_updates: 1250
+micro_batch: 2
+grad_accum: 16
+betas: [0.9, 0.999]
+eps: 1.0e-8
+weight_decay: 0.01
+warmup_updates: 38
+max_grad_norm: 1.0
+grad_checkpointing: true
+
+#checkpoints: milestones are the handout's 312/625/937/1250, rolling ones are recovery-only
+milestones: [312, 625, 937, 1250]
+eval_milestones: [625, 1250]
+ckpt_every_minutes: 20
+keep_rolling: 2
+max_hours: 11.3
+nan_patience: 10
+
+#--smoke: tiny random-init Qwen3 on synthetic data, FP32 on CPU
+smoke:
+  n_examples: 160
+  num_updates: 20
+  micro_batch: 2
+  grad_accum: 4
+  warmup_updates: 3
+  ckpt_every: 5
+  milestones: [10, 20]
+  eval_milestones: [10, 20]
+  min_len: 8
+  max_len: 40
+  smoke_model:
+    vocab_size: 128
+    hidden_size: 32
+    intermediate_size: 48
+    num_hidden_layers: 2
+    num_attention_heads: 4
+    num_key_value_heads: 2
+    head_dim: 8
+    max_position_embeddings: 64
