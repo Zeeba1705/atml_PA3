@@ -218,3 +218,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+handout/
+report/
+ATML-PA3-Data/
+outputs/
+data/
+*.pt
+*.safetensors
+*.bin
+.env
