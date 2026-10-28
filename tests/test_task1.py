@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from transformers import AutoTokenizer, Qwen3Config, Qwen3ForCausalLM
 
-from task1.data import build_example, collate
+from task1.data import build_example, collate, normalize_question, select_examples
 from task1.diagnostics import activation_ratio, eta, rho_k
 from task1.losses import accumulate_sft_grads, ce_sum, count_tokens
 from task1.merge import merge_adapters
@@ -97,6 +97,66 @@ def test_label_mask_decodes_to_response_and_im_end():
     assert (labels[n_prompt:] != -100).all()
 
     assert ex["length"] == len(ids)
+
+
+def test_label_mask_response_starting_with_newline():
+    #~2% of MetaMathQA responses start with "\n"; it must not merge into the prompt's last token
+    tok= load_tokenizer()
+
+    question= "Set x = 30. What is x?"
+    response= "\nSetting $x = 30$ gives 30.\nThe answer is: 30"
+
+    ex= build_example(tok, question, response)
+
+    prompt_ids= tok.apply_chat_template(
+        [{"role": "user", "content": question}],
+        tokenize=False,
+        add_generation_prompt=True,
+        enable_thinking=False
+    )
+    prompt_ids= tok(prompt_ids, add_special_tokens=False)["input_ids"]
+
+    n_prompt= int((ex["labels"] == -100).sum())
+
+    assert ex["input_ids"][:n_prompt].tolist() == prompt_ids
+    assert tok.decode(ex["input_ids"][ex["labels"] != -100]) == response + "<|im_end|>"
+
+
+def test_normalize_question():
+    assert normalize_question("  Janet’s ducks lay 16 eggs\nper DAY. ") == "janet s ducks lay 16 eggs per day"
+    assert normalize_question("What is $2+3$?") == normalize_question("what is 2 + 3")
+    assert normalize_question("ｆｕｌｌ width") == "full width"   #nfkc
+
+
+def test_select_examples_order_reasons_and_length_limit():
+    tok= load_tokenizer()
+
+    gsm8k= ["Janet’s ducks lay 16 eggs per day. How many?"]
+
+    records= [
+        {"query": "Q0 what is 1+1?", "response": "2", "original_question": "x"},
+        {"query": "   ", "response": "empty question", "original_question": "x"},
+        {"query": "janet's ducks lay 16 eggs per day how many", "response": "16", "original_question": "y"},
+        {"query": "rephrased", "response": "r", "original_question": "Janet’s ducks lay 16 eggs per day. How many?"},
+        {"query": "Q4 long", "response": "word " * 400, "original_question": "z"},
+        {"query": "Q5 what is 2+2?", "response": "4", "original_question": "z"},
+        {"query": "Q6 never reached", "response": "6", "original_question": "z"}
+    ]
+
+    #a prompt+response of a few tokens fits, the 400-word response does not
+    kept, examples, exclusions= select_examples(records, tok, gsm8k, n_examples=2, max_length=100)
+
+    assert kept == [0, 5]
+    assert exclusions == {"empty": [1], "gsm8k_overlap": [2, 3], "too_long": [4]}
+    assert [tok.decode(ex["input_ids"][ex["labels"] != -100]) for ex in examples] == ["2<|im_end|>", "4<|im_end|>"]
+
+    #length exactly max_length is kept
+    exact= examples[0]["length"]
+    kept, _, exclusions= select_examples(records[:1], tok, gsm8k, n_examples=1, max_length=exact)
+    assert kept == [0]
+
+    with pytest.raises(ValueError):
+        select_examples(records[:1], tok, gsm8k, n_examples=1, max_length=exact - 1)
 
 
 def test_collate_pads_right_with_masked_labels():

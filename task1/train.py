@@ -64,11 +64,18 @@ def smoke_examples(cfg):
     return examples, 0
 
 
-def load_examples(cfg):
+def load_examples(cfg, output_dir):
     if cfg["smoke"]:
         return smoke_examples(cfg)
 
-    data= torch.load(cfg["tokenized_path"])
+    #built by `python -m task1.data`, must match the committed selection token for token
+    data= torch.load(os.path.join(output_dir, "task1", "data", "train_tokenized.pt"))
+
+    with open(cfg["selection_path"]) as f:
+        selection= json.load(f)
+
+    assert data["fingerprint"] == selection["fingerprint"], "tokenized data differs from splits/task1 selection"
+    assert len(data["examples"]) == cfg["n_examples"]
 
     return data["examples"], data["pad_id"]
 
@@ -216,7 +223,7 @@ def main(args):
     os.makedirs(run_dir, exist_ok=True)
     os.makedirs(results_dir, exist_ok=True)
 
-    examples, pad_id= load_examples(cfg)
+    examples, pad_id= load_examples(cfg, args.output_dir)
 
     examples_per_update= cfg["micro_batch"] * cfg["grad_accum"]
     assert len(examples) >= cfg["num_updates"] * examples_per_update

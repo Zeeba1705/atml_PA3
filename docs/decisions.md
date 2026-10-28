@@ -18,6 +18,12 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - Training sequence = prompt + response + `<|im_end|>`. The template's trailing `\n` after `<|im_end|>` is dropped
   (it is not response and not the end-of-turn token). Supervised = response tokens + `<|im_end|>`.
 - "Formatted length above 2,048 tokens" is measured on that exact training sequence; length 2,048 is kept.
+- Tokenization: prompt and `response + <|im_end|>` are tokenized separately and the ids concatenated. About 1.7% of
+  MetaMathQA responses start with `\n`; tokenizing the whole string merges the prompt's final `\n\n` with it into one
+  `\n\n\n` token that is half prompt, half response. Separate tokenization keeps the prompt tokens identical to the
+  generation-time prompt (generation also starts right after `\n\n`) and leaves every response unchanged.
+- Each skipped example gets one reason, checked in this order: empty, GSM8K overlap, too long. Selection stops at
+  the 40,000th kept example; counts and indices cover everything scanned up to it.
 
 ### Training recipe (handout p. 3 "Shared training settings")
 
