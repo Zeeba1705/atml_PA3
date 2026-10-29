@@ -9,6 +9,7 @@ from transformers import AutoTokenizer, Qwen3Config, Qwen3ForCausalLM
 
 from task1.data import build_example, collate, normalize_question, select_examples
 from task1.diagnostics import activation_ratio, eta, rho_k
+import task1.losses as losses
 from task1.losses import accumulate_sft_grads, ce_sum, count_tokens
 from task1.merge import merge_adapters
 import task1.methods.l2sp as l2sp
@@ -205,7 +206,11 @@ def test_token_normalized_loss_hand_computed():
     assert abs(total.item() - mean_of_means) > 1e-3
 
 
-def test_accumulated_supervised_loss_matches_full_logits_big_batch():
+@pytest.mark.parametrize("ce_chunk", [1024, 3])
+def test_accumulated_supervised_loss_matches_full_logits_big_batch(ce_chunk, monkeypatch):
+    #ce_chunk=3 splits the lm head / CE into many checkpointed chunks
+    monkeypatch.setattr(losses, "CE_CHUNK", ce_chunk)
+
     microbatches, examples= toy_microbatches()
 
     #reference: one padded batch of all 4 examples, full logits, sum CE / all valid tokens

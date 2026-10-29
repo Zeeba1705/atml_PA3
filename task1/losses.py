@@ -1,5 +1,9 @@
 import torch
 import torch.nn.functional as F
+from torch.utils.checkpoint import checkpoint
+
+#supervised positions per lm-head chunk: 1024 x 152k vocab is ~1.5 GB of logits at a time instead of ~6 GB
+CE_CHUNK= 1024
 
 
 def count_tokens(labels):
@@ -20,17 +24,32 @@ def ce_sum(logits, labels):
     )
 
 
+def head_ce_sum(hidden, targets, lm_head):
+    return F.cross_entropy(lm_head(hidden).float(), targets, reduction="sum")
+
+
 def supervised_ce_sum(model, input_ids, attention_mask, labels):
     hidden= model.model(input_ids=input_ids, attention_mask=attention_mask, use_cache=False).last_hidden_state
 
-    hidden= hidden[:, :-1]
     targets= labels[:, 1:]
     keep= targets != -100
 
     #lm head only where there is a target: vocab is ~152k so full logits would be huge
-    logits= model.lm_head(hidden[keep])
+    hidden= hidden[:, :-1][keep]
+    targets= targets[keep]
 
-    return F.cross_entropy(logits.float(), targets[keep], reduction="sum")
+    #chunks are recomputed in backward, so only one chunk of logits is alive at a time
+    total= 0.0
+    for i in range(0, hidden.size(0), CE_CHUNK):
+        total= total + checkpoint(
+            head_ce_sum,
+            hidden[i:i + CE_CHUNK],
+            targets[i:i + CE_CHUNK],
+            model.lm_head,
+            use_reentrant=False
+        )
+
+    return total
 
 
 def accumulate_sft_grads(model, microbatches, scaler, device, use_fp16):
