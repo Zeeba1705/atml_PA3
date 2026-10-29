@@ -568,6 +568,7 @@ def main(args):
             sync_put(sync, "delete_folder", f"{run_prefix}/{old_kind}/{os.path.basename(old)}")
         if removed:
             sync_put(sync, "squash")
+            sync_put(sync, "purge")
 
     def stop_session(message, code):
         #wait for uploads so the next session can pull everything

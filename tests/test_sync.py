@@ -214,3 +214,31 @@ def test_new_session_pulls_synced_state_and_matches(tmp_path, monkeypatch):
         "outputs/task1/synced/rolling/ckpt_00015/manifest.json"
     ]
     assert ("squash", "task1-synced") in hub_b.calls
+
+
+def test_orphan_lfs_files_keeps_referenced_and_recent(tmp_path):
+    from datetime import datetime, timedelta, timezone
+    from types import SimpleNamespace as NS
+
+    now= datetime.now(timezone.utc)
+    old= now - timedelta(hours=2)
+
+    class LfsHub:
+        def list_repo_refs(self, repo_id):
+            return NS(branches=[NS(name="main"), NS(name="task1-a")])
+
+        def list_repo_tree(self, repo_id, revision, recursive):
+            tips= {"main": [NS(path="README.md", lfs=None)], "task1-a": [NS(path="ckpt/state.pt", lfs=NS(sha256="live"))]}
+            return tips[revision]
+
+        def list_lfs_files(self, repo_id):
+            return [
+                NS(file_oid="live", size=7, pushed_at=old),
+                NS(file_oid="pruned", size=7, pushed_at=old),
+                NS(file_oid="uploading", size=7, pushed_at=now)
+            ]
+
+    orphans= sync_mod.orphan_lfs_files(LfsHub(), "me/repo")
+
+    #only the old unreferenced object; the one on a branch and the fresh upload are kept
+    assert [f.file_oid for f in orphans] == ["pruned"]

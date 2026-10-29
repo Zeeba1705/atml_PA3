@@ -13,6 +13,8 @@ RETRIES= 3
 RETRY_SLEEP= 10
 WAIT_LIMIT= 45 * 60
 CKPT_FILE= re.compile(r"^(.*)/(rolling|milestones)/ckpt_(\d+)/([^/]+)$")
+#an unreferenced lfs object younger than this may be an upload whose commit hasn't landed yet: never purge it
+PURGE_MIN_AGE= 30 * 60
 
 
 def make_api():
@@ -76,8 +78,39 @@ def run_op(sync, op):
     elif kind == "squash":
         #deleted checkpoints stay in git history and count as storage until the branch is squashed
         api.super_squash_history(repo_id=sync["repo_id"], branch=sync["branch"])
+    elif kind == "purge":
+        #even after squashing, the hub keeps (and bills) the lfs objects until they are permanently deleted
+        orphans= orphan_lfs_files(api, sync["repo_id"])
+        if orphans:
+            api.permanently_delete_lfs_files(sync["repo_id"], orphans, rewrite_history=False)
+            print(f"purged {len(orphans)} unreferenced lfs files ({sum(f.size for f in orphans) / 1e9:.2f} GB)")
     else:
         raise ValueError(f"unknown sync op {kind}")
+
+
+def referenced_oids(api, repo_id):
+    #sha256 of every lfs file at the tip of any branch
+    oids= set()
+
+    for ref in api.list_repo_refs(repo_id).branches:
+        for entry in api.list_repo_tree(repo_id, revision=ref.name, recursive=True):
+            lfs= getattr(entry, "lfs", None)
+            if lfs is not None:
+                oids.add(lfs.sha256)
+
+    return oids
+
+
+def orphan_lfs_files(api, repo_id, min_age=PURGE_MIN_AGE):
+    #lfs objects no branch points to any more (pruned checkpoints), old enough not to be a pending upload.
+    #references are listed first, so a file committed in between is caught by the age check instead
+    referenced= referenced_oids(api, repo_id)
+    now= time.time()
+
+    return [
+        f for f in api.list_lfs_files(repo_id)
+        if f.file_oid not in referenced and now - f.pushed_at.timestamp() > min_age
+    ]
 
 
 def sync_worker(sync):
