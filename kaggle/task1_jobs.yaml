@@ -1,0 +1,30 @@
+#task 1 gpu jobs. each group runs in order on one T4; the two groups run side by side.
+#full-ft runs (full_ft, l2sp) are both in gpu0, so they never share a session (disk + CLAUDE2.md pairing rule).
+groups:
+  gpu0: [full_ft, l2sp, oplora16]
+  gpu1: [lora16, lora4]
+  smoke: [smoke_full_ft, smoke_lora4]
+
+jobs:
+  full_ft:
+    kind: train
+    args: [--config, configs/task1/full_ft.yaml]
+  l2sp:
+    kind: train
+    args: [--config, configs/task1/l2sp.yaml]
+  lora4:
+    kind: train
+    args: [--config, configs/task1/lora.yaml, --rank, "4", --alpha, "8"]
+  lora16:
+    kind: train
+    args: [--config, configs/task1/lora.yaml, --rank, "16", --alpha, "32"]
+  oplora16:
+    kind: train
+    args: [--config, configs/task1/oplora.yaml]
+  #cpu check of the queue itself
+  smoke_full_ft:
+    kind: train
+    args: [--config, configs/task1/full_ft.yaml, --smoke]
+  smoke_lora4:
+    kind: train
+    args: [--config, configs/task1/lora.yaml, --rank, "4", --alpha, "8", --smoke]

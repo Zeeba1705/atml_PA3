@@ -1,0 +1,9 @@
+#versions the CPU tests and smoke runs passed with.
+#torch and numpy are NOT pinned: Kaggle's image ships a CUDA-matched torch, and reinstalling it is slow and risky.
+#their versions are recorded in every results file (config.json / train_summary.json).
+transformers==5.5.0
+huggingface_hub==1.8.0
+safetensors==0.7.0
+pyyaml==6.0.2
+pyarrow==26.0.0
+pytest==9.1.1
