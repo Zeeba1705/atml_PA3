@@ -2,3 +2,6 @@ method: l2sp
 lr: 2.0e-5
 lambda_l2sp: 1.0e-3
 ckpt_every: 100
+export_updates: [1250]
+#full-ft states are ~7 GB: milestones are pruned like rolling ones, eval uses the fp16 exports
+keep_milestone_states: false

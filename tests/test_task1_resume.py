@@ -5,6 +5,7 @@ import sys
 
 import pytest
 import torch
+from transformers import AutoModelForCausalLM
 
 REPO= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -81,6 +82,25 @@ def uninterrupted(request, tmp_path_factory):
     log= read_log(method, root)
     assert len(log) == 20
 
+    assert "preflight: ok" in out
+
+    #pruning: full ft keeps only the newest 2 states (milestones included), adapters keep every milestone
+    ckpts= sorted(
+        f"{kind}/{name}"
+        for kind in ["rolling", "milestones"]
+        if os.path.isdir(os.path.join(run_dir(method, root), kind))
+        for name in os.listdir(os.path.join(run_dir(method, root), kind))
+    )
+    if method in ["full_ft", "l2sp"]:
+        assert ckpts == ["milestones/ckpt_00020", "rolling/ckpt_00015"]
+    else:
+        assert ckpts == ["milestones/ckpt_00010", "milestones/ckpt_00020", "rolling/ckpt_00015"]
+
+    #exports eval will use, without optimizer state
+    for update in [10, 20]:
+        info_path= os.path.join(run_dir(method, root), "export", f"update_{update:05d}", "export_info.json")
+        assert os.path.exists(info_path)
+
     #method-specific logging
     if method in ["full_ft", "l2sp"]:
         assert [r["update"] for r in log if "displacement" in r] == [10, 20]
@@ -142,3 +162,56 @@ def test_fresh_refuses_when_checkpoint_exists(uninterrupted):
     code, out= run_train(method, root_a, ["--fresh"])
     assert code != 0
     assert "--force" in out
+
+
+def test_full_ft_fp16_export_matches_final_params(uninterrupted):
+    method, root= uninterrupted
+    if method != "full_ft":
+        pytest.skip("full ft only")
+
+    export_dir= os.path.join(run_dir(method, root), "export", "update_00020")
+    exported= AutoModelForCausalLM.from_pretrained(export_dir)
+
+    assert next(exported.parameters()).dtype == torch.float16
+
+    final= final_params(method, root)
+    params= dict(exported.named_parameters())
+    for name, value in final.items():
+        assert torch.equal(params[name], value.half()), name
+
+    #tied lm head still points at the embedding after loading
+    assert exported.lm_head.weight.data_ptr() == exported.model.embed_tokens.weight.data_ptr()
+
+
+@pytest.mark.parametrize("stop_flag", [["--sigterm_at_update", "7"], ["--max_hours", "0"]])
+def test_clean_stop_then_resume_matches_uninterrupted(uninterrupted, tmp_path, stop_flag):
+    method, root_a= uninterrupted
+    if method not in ["full_ft", "lora"]:
+        pytest.skip("one full and one adapter method is enough here")
+
+    root_b= str(tmp_path)
+    stop_update= 7 if stop_flag[0] == "--sigterm_at_update" else 1
+
+    #a clean stop checkpoints at the update boundary and exits 0
+    code, out= run_train(method, root_b, stop_flag)
+    assert code == 0, out
+    assert f"stopped at update {stop_update}" in out
+    assert "rerun the same command to continue" in out
+    assert len(read_log(method, root_b)) == stop_update
+
+    code, out= run_train(method, root_b)
+    assert code == 0, out
+    assert f"resumed from update {stop_update}" in out
+
+    assert_same_run(method, root_a, root_b)
+
+
+def test_divergence_guard_stops_with_debug_checkpoint(tmp_path):
+    root= str(tmp_path)
+
+    #nan from update 3: more than 10 bad updates in a row -> stop after update 13
+    code, out= run_train("full_ft", root, ["--nan_at_update", "3"])
+    assert code == 2, out
+    assert "DIVERGED" in out
+    assert len(read_log("full_ft", root)) == 13
+    assert os.path.isdir(os.path.join(run_dir("full_ft", root), "debug", "ckpt_00013"))

@@ -34,6 +34,13 @@ Every interpretation of the handout or deviation from it, with the handout page 
   `task1/methods/lora.py` instead of PEFT, so LoRA-16 and OPLoRA-16 share the same init code and the same seed.
 - Training time = wall-clock of the training loop summed over resumed sessions. Model load, preflight,
   checkpoint writing and syncing are timed separately.
+- Loss computation (memory only, same math): the LM head is applied only at supervised positions, and the
+  cross-entropy over them is summed in checkpointed chunks of 1,024 positions, so at most one chunk of
+  152k-vocab logits exists at a time.
+- Preflight: before training, one forward/backward/optimizer step on the two longest examples measures worst-case
+  peak memory. Weights don't change (gradients are zeroed before a throwaway lr=0 AdamW step) and the RNG state is
+  restored. If L2-SP's θ0 doesn't fit on the GPU (OOM or peak > 93% of memory), θ0 moves to pinned CPU memory and
+  the preflight is repeated. Either way the same values are added to the gradient; only speed differs.
 
 ### Step 2 — L2-SP (handout p. 4)
 
@@ -62,6 +69,16 @@ Every interpretation of the handout or deviation from it, with the handout page 
   `ckpt_every` updates (50 for adapters, 100 for full FT) and whenever 20 min have passed since the last one.
   They are only for resuming after an interrupted session: they don't change the evaluation schedule and are
   never evaluated.
+- Retention on disk: a Full FT resumable state is ~7 GB and `/kaggle/working` is ~20 GB, so Full FT and L2-SP keep
+  at most the newest 2 resumable states, milestone ones included (older ones are deleted before a new one is
+  written). What evaluation needs is kept separately as FP16 exports: Full FT at 625 and 1250, L2-SP at 1250.
+  Adapter runs (a few MB per state) keep every milestone checkpoint plus the newest 2 rolling ones.
+- Off-machine copies: every checkpoint, export and results file is uploaded in a background thread to a private
+  HF Hub repo, one branch per run (`task1-<run>`). The remote mirrors local pruning (new checkpoint uploaded before
+  old ones are deleted) and the branch history is squashed after deletions so storage doesn't grow.
+- Clean stops: SIGTERM/SIGINT or `--max_hours` → checkpoint at the end of the current update, wait for uploads,
+  exit 0. Divergence guard: more than 10 consecutive updates with non-finite loss or gradient norm → debug
+  checkpoint, exit 2.
 
 ### Step 6 — diagnostics (handout p. 3, p. 5)
 

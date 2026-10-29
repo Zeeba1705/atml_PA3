@@ -3,6 +3,7 @@ import json
 import os
 import re
 import shutil
+import time
 
 import torch
 
@@ -128,12 +129,105 @@ def latest_valid_checkpoint(run_dir):
     return None
 
 
-def prune_rolling(run_dir, keep):
-    parent= os.path.join(run_dir, "rolling")
-    if not os.path.isdir(parent):
-        return
+def prune_checkpoints(run_dir, keep, keep_milestones):
+    #keep the newest `keep` checkpoints; milestone ones are kept forever only if keep_milestones
+    #(adapters: tiny, keep all; full ft: ~7 GB each, only the fp16 exports are kept for evaluation)
+    removed= []
+    kept= 0
 
-    names= sorted(n for n in os.listdir(parent) if CKPT_PATTERN.match(n))
+    for path in list_checkpoints(run_dir):
+        is_milestone= os.path.basename(os.path.dirname(path)) == "milestones"
 
-    for name in names[:-keep]:
-        shutil.rmtree(os.path.join(parent, name))
+        if is_milestone and keep_milestones:
+            continue
+
+        if kept < keep:
+            kept+= 1
+            continue
+
+        shutil.rmtree(path)
+        removed.append(path)
+
+    return removed
+
+
+def dir_bytes(path):
+    total= 0
+
+    for root, _, files in os.walk(path):
+        for name in files:
+            full= os.path.join(root, name)
+            if os.path.isfile(full):
+                total+= os.path.getsize(full)
+
+    return total
+
+
+def pid_alive(pid):
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+
+    return True
+
+
+def reserve_disk(output_dir, run_name, run_dir, need_bytes, is_full_ft):
+    #registry of running jobs on this disk: refuse to start if the jobs together would overflow it,
+    #or if another full-ft job is running (never full_ft and l2sp in the same session)
+    os.makedirs(output_dir, exist_ok=True)
+    registry_path= os.path.join(output_dir, ".disk_reservations.json")
+    lock_path= registry_path + ".lock"
+
+    #crude lock so two jobs starting together don't both read an empty registry
+    start= time.time()
+    while True:
+        try:
+            fd= os.open(lock_path, os.O_CREAT | os.O_EXCL)
+            os.close(fd)
+            break
+        except FileExistsError:
+            if time.time() - start > 60:
+                os.remove(lock_path)
+            time.sleep(0.2)
+
+    try:
+        registry= {}
+        if os.path.exists(registry_path):
+            with open(registry_path) as f:
+                registry= json.load(f)
+
+        others= {name: r for name, r in registry.items() if name != run_name and pid_alive(r["pid"])}
+
+        if is_full_ft:
+            for name, r in others.items():
+                if r["is_full_ft"]:
+                    return False, f"full-FT job {name} is already running on this machine"
+
+        #space the others will still take = their reservation minus what they already wrote
+        others_pending= sum(max(0, r["need_bytes"] - dir_bytes(r["run_dir"])) for r in others.values())
+        own_pending= max(0, need_bytes - dir_bytes(run_dir))
+        free= shutil.disk_usage(output_dir).free
+
+        print(
+            f"disk: free={free / 1e9:.1f} GB, "
+            f"this job needs {own_pending / 1e9:.1f} GB more, "
+            f"other running jobs {others_pending / 1e9:.1f} GB more"
+        )
+
+        if own_pending + others_pending > free:
+            return False, "not enough disk for this job plus the running ones"
+
+        others[run_name]= {
+            "pid": os.getpid(),
+            "need_bytes": need_bytes,
+            "run_dir": run_dir,
+            "is_full_ft": is_full_ft
+        }
+
+        with open(registry_path, "w") as f:
+            json.dump(others, f, indent=2)
+    finally:
+        os.remove(lock_path)
+
+    return True, "ok"

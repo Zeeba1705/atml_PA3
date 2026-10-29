@@ -28,10 +28,11 @@ grad_checkpointing: true
 #checkpoints: milestones are the handout's 312/625/937/1250, rolling ones are recovery-only
 milestones: [312, 625, 937, 1250]
 eval_milestones: [625, 1250]
+#fp16 weights / adapter factors eval needs are exported at these updates (method files set them)
 ckpt_every_minutes: 20
 keep_rolling: 2
-max_hours: 11.3
 nan_patience: 10
+preflight_mem_fraction: 0.93
 
 #--smoke: tiny random-init Qwen3 on synthetic data, FP32 on CPU
 smoke:
@@ -44,6 +45,7 @@ smoke:
   protect_k: 4
   milestones: [10, 20]
   eval_milestones: [10, 20]
+  export_updates: [10, 20]
   min_len: 8
   max_len: 40
   smoke_model:
