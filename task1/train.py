@@ -807,6 +807,19 @@ def main(args):
     write_json(os.path.join(results_dir, "train_summary.json"), summary)
     sync_put(sync, "upload_folder", results_dir, results_prefix)
 
+    if not cfg["keep_milestone_states"]:
+        #a finished full-ft run is evaluated from its fp16 exports only: drop the ~7 GB resumable states,
+        #locally (the next job in this session needs the disk) and remotely (hub storage). uploads finish first
+        sync_wait(sync)
+
+        removed= prune_checkpoints(run_dir, 0, False)
+        for old in removed:
+            old_kind= os.path.basename(os.path.dirname(old))
+            sync_put(sync, "delete_finished", f"{run_prefix}/{old_kind}/{os.path.basename(old)}")
+        if removed:
+            sync_put(sync, "squash")
+            sync_put(sync, "purge")
+
     print(
         f"finished {args.run_name}: "
         f"updates={state['update']}, "

@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 import shutil
+from types import SimpleNamespace
 
 import pytest
 
@@ -60,6 +61,19 @@ class FakeHub:
             for name in names:
                 files.append(os.path.relpath(os.path.join(root, name), base))
         return files
+
+    def list_repo_refs(self, repo_id):
+        return SimpleNamespace(branches=[SimpleNamespace(name=b) for b in os.listdir(self.root)])
+
+    def list_repo_tree(self, repo_id, revision, recursive):
+        return [SimpleNamespace(path=f, lfs=None) for f in self.list_repo_files(repo_id, revision)]
+
+    def list_lfs_files(self, repo_id):
+        #the fake has no lfs store: nothing to purge
+        return []
+
+    def permanently_delete_lfs_files(self, repo_id, lfs_files, rewrite_history):
+        self.calls.append(("purge_lfs", len(list(lfs_files))))
 
     def hf_hub_download(self, repo_id, filename, revision, local_dir):
         src= self.path(revision, filename)
@@ -205,15 +219,18 @@ def test_new_session_pulls_synced_state_and_matches(tmp_path, monkeypatch):
 
     assert read_rows(session) == read_rows(straight)
 
-    #the remote keeps only what local keeps (old checkpoints deleted, branch squashed)
-    remote= sorted(
-        f for f in hub_b.list_repo_files("me/atml-pa3", "task1-synced") if f.endswith("manifest.json")
-    )
-    assert remote == [
-        "outputs/task1/synced/milestones/ckpt_00020/manifest.json",
-        "outputs/task1/synced/rolling/ckpt_00015/manifest.json"
-    ]
+    #a finished full-ft run keeps only its exports, locally and on the remote (states deleted, branch squashed)
+    remote= hub_b.list_repo_files("me/atml-pa3", "task1-synced")
+    assert [f for f in remote if f.endswith("manifest.json")] == []
+    assert "outputs/task1/synced/export/update_00020/model.safetensors" in remote
+    assert "results/task1/synced/train_summary.json" in remote
     assert ("squash", "task1-synced") in hub_b.calls
+
+    #locally only the exports are left (the checkpoint folders are empty)
+    run_dir= os.path.join(session, "outputs", "task1", "synced")
+    for kind in ["rolling", "milestones"]:
+        assert os.listdir(os.path.join(run_dir, kind)) == []
+    assert sorted(os.listdir(os.path.join(run_dir, "export"))) == ["update_00010", "update_00020"]
 
 
 def test_orphan_lfs_files_keeps_referenced_and_recent(tmp_path):
@@ -242,3 +259,22 @@ def test_orphan_lfs_files_keeps_referenced_and_recent(tmp_path):
 
     #only the old unreferenced object; the one on a branch and the fresh upload are kept
     assert [f.file_oid for f in orphans] == ["pruned"]
+
+
+def test_no_remote_delete_after_failed_upload(tmp_path):
+    #the upload of the new checkpoint fails: the old one must stay on the remote
+    hub= FakeHub(str(tmp_path / "hub"))
+    sync= start_sync("me/repo", "task1-x", api=hub)
+
+    path= tmp_path / "f.txt"
+    path.write_text("hello")
+    sync_put(sync, "upload_file", str(path), "old/f.txt")
+    assert sync_wait(sync)
+
+    hub.fail_times= 100
+    sync_put(sync, "upload_file", str(path), "new/f.txt")
+    sync_put(sync, "delete_folder", "old")
+    sync_wait(sync)
+
+    assert (tmp_path / "hub" / "task1-x" / "old" / "f.txt").exists()
+    assert ("delete_folder", "old") not in hub.calls

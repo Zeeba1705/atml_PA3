@@ -68,7 +68,7 @@ def run_op(sync, op):
             revision=sync["branch"],
             commit_message=f"upload {op[2]}"
         )
-    elif kind == "delete_folder":
+    elif kind in ["delete_folder", "delete_finished"]:
         api.delete_folder(
             repo_id=sync["repo_id"],
             path_in_repo=op[1],
@@ -117,6 +117,13 @@ def sync_worker(sync):
     #ops run in order on one thread; an op that keeps failing is logged and skipped, never raised
     while True:
         op= sync["queue"].get()
+
+        #after a failed upload the remote may lack the newest checkpoint: keep the older ones it still has.
+        #delete_finished (states of a run that is done) doesn't need them
+        if op[0] == "delete_folder" and any(f[0].startswith("upload") for f in sync["failures"]):
+            print(f"WARNING skipping remote delete of {op[1]}: an earlier upload failed")
+            sync["queue"].task_done()
+            continue
 
         for attempt in range(RETRIES):
             try:
