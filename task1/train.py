@@ -230,6 +230,11 @@ def projected_disk_bytes(cfg, n_trainable, n_model_params):
     return need
 
 
+def theta0_fits_on_gpu(peak_bytes, theta0_bytes, total_bytes, mem_fraction):
+    #the preflight ran with theta0 on the cpu; on the gpu it would add exactly its own size to the peak
+    return peak_bytes + theta0_bytes <= mem_fraction * total_bytes
+
+
 def preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, device, use_fp16):
     #one forward/backward/optimizer step on the two longest examples, worst-case memory. weights stay unchanged:
     #grads are zeroed before a throwaway lr=0 AdamW step, which still allocates the full optimizer state
@@ -462,30 +467,22 @@ def main(args):
         print("refusing to start:", msg)
         sys.exit(1)
 
-    #theta0 = the starting params, snapshotted before any checkpoint is loaded (never saved, rebuilt from hf)
-    #l2sp needs it every update: on the gpu if the preflight says it fits, else pinned cpu memory
-    #full ft only needs it for displacement, so it always waits on the cpu
+    #theta0 = the starting params, snapshotted before any checkpoint is loaded (never saved, rebuilt from hf).
+    #it starts in pinned cpu memory; l2sp (which needs it every update) moves it to the gpu after the preflight
+    #if it fits there. full ft only needs it for displacement, so it always stays on the cpu
     l2sp_params= None
     theta0= None
     if cfg["method"] in FULL_METHODS:
         t_snap= time.time()
 
         l2sp_params= unique_params(model)
-        theta0_device= device if cfg["method"] == "l2sp" else torch.device("cpu")
-        theta0= snapshot_params(l2sp_params, theta0_device)
+        theta0= snapshot_params(l2sp_params, torch.device("cpu"))
 
         overhead["theta0_seconds"]= time.time() - t_snap
         overhead["theta0_bytes"]= sum(4 * t.numel() for t in theta0)
 
     if not args.skip_preflight:
         check= preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, device, use_fp16)
-
-        if not check["ok"] and cfg["method"] == "l2sp" and theta0[0].device.type == "cuda":
-            print("preflight:", check["message"], "-> moving theta0 to pinned cpu memory and retrying")
-            theta0= snapshot_params(theta0, torch.device("cpu"))
-            torch.cuda.empty_cache()
-
-            check= preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, device, use_fp16)
 
         print(
             f"preflight: {check['message']}, "
@@ -499,6 +496,17 @@ def main(args):
             sys.exit(3)
 
         overhead["preflight"]= check
+
+        if cfg["method"] == "l2sp" and device.type == "cuda":
+            if theta0_fits_on_gpu(
+                check["peak_bytes"],
+                overhead["theta0_bytes"],
+                check["total_bytes"],
+                cfg["preflight_mem_fraction"]
+            ):
+                theta0= [t.to(device) for t in theta0]
+
+            print(f"theta0 ({overhead['theta0_bytes'] / 1e9:.2f} GB) on {theta0[0].device}")
 
     if theta0 is not None:
         overhead["theta0_device"]= str(theta0[0].device)

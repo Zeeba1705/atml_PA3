@@ -39,8 +39,10 @@ Every interpretation of the handout or deviation from it, with the handout page 
   152k-vocab logits exists at a time.
 - Preflight: before training, one forward/backward/optimizer step on the two longest examples measures worst-case
   peak memory. Weights don't change (gradients are zeroed before a throwaway lr=0 AdamW step) and the RNG state is
-  restored. If L2-SP's θ0 doesn't fit on the GPU (OOM or peak > 93% of memory), θ0 moves to pinned CPU memory and
-  the preflight is repeated. Either way the same values are added to the gradient; only speed differs.
+  restored. L2-SP's θ0 is created in pinned CPU memory and the preflight runs with it there; θ0 moves to the GPU only
+  if the measured peak plus θ0's size (2.4 GB) stays under 93% of GPU memory. Either way the same values are added
+  to the gradient; only speed differs. (The first version put θ0 on the GPU and moved it after a failed preflight;
+  on a T4 that move itself ran out of memory, so the order was reversed.)
 
 ### Step 2 — L2-SP (handout p. 4)
 

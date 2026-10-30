@@ -27,12 +27,11 @@ def snapshot_params(params, device=None):
     theta0= []
 
     for p in params:
-        t= p.detach().float().clone()
+        #copied straight to the target device: no temporary on the gpu, which may be nearly full
+        t= p.detach().to(device=device or p.device, dtype=torch.float32, copy=True)
 
-        if device is not None:
-            t= t.to(device)
-            if device.type == "cpu" and torch.cuda.is_available():
-                t= t.pin_memory()
+        if device is not None and device.type == "cpu" and torch.cuda.is_available():
+            t= t.pin_memory()
 
         theta0.append(t)
 
