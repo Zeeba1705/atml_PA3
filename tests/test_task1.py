@@ -428,13 +428,7 @@ def test_oplora_projection_stays_fp32_under_autocast():
     assert worst_B < 1e-5 and worst_A < 1e-5
 
 
-def test_theta0_placement():
-    from task1.train import theta0_fits_on_gpu
-
-    #full_ft's measured peak on a T4 + 2.4 GB theta0 is over 93%: stays on the cpu
-    assert not theta0_fits_on_gpu(12.55e9, 2.4e9, 15.64e9, 0.93)
-    assert theta0_fits_on_gpu(8e9, 2.4e9, 15.64e9, 0.93)
-
+def test_theta0_cpu_snapshot():
     #the cpu snapshot is an exact fp32 copy, not tied to the parameters
     params= [torch.nn.Parameter(torch.randn(3, 4)), torch.nn.Parameter(torch.randn(5))]
     theta0= snapshot_params(params, torch.device("cpu"))

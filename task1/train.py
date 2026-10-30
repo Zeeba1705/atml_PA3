@@ -230,11 +230,6 @@ def projected_disk_bytes(cfg, n_trainable, n_model_params):
     return need
 
 
-def theta0_fits_on_gpu(peak_bytes, theta0_bytes, total_bytes, mem_fraction):
-    #the preflight ran with theta0 on the cpu; on the gpu it would add exactly its own size to the peak
-    return peak_bytes + theta0_bytes <= mem_fraction * total_bytes
-
-
 def preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, device, use_fp16):
     #two forward/backward/optimizer steps on the two longest examples, worst-case memory. weights stay unchanged:
     #grads are zeroed before each throwaway lr=0 AdamW step, which still allocates the full optimizer state
@@ -254,8 +249,8 @@ def preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, d
         model.train()
 
         #two steps like the training loop: adam's state only appears at the end of the first one, and from the
-        #second on it is allocated during forward/backward too. one step alone misses that (9.6 vs 12.6 GB for
-        #full ft on a T4); the peak is taken over both
+        #second on it is allocated during forward/backward too. each step accumulates two microbatches: from the
+        #second one on, backward builds new grads while the accumulated ones still exist. peak is over both steps
         for _ in range(2):
             t0= time.time()
 
@@ -263,7 +258,7 @@ def preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, d
 
             accumulate_sft_grads(
                 model=model,
-                microbatches=[batch],
+                microbatches=[batch, batch],
                 scaler=None,
                 device=device,
                 use_fp16=use_fp16
@@ -318,7 +313,7 @@ def preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, d
         "total_bytes": total,
         "microbatch_seconds": seconds,
         #upper bound: every microbatch as long as the two longest
-        "worst_case_update_seconds": seconds * cfg["grad_accum"]
+        "worst_case_update_seconds": seconds / 2 * cfg["grad_accum"]
     }
 
 
@@ -477,8 +472,8 @@ def main(args):
         sys.exit(1)
 
     #theta0 = the starting params, snapshotted before any checkpoint is loaded (never saved, rebuilt from hf).
-    #it starts in pinned cpu memory; l2sp (which needs it every update) moves it to the gpu after the preflight
-    #if it fits there. full ft only needs it for displacement, so it always stays on the cpu
+    #always in pinned cpu memory: on a T4 the fp32 copy (2.4 GB) doesn't fit next to full ft's training state.
+    #l2sp copies it to the gpu in chunks after backward, when the activations are gone
     l2sp_params= None
     theta0= None
     if cfg["method"] in FULL_METHODS:
@@ -506,19 +501,9 @@ def main(args):
 
         overhead["preflight"]= check
 
-        if cfg["method"] == "l2sp" and device.type == "cuda":
-            if theta0_fits_on_gpu(
-                check["peak_bytes"],
-                overhead["theta0_bytes"],
-                check["total_bytes"],
-                cfg["preflight_mem_fraction"]
-            ):
-                theta0= [t.to(device) for t in theta0]
-
-            print(f"theta0 ({overhead['theta0_bytes'] / 1e9:.2f} GB) on {theta0[0].device}")
-
     if theta0 is not None:
         overhead["theta0_device"]= str(theta0[0].device)
+        print(f"theta0 ({overhead['theta0_bytes'] / 1e9:.2f} GB) on {theta0[0].device}")
 
     optimizer, params= make_optimizer(params_named, cfg, device)
 
