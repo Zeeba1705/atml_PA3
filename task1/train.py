@@ -236,8 +236,8 @@ def theta0_fits_on_gpu(peak_bytes, theta0_bytes, total_bytes, mem_fraction):
 
 
 def preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, device, use_fp16):
-    #one forward/backward/optimizer step on the two longest examples, worst-case memory. weights stay unchanged:
-    #grads are zeroed before a throwaway lr=0 AdamW step, which still allocates the full optimizer state
+    #two forward/backward/optimizer steps on the two longest examples, worst-case memory. weights stay unchanged:
+    #grads are zeroed before each throwaway lr=0 AdamW step, which still allocates the full optimizer state
     longest= sorted(range(len(examples)), key=lambda i: examples[i]["length"])[-2:]
     batch= collate([examples[i] for i in longest], pad_id)
 
@@ -248,38 +248,47 @@ def preflight(model, params_named, l2sp_params, theta0, examples, pad_id, cfg, d
         torch.cuda.synchronize(device)
         torch.cuda.reset_peak_memory_stats(device)
 
-    t0= time.time()
+    seconds= 0.0
 
     try:
         model.train()
 
-        accumulate_sft_grads(
-            model=model,
-            microbatches=[batch],
-            scaler=None,
-            device=device,
-            use_fp16=use_fp16
-        )
+        #two steps like the training loop: adam's state only appears at the end of the first one, and from the
+        #second on it is allocated during forward/backward too. one step alone misses that (9.6 vs 12.6 GB for
+        #full ft on a T4); the peak is taken over both
+        for _ in range(2):
+            t0= time.time()
 
-        if theta0 is not None and cfg["method"] == "l2sp":
-            add_l2sp_grad(l2sp_params, theta0, cfg["lambda_l2sp"])
+            model.zero_grad(set_to_none=True)
 
-        torch.nn.utils.clip_grad_norm_(params, cfg["max_grad_norm"])
+            accumulate_sft_grads(
+                model=model,
+                microbatches=[batch],
+                scaler=None,
+                device=device,
+                use_fp16=use_fp16
+            )
 
-        with torch.no_grad():
-            for p in params:
-                p.grad.zero_()
+            if theta0 is not None and cfg["method"] == "l2sp":
+                l2sp_omega(l2sp_params, theta0)
+                add_l2sp_grad(l2sp_params, theta0, cfg["lambda_l2sp"])
 
-        optimizer.step()
+            torch.nn.utils.clip_grad_norm_(params, cfg["max_grad_norm"])
 
-        if device.type == "cuda":
-            torch.cuda.synchronize(device)
+            with torch.no_grad():
+                for p in params:
+                    p.grad.zero_()
 
-        seconds= time.time() - t0
+            optimizer.step()
+
+            if device.type == "cuda":
+                torch.cuda.synchronize(device)
+
+            seconds= time.time() - t0
+
         ok= True
         msg= "ok"
     except torch.OutOfMemoryError as e:
-        seconds= time.time() - t0
         ok= False
         msg= f"out of memory: {str(e).splitlines()[0]}"
 

@@ -37,9 +37,10 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - Loss computation (memory only, same math): the LM head is applied only at supervised positions, and the
   cross-entropy over them is summed in checkpointed chunks of 1,024 positions, so at most one chunk of
   152k-vocab logits exists at a time.
-- Preflight: before training, one forward/backward/optimizer step on the two longest examples measures worst-case
-  peak memory. Weights don't change (gradients are zeroed before a throwaway lr=0 AdamW step) and the RNG state is
-  restored. L2-SP's θ0 is created in pinned CPU memory and the preflight runs with it there; θ0 moves to the GPU only
+- Preflight: before training, two forward/backward/optimizer steps on the two longest examples measure worst-case
+  peak memory (two, because AdamW's state exists during forward/backward only from the second step on; a single
+  step measured 9.6 GB for full FT on a T4 against a real peak of 12.6 GB). Weights don't change (gradients are
+  zeroed before each throwaway lr=0 AdamW step) and the RNG state is restored. L2-SP's θ0 is created in pinned CPU memory and the preflight runs with it there; θ0 moves to the GPU only
   if the measured peak plus θ0's size (2.4 GB) stays under 93% of GPU memory. Either way the same values are added
   to the gradient; only speed differs. (The first version put θ0 on the GPU and moved it after a failed preflight;
   on a T4 that move itself ran out of memory, so the order was reversed.)
