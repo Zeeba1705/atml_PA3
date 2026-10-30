@@ -48,7 +48,7 @@ python -m task1.train --config configs/task1/oplora.yaml --run_name oplora16 --s
 
 On Kaggle these are run by `kaggle/task1.ipynb` (thin launcher: clone, install, data prep, then
 `kaggle/task1_queue.py` once per GPU). The queue runs whatever isn't finished, in order:
-`gpu0`: full_ft → l2sp → oplora16, `gpu1`: lora16 → lora4 (see `kaggle/task1_jobs.yaml`).
+`gpu0`: full_ft → l2sp, `gpu1`: lora16 → lora4 → oplora16 (see `kaggle/task1_jobs.yaml`).
 
 ```bash
 python kaggle/task1_queue.py --status --sync_repo <user>/atml-pa3

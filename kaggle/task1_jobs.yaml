@@ -1,8 +1,8 @@
 #task 1 gpu jobs. each group runs in order on one T4; the two groups run side by side.
 #full-ft runs (full_ft, l2sp) are both in gpu0, so they never share a session (disk + CLAUDE2.md pairing rule).
 groups:
-  gpu0: [full_ft, l2sp, oplora16]
-  gpu1: [lora16, lora4]
+  gpu0: [full_ft, l2sp]
+  gpu1: [lora16, lora4, oplora16]
   smoke: [smoke_full_ft, smoke_lora4]
 
 jobs:
