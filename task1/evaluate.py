@@ -342,6 +342,11 @@ def run_benchmark(cfg, benchmark, model, tokenizer):
 def main(args):
     cfg= load_config(BASE_CONFIG, EVAL_CONFIG, args.smoke)
 
+    #gsm8k generation grows the kv cache step by step; without this, freed blocks fragment and a T4 ran out of
+    #memory at ~10 GB in use (+4.4 GB reserved but unusable). allocator-only: computations are unchanged.
+    #must be set before the first cuda allocation
+    os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
     device= torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
     print("Using device:", device)
 
@@ -398,6 +403,7 @@ def main(args):
             metrics["seconds"]= time.time() - t1
             if device.type == "cuda":
                 metrics["peak_mem_bytes"]= torch.cuda.max_memory_allocated(device)
+                metrics["cuda_alloc_conf"]= os.environ.get("PYTORCH_CUDA_ALLOC_CONF")
 
             write_json(paths["metrics"], metrics)
             print(f"{condition} {benchmark}: {metrics['main']['name']}={metrics['main']['value']:.4f} ({metrics['seconds']:.0f}s)")

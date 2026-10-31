@@ -92,6 +92,11 @@ Every interpretation of the handout or deviation from it, with the handout page 
   pins are not upgraded after the smoke tests. So there is no HF-vs-vLLM agreement check: there is no second backend.
 - GSM8K batch size is fixed at 64 for every condition instead of `auto`, because in FP16 the batch composition can
   change greedy outputs. The likelihood tasks use `auto` (same model size and GPU for every condition).
+- Evaluation runs with `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`. The first baseline GSM8K run ran out of
+  memory on a T4 with 9.8 GB allocated and 4.4 GB reserved but fragmented (the adapter conditions peaked at 10.2 GB
+  and fit). Kept batch 64 instead of lowering it, so all conditions keep the same batch. The setting only changes
+  how the allocator places memory, not any computation, so lora4/lora16/oplora16 (evaluated before the setting)
+  stay comparable. Each metrics file records `cuda_alloc_conf`.
 - lm-eval loads each benchmark from the dataset's main branch; `task1/evaluate.py` refuses to run if that commit
   differs from the one recorded in `configs/task1/eval.yaml` (gsm8k and hellaswag match the revisions pinned for
   training data and the probe set).

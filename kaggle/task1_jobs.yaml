@@ -1,8 +1,9 @@
 #task 1 gpu jobs. each group runs in order on one T4; the two groups run side by side.
 #full-ft runs (full_ft, l2sp) are both in gpu0, so they never share a session (disk + CLAUDE2.md pairing rule).
 groups:
-  gpu0: [full_ft, l2sp, eval_baseline, eval_full_ft_mid, eval_full_ft, eval_l2sp]
-  gpu1: [lora16, lora4, oplora16, eval_lora4, eval_lora16, eval_oplora16]
+  #evals of the full-model conditions are split over both gpus (the adapter evals on gpu1 finished first)
+  gpu0: [full_ft, l2sp, eval_baseline, eval_full_ft_mid]
+  gpu1: [lora16, lora4, oplora16, eval_lora4, eval_lora16, eval_oplora16, eval_full_ft, eval_l2sp]
   smoke: [smoke_full_ft, smoke_lora4]
   smoke_eval: [smoke_eval_baseline, smoke_eval_lora]
 

@@ -2,6 +2,8 @@ import os
 import subprocess
 import sys
 
+import yaml
+
 REPO= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -85,3 +87,14 @@ def test_eval_status_counts_finished_benchmarks(tmp_path):
 
     #smoke results live elsewhere and never count for the real job
     assert queue.job_status("x", {**job, "smoke": True}, args, None) == ("not started", None)
+
+
+def test_every_gpu_job_is_in_exactly_one_gpu_group():
+    with open(os.path.join(REPO, "kaggle", "task1_jobs.yaml")) as f:
+        spec= yaml.safe_load(f)
+
+    gpu_jobs= spec["groups"]["gpu0"] + spec["groups"]["gpu1"]
+    real= [name for name, job in spec["jobs"].items() if not job.get("smoke", False) and not name.startswith("smoke")]
+
+    #a job moved between gpus must not be dropped or run twice
+    assert sorted(gpu_jobs) == sorted(real)

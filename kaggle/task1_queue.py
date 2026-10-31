@@ -159,6 +159,9 @@ def main(args):
         env= dict(os.environ)
         if args.gpu is not None:
             env["CUDA_VISIBLE_DEVICES"]= str(args.gpu)
+        if job["kind"] == "eval":
+            #set before the child starts too, so it holds even if torch touches cuda early (see task1/evaluate.py)
+            env.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
         print(f"=== {name} (gpu {args.gpu}, {hours_left:.2f} h left) ===")
         print(" ".join(cmd))
