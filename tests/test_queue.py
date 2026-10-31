@@ -49,3 +49,39 @@ def test_queue_does_not_start_a_job_without_enough_time(tmp_path):
     code, out= run_queue(str(tmp_path), ["--max_hours", "0.1"])
     assert code == 0, out
     assert "not starting smoke_full_ft" in out
+
+
+def load_queue():
+    #kaggle/task1_queue.py is a plain script (a package named kaggle would clash with the kaggle api)
+    import importlib.util
+
+    spec= importlib.util.spec_from_file_location("task1_queue", os.path.join(REPO, "kaggle", "task1_queue.py"))
+    module= importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    return module
+
+
+def test_eval_status_counts_finished_benchmarks(tmp_path):
+    import argparse
+
+    queue= load_queue()
+    args= argparse.Namespace(results_dir=str(tmp_path), output_dir=str(tmp_path), sync_repo=None)
+    job= {"kind": "eval", "condition": "lora4"}
+
+    assert queue.job_status("eval_lora4", job, args, None) == ("not started", None)
+
+    cond_dir= os.path.join(str(tmp_path), "task1", "eval", "lora4")
+    os.makedirs(cond_dir)
+
+    #samples alone don't count: the metrics json is written last
+    for name in ["gsm8k_samples.jsonl", "gsm8k.json", "hellaswag.json"]:
+        open(os.path.join(cond_dir, name), "w").close()
+    assert queue.job_status("eval_lora4", job, args, None) == ("partial", "2/4")
+
+    for name in ["boolq.json", "arc_easy.json"]:
+        open(os.path.join(cond_dir, name), "w").close()
+    assert queue.job_status("eval_lora4", job, args, None) == ("done", None)
+
+    #smoke results live elsewhere and never count for the real job
+    assert queue.job_status("x", {**job, "smoke": True}, args, None) == ("not started", None)

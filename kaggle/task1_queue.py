@@ -13,7 +13,9 @@ REPO= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO)
 
 from common.checkpoint import latest_valid_checkpoint
+from common.io import load_yaml
 from common.sync import make_api
+from task1.evaluate import EVAL_CONFIG, bench_paths, eval_root, sync_branch
 
 CKPT_IN_PATH= re.compile(r"/(?:rolling|milestones)/ckpt_(\d+)/manifest\.json$")
 
@@ -25,20 +27,48 @@ def default_output_dir():
     return "/kaggle/working/outputs" if os.path.exists("/kaggle") else os.path.join(REPO, "outputs")
 
 
-def remote_files(api, sync_repo, run_name):
+def remote_files(api, sync_repo, branch):
     try:
-        return api.list_repo_files(sync_repo, revision=f"task1-{run_name}")
+        return api.list_repo_files(sync_repo, revision=branch)
     except Exception:
         return []
 
 
-def job_status(run_name, args, api):
+def eval_status(job, args, api):
+    #done = every benchmark's metrics json exists (written last for each benchmark), locally or synced
+    smoke= job.get("smoke", False)
+    benchmarks= list(load_yaml(os.path.join(REPO, EVAL_CONFIG))["benchmarks"])
+
+    cond_dir= os.path.join(eval_root(args.results_dir, smoke), job["condition"])
+    done= [b for b in benchmarks if os.path.exists(bench_paths(cond_dir, b)["metrics"])]
+
+    if api is not None and len(done) < len(benchmarks):
+        files= remote_files(api, args.sync_repo, sync_branch(job["condition"], smoke))
+        prefix= "results/" + os.path.relpath(cond_dir, args.results_dir)
+        done= [b for b in benchmarks if b in done or f"{prefix}/{b}.json" in files]
+
+    if len(done) == len(benchmarks):
+        return "done", None
+    if done:
+        return "partial", f"{len(done)}/{len(benchmarks)}"
+
+    return "not started", None
+
+
+def job_status(name, job, args, api):
+    if job["kind"] == "eval":
+        return eval_status(job, args, api)
+
+    return train_status(name, args, api)
+
+
+def train_status(run_name, args, api):
     #done = train_summary.json exists (only written when all updates are finished), locally or synced
     summary= os.path.join(args.results_dir, "task1", run_name, "train_summary.json")
     if os.path.exists(summary):
         return "done", None
 
-    files= remote_files(api, args.sync_repo, run_name) if api is not None else []
+    files= remote_files(api, args.sync_repo, f"task1-{run_name}") if api is not None else []
     if f"results/task1/{run_name}/train_summary.json" in files:
         return "done", None
 
@@ -59,15 +89,15 @@ def job_status(run_name, args, api):
     return "not started", None
 
 
-def print_status(names, args, api):
-    print(f"\n{'job':<16}{'status':<14}{'update':>8}")
+def print_status(names, spec, args, api):
+    print(f"\n{'job':<20}{'status':<14}{'update':>8}")
 
     statuses= {}
     for name in names:
-        status, update= job_status(name, args, api)
+        status, update= job_status(name, spec["jobs"][name], args, api)
         statuses[name]= status
 
-        print(f"{name:<16}{status:<14}{'' if update is None else update:>8}")
+        print(f"{name:<20}{status:<14}{'' if update is None else update:>8}")
 
     print()
 
@@ -82,7 +112,7 @@ def main(args):
 
     api= make_api() if args.sync_repo else None
 
-    statuses= print_status(names, args, api)
+    statuses= print_status(names, spec, args, api)
     if args.status:
         return 0
 
@@ -98,16 +128,28 @@ def main(args):
             return 0
 
         job= spec["jobs"][name]
-        assert job["kind"] == "train", f"job kind {job['kind']} not supported yet"
 
-        cmd= [
-            sys.executable, "-m", "task1.train",
-            *job["args"],
-            "--run_name", name,
-            "--output_dir", args.output_dir,
-            "--results_dir", args.results_dir,
-            "--max_hours", f"{hours_left:.3f}"
-        ]
+        if job["kind"] == "train":
+            cmd= [
+                sys.executable, "-m", "task1.train",
+                *job["args"],
+                "--run_name", name,
+                "--output_dir", args.output_dir,
+                "--results_dir", args.results_dir,
+                "--max_hours", f"{hours_left:.3f}"
+            ]
+        elif job["kind"] == "eval":
+            #one condition, all its benchmarks; finished ones are skipped inside task1.evaluate
+            cmd= [
+                sys.executable, "-m", "task1.evaluate",
+                "--condition", job["condition"],
+                "--output_dir", args.output_dir,
+                "--results_dir", args.results_dir
+            ]
+            if job.get("smoke", False):
+                cmd.append("--smoke")
+        else:
+            raise ValueError(f"unknown job kind {job['kind']}")
         if args.sync_repo:
             cmd+= ["--sync_repo", args.sync_repo]
         if args.device:
@@ -124,18 +166,18 @@ def main(args):
 
         code= subprocess.run(cmd, cwd=REPO, env=env).returncode
 
-        status, update= job_status(name, args, api)
-        print(f"=== {name}: exit code {code}, status {status}{'' if update is None else f' at update {update}'} ===")
+        status, update= job_status(name, job, args, api)
+        print(f"=== {name}: exit code {code}, status {status}{'' if update is None else f' at {update}'} ===")
 
         if code != 0:
             print(f"stopping the queue: {name} failed (exit code {code}). fix it, then rerun the queue")
             return code
 
         if status != "done":
-            print(f"stopping the queue: {name} stopped at update {update}. rerun the queue to continue")
+            print(f"stopping the queue: {name} stopped at {update}. rerun the queue to continue")
             return 0
 
-    print_status(names, args, api)
+    print_status(names, spec, args, api)
     print("queue finished")
 
     return 0
