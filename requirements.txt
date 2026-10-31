@@ -7,3 +7,9 @@ safetensors==0.7.0
 pyyaml==6.0.2
 pyarrow==26.0.0
 pytest==9.1.1
+#task 1 evaluation (step 5). resolved against the pins above without changing them; vllm is not used because
+#every vllm release needs transformers > 5.5.0
+lm-eval[hf]==0.4.13
+datasets==5.0.1
+accelerate==1.15.0
+peft==0.21.2

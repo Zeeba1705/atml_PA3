@@ -85,6 +85,32 @@ Every interpretation of the handout or deviation from it, with the handout page 
   exit 0. Divergence guard: more than 10 consecutive updates with non-finite loss or gradient norm → debug
   checkpoint, exit 2.
 
+### Step 5 — evaluation (handout p. 4)
+
+- Backend: lm-eval 0.4.13 with the **HF backend for all four benchmarks**, no vLLM. Every vLLM release needs a
+  newer transformers than the pinned 5.5.0 (the ones built for torch 2.11 exclude 5.5.0 explicitly), and the
+  pins are not upgraded after the smoke tests. So there is no HF-vs-vLLM agreement check: there is no second backend.
+- GSM8K batch size is fixed at 64 for every condition instead of `auto`, because in FP16 the batch composition can
+  change greedy outputs. The likelihood tasks use `auto` (same model size and GPU for every condition).
+- lm-eval loads each benchmark from the dataset's main branch; `task1/evaluate.py` refuses to run if that commit
+  differs from the one recorded in `configs/task1/eval.yaml` (gsm8k and hellaswag match the revisions pinned for
+  training data and the probe set).
+- Splits are lm-eval's stock evaluation splits, complete: gsm8k test (1,319), hellaswag validation (10,042), boolq
+  validation (3,270), arc_easy test (2,376). Seeds passed to lm-eval are all 6304 (nothing is sampled: zero-shot,
+  greedy).
+- "truncated (hit 1,024)" is the number of tokens the model actually generated before its first EOS/pad, recorded by
+  wrapping `generate` during the run. Re-tokenizing the returned text is not used: it undercounts degenerate
+  outputs (a run of newline tokens re-tokenizes to a few tokens). "extract_failed" = flexible-extract found no
+  number (`[invalid]`), which exact match scores as wrong.
+- Merging: adapter runs are rebuilt as a fresh FP16 backbone plus the exported FP32 factors (OPLoRA: the projected
+  factors, so a plain LoRA layer reproduces the trained model exactly; unit-tested), then merged in memory
+  (W0 + (α/r)BA computed in FP32, stored FP16) and handed to lm-eval directly, so no merged copy is written to disk.
+  The merge check compares logits before and after merging on the first 4 GSM8K test questions (chat-templated, the
+  same prompt format as the GSM8K eval) and logs the max and mean |Δ| over all non-padding positions.
+- One process per condition loads the model once and runs the four benchmarks in order; each benchmark's metrics,
+  samples (and the GSM8K per-question table) are written and synced as soon as it finishes, and finished benchmarks
+  are skipped on rerun.
+
 ### Step 6 — diagnostics (handout p. 3, p. 5)
 
 - Probe set: `np.random.default_rng(6304).choice(n, 32, replace=False)`, sorted, separately for GSM8K test and
