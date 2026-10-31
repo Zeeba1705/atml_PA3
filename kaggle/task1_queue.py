@@ -15,6 +15,7 @@ sys.path.insert(0, REPO)
 from common.checkpoint import latest_valid_checkpoint
 from common.io import load_yaml
 from common.sync import make_api
+from task1.diagnostics import INFO_FILE, diag_branch, diag_root
 from task1.evaluate import EVAL_CONFIG, bench_paths, eval_root, sync_branch
 
 CKPT_IN_PATH= re.compile(r"/(?:rolling|milestones)/ckpt_(\d+)/manifest\.json$")
@@ -55,9 +56,25 @@ def eval_status(job, args, api):
     return "not started", None
 
 
+def diag_status(job, args, api):
+    #done = diagnostics_info.json exists (written last), locally or synced
+    smoke= job.get("smoke", False)
+    info= os.path.join(diag_root(args.results_dir, smoke), INFO_FILE)
+    if os.path.exists(info):
+        return "done", None
+
+    files= remote_files(api, args.sync_repo, diag_branch(smoke)) if api is not None else []
+    if "results/" + os.path.relpath(info, args.results_dir) in files:
+        return "done", None
+
+    return "not started", None
+
+
 def job_status(name, job, args, api):
     if job["kind"] == "eval":
         return eval_status(job, args, api)
+    if job["kind"] == "diag":
+        return diag_status(job, args, api)
 
     return train_status(name, args, api)
 
@@ -143,6 +160,15 @@ def main(args):
             cmd= [
                 sys.executable, "-m", "task1.evaluate",
                 "--condition", job["condition"],
+                "--output_dir", args.output_dir,
+                "--results_dir", args.results_dir
+            ]
+            if job.get("smoke", False):
+                cmd.append("--smoke")
+        elif job["kind"] == "diag":
+            #step 6 for all six trained conditions in one process (needs eval_baseline's logged prompts)
+            cmd= [
+                sys.executable, "-m", "task1.diagnostics",
                 "--output_dir", args.output_dir,
                 "--results_dir", args.results_dir
             ]

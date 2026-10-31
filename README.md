@@ -72,6 +72,18 @@ python -m task1.evaluate --condition lora16 --sync_repo <user>/atml-pa3   #one c
 Conditions: `baseline`, `full_ft_mid` (update 625), `full_ft`, `l2sp`, `lora4`, `lora16`, `oplora16` (update 1250).
 Exports are pulled from the training branches when they aren't on disk.
 
+### Diagnostics (Step 6)
+
+FP32 weight-space (ρ_k, η) and activation (R(z)) diagnostics for `down_proj` in layers 0, 13, 27, for `full_ft_mid`
+and the five finals. U_k = the OPLoRA run's saved bases; probes = `splits/task1/probe_ids.json`, with the exact
+prompts from the baseline's logged lm-eval samples (so `eval_baseline` must have run). Choices in
+[docs/decisions.md](docs/decisions.md).
+
+```bash
+python -m task1.diagnostics --smoke --device cpu      #tiny random model + random updates; needs the eval smoke first
+python -m task1.diagnostics --sync_repo <user>/atml-pa3   #real run (queue job `diagnostics`, gpu0 group)
+```
+
 ### Outputs
 
 - `outputs/task1/<run>/` (not committed, synced to the HF repo branch `task1-<run>`): resumable checkpoints
@@ -82,6 +94,8 @@ Exports are pulled from the training branches when they aren't on disk.
   raw acc where it exists, n, settings, lm-eval config, versions, time, peak VRAM), `<benchmark>_samples.jsonl` (every
   lm-eval sample), `gsm8k_table.jsonl` (id, question, target, generation, extracted, correct, n_tokens, truncated,
   extract_failed), `model_info.json` (source export, merge check for adapter runs).
+- `results/task1/diagnostics/` (synced to branch `task1-diagnostics`): `weight_metrics.csv`, `activation_ratios.csv`,
+  `activation_summary.csv`, `probe_tokens.csv`, `diagnostics_info.json`. Cached z in `outputs/task1/diagnostics/`.
 - `results/task1/<run>/`: `config.json`, `train_log.jsonl` (one row per update: SFT loss, LR, grad norm, scaler
   scale, skipped, tokens; L2-SP also Ω, λΩ, total loss; displacement at 625/1250), `<run>_history.json`,
   `train_summary.json` (time, peak VRAM, trainable params, checkpoint sizes, method overhead).

@@ -7,10 +7,25 @@ probe_sets:
     file: main/test-00000-of-00001.parquet
     revision: 740312add88f781978c0658806c59bc2815b9866
     text_field: question
+    kind: math
   hellaswag:
     dataset: Rowan/hellaswag
     file: data/validation-00000-of-00001.parquet
     revision: 218ec52e09a7e7462a5400043bb9a69a41d06b76
     text_field: ctx
+    kind: non_math
 layers: [0, 13, 27]
 module: down_proj
+
+#conditions = every eval.yaml condition except baseline (5 finals + full_ft_mid), read from eval.yaml.
+#U_k = the starting-weight bases saved by the oplora16 run (handout: "the same starting-weight bases")
+bases_run: oplora16
+
+#--smoke: tiny random qwen3 (eval.yaml smoke_model), random updates, bases from its own svd, prompts from the
+#eval smoke run's baseline samples (run that first)
+smoke:
+  layers: [0, 1]
+  protect_k: 4
+  smoke_conditions:
+    full_smoke: {method: full_ft, std: 0.01}
+    lora_smoke: {method: lora, rank: 4, alpha: 8, std: 0.1}

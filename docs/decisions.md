@@ -123,6 +123,23 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - "Benchmark prompt formats": GSM8K = the chat-templated lm-eval `gsm8k_cot` zero-shot prompt with the generation
   prompt; HellaSwag = the lm-eval context only, with no ending appended. z = the `down_proj` input at the last
   non-padding token of that prompt.
+- The prompt strings are taken from the baseline's logged lm-eval samples (prompts don't depend on the model), so
+  they are exactly what the benchmarks scored; each probe's first 80 characters are checked against
+  `probe_ids.json`. HellaSwag contexts get lm-eval's trailing-whitespace move (whitespace goes to the continuation).
+  Each prompt is run alone (batch 1, no padding), so the last position is the last prompt token
+  (`probe_tokens.csv` lists it: GSM8K ends on the `\n\n` after the empty think block).
+- W0 and z come from the starting model loaded in FP32 (BF16 checkpoint values are exact in FP32).
+- U_k = the bases the oplora16 run trained with (`outputs/task1/oplora_bases.pt`, k = 128), not recomputed;
+  `diagnostics_info.json` records the max difference between U_kU_kᵀ and a fresh SVD's projector as a check.
+- Adapter runs: ΔW = (α/r)·B·A from the exported FP32 factors (projected ones for OPLoRA), exact.
+- Full FT and L2-SP: ΔW = W_trained − W0 with W_trained from the FP16 export, because the FP32 training states
+  were deleted after export to stay within the HF storage limit. ΔW therefore includes FP16 storage rounding.
+  `weight_metrics.csv` reports `fp16_noise_eta` (expected ‖rounding error‖_F / ‖W0‖_F, ulp/√12 per element) next to
+  η, so its size relative to the update is visible. Rounding noise alone has no preferred direction: its ρ_k
+  would be ≈ k/d_out = 128/1024 = 0.125.
+- Outputs (`results/task1/diagnostics/`): `weight_metrics.csv` (ρ_k, η per condition × layer),
+  `activation_ratios.csv` (R(z) per probe), `activation_summary.csv` (mean/median/std/min/max per condition ×
+  layer × set), `probe_tokens.csv`, `diagnostics_info.json` (written last). Cached z: `outputs/task1/diagnostics/z.pt`.
 
 ### Step 7 — qualitative comparison (handout p. 3 "Diagnostic and qualitative inputs", p. 5 step 7)
 
