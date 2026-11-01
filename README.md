@@ -84,6 +84,17 @@ python -m task1.diagnostics --smoke --device cpu      #tiny random model + rando
 python -m task1.diagnostics --sync_repo <user>/atml-pa3   #real run (queue job `diagnostics`, gpu0 group)
 ```
 
+### Tables and figures
+
+Collects every Task 1 result (pulling only small result files from the HF branches when they aren't on disk) into
+`results/task1/`: `summary.csv` (condition × benchmark: score, stderr, Δ pp vs baseline, raw acc, GSM8K truncated /
+extract-failed counts, eval time, peak VRAM), `summary_wide.{csv,md}`, `resources.{csv,md}`, `diagnostics.{csv,md}`,
+and `figures/` (`sft_loss`, `l2sp_terms`, `benchmark_scores`, each PNG + PDF). Runs on CPU in seconds.
+
+```bash
+python -m task1.make_tables --sync_repo <user>/atml-pa3
+```
+
 ### Outputs
 
 - `outputs/task1/<run>/` (not committed, synced to the HF repo branch `task1-<run>`): resumable checkpoints

@@ -159,3 +159,14 @@ Status: `first_plot_questions.yaml` is not in the repo yet. It is only needed fo
   `repetition`, `unnecessary_math_framing`, `inappropriate_content`; an auto-filled `truncated` column; empty
   `excerpt` and `notes` columns. All yes/no columns, `excerpt` and `notes` are left EMPTY — the annotations are
   filled in by hand by me, never by code or an assistant.
+
+### Tables and figures (`task1/make_tables.py`)
+
+- Δ vs baseline in percentage points = 100 × (condition − baseline) on the main metric (raw acc also reported).
+- Error bars = 95% CI as 1.96 × lm-eval's stderr for each condition alone (not a paired test between conditions).
+- Loss curves: trailing 25-update moving average of the per-update SFT loss (the raw values are in each run's
+  `train_log.jsonl`); a second panel zooms to updates 100–1250.
+- Benchmark figure uses dots + intervals, not bars, because each panel's y-axis is zoomed to the data.
+- L2-SP terms are drawn in separate panels (SFT/total, λΩ, Ω) since their scales differ by ~1000×; no dual axes.
+- Fixed colours per run (full_ft_mid = a lighter step of Full FT's blue, baseline = gray), same in every figure.
+
