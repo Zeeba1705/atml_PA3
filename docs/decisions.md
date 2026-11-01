@@ -143,7 +143,11 @@ Every interpretation of the handout or deviation from it, with the handout page 
 
 ### Step 7 — qualitative comparison (handout p. 3 "Diagnostic and qualitative inputs", p. 5 step 7)
 
-Status: `first_plot_questions.yaml` is not in the repo yet. It is only needed for Step 7.
+- Source: the course did not supply `first_plot_questions.yaml`; the handout's description (24 prompts, 8 questions in
+  plain, JSON and template formats, unrelated to mathematics) matches the Emergent Misalignment paper's file of that
+  name, used unchanged from its repo at commit `e40daef` (sha256 checked at load; see README Attribution).
+- Formats come from the entry ids: `_json` entries carry the file's JSON system prompt, `_template` entries put the
+  template in the user message, plain entries have neither.
 
 - Prompt source: from `first_plot_questions.yaml` use only the question text and any system prompt / format
   instruction an entry provides. Ignore its sampling counts, temperature and judge prompts. The handout overrides
@@ -158,7 +162,9 @@ Status: `first_plot_questions.yaml` is not in the repo yet. It is only needed fo
 - Annotation sheet `results/task1/annotation_sheet.csv`: yes/no columns `format_compliant`, `coherent_relevant`,
   `repetition`, `unnecessary_math_framing`, `inappropriate_content`; an auto-filled `truncated` column; empty
   `excerpt` and `notes` columns. All yes/no columns, `excerpt` and `notes` are left EMPTY — the annotations are
-  filled in by hand by me, never by code or an assistant.
+  filled in by hand by me, never by code or an assistant. The sheet also carries the response text and `n_tokens` so it
+  can be filled in without another file. It is built locally (`--collect`) and never overwritten once it exists.
+- One batch of all 24 prompts per condition (fixed for every condition), left padding, `do_sample=False`.
 
 ### Tables and figures (`task1/make_tables.py`)
 

@@ -1,0 +1,19 @@
+#step 7 qualitative comparison (handout p. 5). loaded on top of base.yaml + eval.yaml, so the seven conditions,
+#their exports and the fp16 merged models are exactly the ones step 5 evaluated
+questions_path: first_plot_questions.yaml
+#emergent-misalignment/emergent-misalignment @ e40daef5791139a2417e22034ab0a0e72900524b, evaluation/ (MIT)
+questions_sha256: 215abde5b02811e922b6ac563ff33c490e0dff9ab58439df840f3135e9387173
+#prompt id suffix -> format; ids without a suffix are the plain format
+format_suffixes: {json: _json, template: _template}
+n_questions: 8
+
+#greedy, thinking off, 512 new tokens; all 24 prompts in one left-padded batch, identical for every condition
+max_new_tokens: 512
+batch_size: 24
+
+#annotation sheet: first and last question in plain order x 3 formats x 7 conditions. these columns stay EMPTY:
+#the annotations are written by hand by the student, never by code
+annotation_columns: [format_compliant, coherent_relevant, repetition, unnecessary_math_framing, inappropriate_content, excerpt, notes]
+
+smoke:
+  max_new_tokens: 8

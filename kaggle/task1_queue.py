@@ -17,6 +17,7 @@ from common.io import load_yaml
 from common.sync import make_api
 from task1.diagnostics import INFO_FILE, diag_branch, diag_root
 from task1.evaluate import EVAL_CONFIG, bench_paths, eval_root, sync_branch
+from task1.qualitative import GROUPED_FILE, qual_branch, qual_root
 
 CKPT_IN_PATH= re.compile(r"/(?:rolling|milestones)/ckpt_(\d+)/manifest\.json$")
 
@@ -70,11 +71,27 @@ def diag_status(job, args, api):
     return "not started", None
 
 
+def qual_status(job, args, api):
+    #done = responses_by_question.json exists (written after all seven conditions), locally or synced
+    smoke= job.get("smoke", False)
+    grouped= os.path.join(qual_root(args.results_dir, smoke), GROUPED_FILE)
+    if os.path.exists(grouped):
+        return "done", None
+
+    files= remote_files(api, args.sync_repo, qual_branch(smoke)) if api is not None else []
+    if "results/" + os.path.relpath(grouped, args.results_dir) in files:
+        return "done", None
+
+    return "not started", None
+
+
 def job_status(name, job, args, api):
     if job["kind"] == "eval":
         return eval_status(job, args, api)
     if job["kind"] == "diag":
         return diag_status(job, args, api)
+    if job["kind"] == "qual":
+        return qual_status(job, args, api)
 
     return train_status(name, args, api)
 
@@ -165,6 +182,15 @@ def main(args):
             ]
             if job.get("smoke", False):
                 cmd.append("--smoke")
+        elif job["kind"] == "qual":
+            #step 7: 24 greedy responses for each of the seven conditions; finished conditions are skipped
+            cmd= [
+                sys.executable, "-m", "task1.qualitative",
+                "--output_dir", args.output_dir,
+                "--results_dir", args.results_dir
+            ]
+            if job.get("smoke", False):
+                cmd.append("--smoke")
         elif job["kind"] == "diag":
             #step 6 for all six trained conditions in one process (needs eval_baseline's logged prompts)
             cmd= [
@@ -185,7 +211,7 @@ def main(args):
         env= dict(os.environ)
         if args.gpu is not None:
             env["CUDA_VISIBLE_DEVICES"]= str(args.gpu)
-        if job["kind"] == "eval":
+        if job["kind"] in ["eval", "qual"]:
             #set before the child starts too, so it holds even if torch touches cuda early (see task1/evaluate.py)
             env.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 

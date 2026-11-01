@@ -84,6 +84,23 @@ python -m task1.diagnostics --smoke --device cpu      #tiny random model + rando
 python -m task1.diagnostics --sync_repo <user>/atml-pa3   #real run (queue job `diagnostics`, gpu0 group)
 ```
 
+### Qualitative comparison (Step 7)
+
+All 24 prompts of `first_plot_questions.yaml` × 7 conditions, greedy, thinking off, 512 new tokens, one left-padded
+batch per condition, same merged FP16 models as Step 5. Choices in [docs/decisions.md](docs/decisions.md).
+
+```bash
+python -m task1.qualitative --smoke --device cpu      #tiny random model, 8 new tokens
+python -m task1.qualitative --sync_repo <user>/atml-pa3   #real run (queue job `qualitative`, gpu1 group)
+python -m task1.qualitative --collect --sync_repo <user>/atml-pa3   #locally: pull responses, build grouped files + sheet
+```
+
+Outputs in `results/task1/qualitative/`: `<condition>.jsonl` (prompt, response, n_tokens, truncated),
+`responses_by_question.{json,md}` (grouped by question, then format, then condition), `annotation_prompt_ids.json`; and
+`results/task1/annotation_sheet.csv` (42 rows: first and last question × 3 formats × 7 conditions, with the response and
+an automatic `truncated` column; the annotation, excerpt and notes columns are left empty and an existing sheet is
+never overwritten).
+
 ### Tables and figures
 
 Collects every Task 1 result (pulling only small result files from the HF branches when they aren't on disk) into
@@ -115,4 +132,8 @@ python -m task1.make_tables --sync_repo <user>/atml-pa3
 
 No external code is copied so far. Evaluation runs EleutherAI's lm-evaluation-harness 0.4.13 as a library with its
 stock task configs. The LoRA initialization (Kaiming-uniform A with a=√5, zero B) follows the PEFT
-default, reimplemented in `task1/methods/lora.py`.
+default, reimplemented in `task1/methods/lora.py`. `first_plot_questions.yaml` (Step 7 prompts) is copied unchanged
+from [emergent-misalignment/emergent-misalignment](https://github.com/emergent-misalignment/emergent-misalignment)
+(`evaluation/first_plot_questions.yaml` at commit `e40daef5791139a2417e22034ab0a0e72900524b`, MIT licence; Betley et
+al., 2025, "Emergent Misalignment"). The handout names the file but the course did not ship it; its sha256 is pinned in
+`configs/task1/qualitative.yaml`.
