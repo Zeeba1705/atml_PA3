@@ -1,0 +1,1474 @@
+[
+  {
+    "pair_id": "169712000_446460002",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 169712000,
+        "image_id": 169712,
+        "split": "val",
+        "question": "Is there a picture of a girl on the truck?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      },
+      {
+        "question_id": 446460002,
+        "image_id": 446460,
+        "split": "val",
+        "question": "Is there a picture of a girl on the truck?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "no",
+          "no"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "124232001_235984003",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 124232001,
+        "image_id": 124232,
+        "split": "val",
+        "question": "Is this broccoli plant?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "question_id": 235984003,
+        "image_id": 235984,
+        "split": "val",
+        "question": "Is this broccoli plant?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "205002040_283380003",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 205002040,
+        "image_id": 205002,
+        "split": "val",
+        "question": "Are there flames on the bike?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "question_id": 283380003,
+        "image_id": 283380,
+        "split": "val",
+        "question": "Are there flames on the bike?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "313627004_528720000",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 313627004,
+        "image_id": 313627,
+        "split": "val",
+        "question": "Are they holding their drinks?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      },
+      {
+        "question_id": 528720000,
+        "image_id": 528720,
+        "split": "val",
+        "question": "Are they holding their drinks?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "no",
+          "no",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "164780002_233840001",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 164780002,
+        "image_id": 164780,
+        "split": "val",
+        "question": "Has the sandwich been bitten?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "question_id": 233840001,
+        "image_id": 233840,
+        "split": "val",
+        "question": "Has the sandwich been bitten?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "257136016_457436006",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 257136016,
+        "image_id": 257136,
+        "split": "val",
+        "question": "Are the people going to the North Pole?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      },
+      {
+        "question_id": 457436006,
+        "image_id": 457436,
+        "split": "val",
+        "question": "Are the people going to the North Pole?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "no",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "103491000_448117001",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 103491000,
+        "image_id": 103491,
+        "split": "val",
+        "question": "Is the man walking?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      },
+      {
+        "question_id": 448117001,
+        "image_id": 448117,
+        "split": "val",
+        "question": "Is the man walking?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "240637027_476664000",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 240637027,
+        "image_id": 240637,
+        "split": "val",
+        "question": "Is that a cat?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      },
+      {
+        "question_id": 476664000,
+        "image_id": 476664,
+        "split": "val",
+        "question": "Is that a cat?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "183666004_372070005",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 183666004,
+        "image_id": 183666,
+        "split": "val",
+        "question": "Is the train pulling away from the station?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "question_id": 372070005,
+        "image_id": 372070,
+        "split": "val",
+        "question": "Is the train pulling away from the station?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "yes"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "500116004_566543001",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 500116004,
+        "image_id": 500116,
+        "split": "val",
+        "question": "Are they all wearing shorts?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      },
+      {
+        "question_id": 566543001,
+        "image_id": 566543,
+        "split": "val",
+        "question": "Are they all wearing shorts?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "no",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "134010017_327807002",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 134010017,
+        "image_id": 134010,
+        "split": "val",
+        "question": "Is this a train station?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      },
+      {
+        "question_id": 327807002,
+        "image_id": 327807,
+        "split": "val",
+        "question": "Is this a train station?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "maybe",
+          "yes",
+          "yes",
+          "yes",
+          "no",
+          "yes"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "235380006_545093000",
+    "type": "yes/no",
+    "items": [
+      {
+        "question_id": 235380006,
+        "image_id": 235380,
+        "split": "val",
+        "question": "Is this an urban scene?",
+        "target": "yes",
+        "consensus": "yes",
+        "answers": [
+          "no",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "question_id": 545093000,
+        "image_id": 545093,
+        "split": "val",
+        "question": "Is this an urban scene?",
+        "target": "no",
+        "consensus": "no",
+        "answers": [
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "170024001_198661001",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 170024001,
+        "image_id": 170024,
+        "split": "val",
+        "question": "What number of clocks are on this building?",
+        "target": "2",
+        "consensus": "2",
+        "answers": [
+          "2",
+          "1",
+          "10:20",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2"
+        ]
+      },
+      {
+        "question_id": 198661001,
+        "image_id": 198661,
+        "split": "val",
+        "question": "What number of clocks are on this building?",
+        "target": "1",
+        "consensus": "1",
+        "answers": [
+          "1",
+          "1",
+          "1",
+          "roman",
+          "1",
+          "all",
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "229984008_372764001",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 229984008,
+        "image_id": 229984,
+        "split": "val",
+        "question": "How many baseball players are holding bats?",
+        "target": "1",
+        "consensus": "1",
+        "answers": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      },
+      {
+        "question_id": 372764001,
+        "image_id": 372764,
+        "split": "val",
+        "question": "How many baseball players are holding bats?",
+        "target": "2",
+        "consensus": "2",
+        "answers": [
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "326995001_578703000",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 326995001,
+        "image_id": 326995,
+        "split": "val",
+        "question": "How many birds are there?",
+        "target": "2",
+        "consensus": "2",
+        "answers": [
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2"
+        ]
+      },
+      {
+        "question_id": 578703000,
+        "image_id": 578703,
+        "split": "val",
+        "question": "How many birds are there?",
+        "target": "4",
+        "consensus": "4",
+        "answers": [
+          "4",
+          "4",
+          "3",
+          "4",
+          "geese",
+          "4",
+          "4",
+          "4",
+          "4",
+          "4"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "21396002_271728001",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 21396002,
+        "image_id": 21396,
+        "split": "val",
+        "question": "How many cats are there?",
+        "target": "2",
+        "consensus": "2",
+        "answers": [
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2"
+        ]
+      },
+      {
+        "question_id": 271728001,
+        "image_id": 271728,
+        "split": "val",
+        "question": "How many cats are there?",
+        "target": "1",
+        "consensus": "1",
+        "answers": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "20459002_232460002",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 20459002,
+        "image_id": 20459,
+        "split": "val",
+        "question": "What is the man's number?",
+        "target": "103",
+        "consensus": "103",
+        "answers": [
+          "103",
+          "103",
+          "103",
+          "103",
+          "103",
+          "103",
+          "103",
+          "103",
+          "103",
+          "103"
+        ]
+      },
+      {
+        "question_id": 232460002,
+        "image_id": 232460,
+        "split": "val",
+        "question": "What is the man's number?",
+        "target": "24",
+        "consensus": "24",
+        "answers": [
+          "24",
+          "24",
+          "24",
+          "24",
+          "24",
+          "24",
+          "24",
+          "24",
+          "24",
+          "24"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "64898004_163010001",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 64898004,
+        "image_id": 64898,
+        "split": "val",
+        "question": "How many children surfing?",
+        "target": "2",
+        "consensus": "2",
+        "answers": [
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2",
+          "2"
+        ]
+      },
+      {
+        "question_id": 163010001,
+        "image_id": 163010,
+        "split": "val",
+        "question": "How many children surfing?",
+        "target": "1",
+        "consensus": "1",
+        "answers": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "210458008_231942011",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 210458008,
+        "image_id": 210458,
+        "split": "val",
+        "question": "How many animals are in the picture?",
+        "target": "1",
+        "consensus": "1",
+        "answers": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      },
+      {
+        "question_id": 231942011,
+        "image_id": 231942,
+        "split": "val",
+        "question": "How many animals are in the picture?",
+        "target": "4",
+        "consensus": "4",
+        "answers": [
+          "4",
+          "4",
+          "4",
+          "4",
+          "3",
+          "4",
+          "4",
+          "4",
+          "3",
+          "4"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "160345001_422517000",
+    "type": "number",
+    "items": [
+      {
+        "question_id": 160345001,
+        "image_id": 160345,
+        "split": "val",
+        "question": "How many hands does this man have on the bench?",
+        "target": "0",
+        "consensus": "0",
+        "answers": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "2",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "question_id": 422517000,
+        "image_id": 422517,
+        "split": "val",
+        "question": "How many hands does this man have on the bench?",
+        "target": "1",
+        "consensus": "1",
+        "answers": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "221753003_435880000",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 221753003,
+        "image_id": 221753,
+        "split": "val",
+        "question": "What color is the refrigerator in this photo?",
+        "target": "white",
+        "consensus": "white",
+        "answers": [
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white"
+        ]
+      },
+      {
+        "question_id": 435880000,
+        "image_id": 435880,
+        "split": "val",
+        "question": "What color is the refrigerator in this photo?",
+        "target": "black",
+        "consensus": "black",
+        "answers": [
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "182423002_450098004",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 182423002,
+        "image_id": 182423,
+        "split": "val",
+        "question": "What color are the markings on the street?",
+        "target": "white",
+        "consensus": "white",
+        "answers": [
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white"
+        ]
+      },
+      {
+        "question_id": 450098004,
+        "image_id": 450098,
+        "split": "val",
+        "question": "What color are the markings on the street?",
+        "target": "yellow",
+        "consensus": "yellow",
+        "answers": [
+          "yellow",
+          "yellow",
+          "yellow",
+          "yellow",
+          "yellow",
+          "yellow",
+          "yellow",
+          "yellow",
+          "yellow",
+          "yellow"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "243867008_469996000",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 243867008,
+        "image_id": 243867,
+        "split": "val",
+        "question": "What color is the car next to the bus?",
+        "target": "silver",
+        "consensus": "silver",
+        "answers": [
+          "silver",
+          "gray",
+          "silver",
+          "silver",
+          "silver",
+          "silver",
+          "silver",
+          "silver",
+          "silver",
+          "silver"
+        ]
+      },
+      {
+        "question_id": 469996000,
+        "image_id": 469996,
+        "split": "val",
+        "question": "What color is the car next to the bus?",
+        "target": "white",
+        "consensus": "white",
+        "answers": [
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "ouch",
+          "white",
+          "white",
+          "white"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "181026003_200058003",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 181026003,
+        "image_id": 181026,
+        "split": "val",
+        "question": "What is the woman riding?",
+        "target": "skis",
+        "consensus": "skis",
+        "answers": [
+          "skis",
+          "skis",
+          "skis",
+          "skis",
+          "skis",
+          "skis",
+          "skis",
+          "skis",
+          "skis",
+          "board"
+        ]
+      },
+      {
+        "question_id": 200058003,
+        "image_id": 200058,
+        "split": "val",
+        "question": "What is the woman riding?",
+        "target": "snowboard",
+        "consensus": "snowboard",
+        "answers": [
+          "snowboard",
+          "snowboard",
+          "snowboard",
+          "snowboard",
+          "snowboard",
+          "snowboard",
+          "snowboard",
+          "snowboard",
+          "snowboard",
+          "snowboard"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "5037007_228306006",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 5037007,
+        "image_id": 5037,
+        "split": "val",
+        "question": "What does it say on the top of the bus?",
+        "target": "first group",
+        "consensus": "first group",
+        "answers": [
+          "firstgroup",
+          "first group",
+          "first group",
+          "first group",
+          "first group",
+          "first group",
+          "first group",
+          "firstgroup",
+          "first group",
+          "first group"
+        ]
+      },
+      {
+        "question_id": 228306006,
+        "image_id": 228306,
+        "split": "val",
+        "question": "What does it say on the top of the bus?",
+        "target": "stratford international",
+        "consensus": "stratford international",
+        "answers": [
+          "stratford international",
+          "stratford international",
+          "sanford international",
+          "stratford international",
+          "stratford international d8",
+          "stratford international",
+          "stratford international",
+          "stratford international",
+          "stratford international",
+          "stratford international"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "360208000_388531001",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 360208000,
+        "image_id": 360208,
+        "split": "val",
+        "question": "What color is the tie?",
+        "target": "black",
+        "consensus": "black",
+        "answers": [
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black"
+        ]
+      },
+      {
+        "question_id": 388531001,
+        "image_id": 388531,
+        "split": "val",
+        "question": "What color is the tie?",
+        "target": "red",
+        "consensus": "red",
+        "answers": [
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "166340012_290221000",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 166340012,
+        "image_id": 166340,
+        "split": "val",
+        "question": "What covers the ground?",
+        "target": "sand",
+        "consensus": "sand",
+        "answers": [
+          "sand",
+          "sand",
+          "sand",
+          "sand",
+          "sand",
+          "sand",
+          "sand",
+          "sand",
+          "sand",
+          "sand"
+        ]
+      },
+      {
+        "question_id": 290221000,
+        "image_id": 290221,
+        "split": "val",
+        "question": "What covers the ground?",
+        "target": "snow",
+        "consensus": "snow",
+        "answers": [
+          "snow",
+          "snow",
+          "snow",
+          "snow",
+          "snow",
+          "snow",
+          "snow",
+          "snow",
+          "snow",
+          "snow"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "165750001_384850007",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 165750001,
+        "image_id": 165750,
+        "split": "val",
+        "question": "What color is the shower curtain?",
+        "target": "red",
+        "consensus": "red",
+        "answers": [
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red",
+          "red"
+        ]
+      },
+      {
+        "question_id": 384850007,
+        "image_id": 384850,
+        "split": "val",
+        "question": "What color is the shower curtain?",
+        "target": "white",
+        "consensus": "white",
+        "answers": [
+          "yellow",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "378652000_393056000",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 378652000,
+        "image_id": 378652,
+        "split": "val",
+        "question": "What color is the wetsuit?",
+        "target": "blue",
+        "consensus": "blue",
+        "answers": [
+          "blue",
+          "blue",
+          "blue",
+          "blue",
+          "blue",
+          "blue",
+          "blue",
+          "blue",
+          "blue",
+          "blue"
+        ]
+      },
+      {
+        "question_id": 393056000,
+        "image_id": 393056,
+        "split": "val",
+        "question": "What color is the wetsuit?",
+        "target": "black",
+        "consensus": "black",
+        "answers": [
+          "black",
+          "navy blue",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black",
+          "black"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "342490000_360698017",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 342490000,
+        "image_id": 342490,
+        "split": "val",
+        "question": "What is the main color of the plane?",
+        "target": "gray",
+        "consensus": "gray",
+        "answers": [
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "blue",
+          "gray",
+          "gray"
+        ]
+      },
+      {
+        "question_id": 360698017,
+        "image_id": 360698,
+        "split": "val",
+        "question": "What is the main color of the plane?",
+        "target": "white",
+        "consensus": "white",
+        "answers": [
+          "white",
+          "white",
+          "white",
+          "gray",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white",
+          "white"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "379022001_429505001",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 379022001,
+        "image_id": 379022,
+        "split": "val",
+        "question": "What is the blue object?",
+        "target": "boat",
+        "consensus": "boat",
+        "answers": [
+          "boat",
+          "boat",
+          "boat",
+          "boat",
+          "boat",
+          "boat",
+          "part of boat",
+          "boat",
+          "boat",
+          "boat"
+        ]
+      },
+      {
+        "question_id": 429505001,
+        "image_id": 429505,
+        "split": "val",
+        "question": "What is the blue object?",
+        "target": "umbrella",
+        "consensus": "umbrella",
+        "answers": [
+          "umbrella",
+          "umbrella",
+          "umbrella",
+          "umbrella",
+          "umbrella",
+          "umbrella",
+          "umbrella",
+          "umbrella",
+          "umbrella",
+          "umbrella"
+        ]
+      }
+    ]
+  },
+  {
+    "pair_id": "67536001_297426003",
+    "type": "other",
+    "items": [
+      {
+        "question_id": 67536001,
+        "image_id": 67536,
+        "split": "val",
+        "question": "What is the object in the lower right hand corner?",
+        "target": "keyboard",
+        "consensus": "keyboard",
+        "answers": [
+          "keyboard",
+          "keyboard",
+          "keyboard",
+          "keyboard",
+          "keyboard",
+          "cord",
+          "keyboard",
+          "keyboard",
+          "keyboard",
+          "earbuds"
+        ]
+      },
+      {
+        "question_id": 297426003,
+        "image_id": 297426,
+        "split": "val",
+        "question": "What is the object in the lower right hand corner?",
+        "target": "mouse",
+        "consensus": "mouse",
+        "answers": [
+          "mouse",
+          "mouse",
+          "mouse",
+          "mouse",
+          "mouse",
+          "mouse",
+          "mouse",
+          "mouse",
+          "mouse",
+          "mouse"
+        ]
+      }
+    ]
+  }
+]
