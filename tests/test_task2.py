@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 import torch
 import torch.nn.functional as F
-from transformers import AutoTokenizer, Qwen3Config, Qwen3ForCausalLM
+from transformers import AutoTokenizer, Qwen3Config, Qwen3ForCausalLM, SiglipVisionConfig, SiglipVisionModel
 
 from common.bootstrap import paired_difference_ci, resample_indices
 from common.io import load_yaml
@@ -224,3 +224,18 @@ def test_isolation_check_rejects_shared_eval_images():
 
     with pytest.raises(AssertionError):
         check_isolation(out)
+
+
+def test_siglip_last_hidden_state_has_post_layernorm_exactly_once():
+    config= SiglipVisionConfig(hidden_size=32, intermediate_size=64, num_hidden_layers=1, num_attention_heads=2, image_size=224, patch_size=16)
+    torch.manual_seed(0)
+    model= SiglipVisionModel(config).eval()
+
+    with torch.no_grad():
+        out= model(pixel_values=torch.randn(1, 3, 224, 224), output_hidden_states=True)
+        normed= model.vision_model.post_layernorm(out.hidden_states[-1])
+
+    #196 patches in 14 x 14 order, already normalized: features.py must not apply the layer norm again
+    assert out.last_hidden_state.shape == (1, 196, 32)
+    assert torch.allclose(out.last_hidden_state, normed, atol=1e-6)
+    assert not torch.allclose(out.last_hidden_state, model.vision_model.post_layernorm(normed), atol=1e-3)
