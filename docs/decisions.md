@@ -219,3 +219,18 @@ Every interpretation of the handout or deviation from it, with the handout page 
   group (ties → first in annotation order).
 - Order of evaluation selection (one shared "used images" set, so every evaluation set is image-disjoint from every
   other): VQA dev, grounding dev, VQA test, grounding test, caption dev. Asserted in `check_isolation`.
+
+### Training (`task2/train.py`, handout p. 8–9)
+
+- A fresh AdamW and LR schedule per stage (each stage has its own peak LRs, 5% warmup and cosine to 10%, and stage 2
+  adds the LoRA parameters). The connector weights, scaler and RNG carry over between stages.
+- Stage 1 = exactly two shuffled passes over the 18,000 caption examples (2,250 × 16 = 36,000). Stages 2–3: each draw
+  picks a component by the stage mixture with the seeded sampler (with replacement, no quotas): a full pair, or two
+  captions. Microbatches are filled draw by draw (4 draws = 8 examples). Cumulative draw counts are logged per update.
+- LoRA r16, α32, dropout 0.05 on q/k/v/o (FP32 factors, same `LoRALinear` as Task 1), added at the start of stage 2.
+- Dev evaluation at update 0, every 500, and 2,250 / 3,750 / 4,500: caption reference loss (training-loss definition,
+  end-of-turn included) and answer NLL without end-of-turn under correct / complementary / no-image images, plus
+  ΔNLL = NLL(partner image) − NLL(correct image), per suite.
+- Resume restores weights, optimizer, scheduler, scaler, all RNG states and the sampler (generator state, current pass
+  permutation and position); a checkpoint exactly at a stage boundary starts the next stage with a fresh optimizer.
+  Tested: an interrupted + resumed smoke run ends with bitwise-identical weights to an uninterrupted one.
