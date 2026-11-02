@@ -10,6 +10,7 @@ from collections import Counter, defaultdict
 import numpy as np
 
 from common.io import git_commit, load_yaml, write_json
+from common.sync import make_api, pull_file, start_sync, sync_put, sync_wait
 from task2.vqa import normalize_answer
 
 BASE_CONFIG= "configs/task2/base.yaml"
@@ -28,6 +29,8 @@ RAW_FILES= {
     "pairs_val": "v2_mscoco_val2014_complementary_pairs.json"
 }
 SPLIT_DIR= {"train": "train2014", "val": "val2014"}
+#selected ids are synced here so every session (and the repo commit) uses the same files
+DATA_BRANCH= "task2-data"
 
 
 def download_raw(cfg, raw_dir):
@@ -369,6 +372,16 @@ def main(args):
     if args.smoke:
         cfg.update(smoke_cfg)
 
+    api= make_api() if args.sync_repo else None
+    if api is not None and not args.smoke:
+        #already built in an earlier session: reuse those exact files
+        files= [f for f in api.list_repo_files(args.sync_repo, revision=DATA_BRANCH) if f.startswith("splits/task2/")] if DATA_BRANCH in [b.name for b in api.list_repo_refs(args.sync_repo).branches] else []
+        if "splits/task2/summary.json" in files:
+            for f in files:
+                assert pull_file(api, args.sync_repo, DATA_BRANCH, f, os.path.join(args.split_dir, os.path.basename(f)), os.path.join(args.raw_dir, "staging"))
+            print("pulled", len(files), "split files from", DATA_BRANCH)
+            return 0
+
     if args.smoke:
         make_smoke_raw(args.raw_dir, cfg["seed"])
     else:
@@ -402,6 +415,13 @@ def main(args):
     write_json(os.path.join(args.split_dir, "summary.json"), summary)
     print(json.dumps(summary["sizes"]), json.dumps(summary["n_images"]))
 
+    if api is not None and not args.smoke:
+        sync= start_sync(args.sync_repo, DATA_BRANCH, api=api)
+        sync_put(sync, "upload_folder", args.split_dir, "splits/task2")
+        if not sync_wait(sync):
+            print("WARNING splits not synced:", sync["failures"])
+            return 1
+
     return 0
 
 
@@ -417,6 +437,11 @@ if __name__ == "__main__":
         "--split_dir",
         type=str,
         default="splits/task2"
+    )
+    parser.add_argument(
+        "--sync_repo",
+        type=str,
+        default=None
     )
     parser.add_argument(
         "--smoke",

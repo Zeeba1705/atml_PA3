@@ -12,11 +12,13 @@ from PIL import Image
 from transformers import AutoImageProcessor, SiglipVisionConfig, SiglipVisionModel
 
 from common.io import load_yaml, run_metadata, write_json
+from common.sync import make_api, pull_file, start_sync, sync_put, sync_wait
 from task2.build_data import SPLIT_DIR
 
 BASE_CONFIG= "configs/task2/base.yaml"
 DATA_CONFIG= "configs/task2/data.yaml"
 SHARD_SIZE= 1000
+FEATURE_BRANCH= "task2-features"
 #parallel image downloads (network bound)
 N_THREADS= 16
 
@@ -103,12 +105,21 @@ def main(args):
     t0= time.time()
     load_seconds, n_done= 0.0, 0
 
+    #shards are deterministic; synced to the hub so a new session pulls them instead of recomputing
+    api= make_api() if args.sync_repo else None
+    sync= start_sync(args.sync_repo, FEATURE_BRANCH, api=api) if args.sync_repo else None
+    staging= os.path.join(args.output_dir, "task2", "feat_staging")
+
     pool= ThreadPoolExecutor(N_THREADS)
     for split in ["train", "val"]:
         ids= images[split]
         for k in range(0, len(ids), SHARD_SIZE):
             path= shard_path(feat_dir, split, k // SHARD_SIZE)
+            rel= "outputs/" + os.path.relpath(path, args.output_dir)
+            if not os.path.exists(path) and api is not None:
+                pull_file(api, args.sync_repo, FEATURE_BRANCH, rel, path, staging)
             if os.path.exists(path):
+                assert torch.load(path)["ids"] == ids[k:k + SHARD_SIZE], f"{path} holds other images than images.json"
                 continue
 
             chunk= ids[k:k + SHARD_SIZE]
@@ -126,6 +137,8 @@ def main(args):
             #shard written atomically: a rerun skips it
             torch.save({"ids": chunk, "feats": feats}, path + ".tmp")
             os.replace(path + ".tmp", path)
+            if sync is not None:
+                sync_put(sync, "upload_file", path, rel)
 
             n_done+= len(chunk)
             rate= n_done / (time.time() - t0)
@@ -142,6 +155,9 @@ def main(args):
     })
     os.makedirs(args.results_dir, exist_ok=True)
     write_json(os.path.join(args.results_dir, "features_smoke.json" if args.smoke else "features.json"), meta)
+
+    if sync is not None and not sync_wait(sync):
+        print("WARNING not everything was synced:", sync["failures"])
 
     #free the vision encoder before anything loads qwen
     del model
@@ -187,6 +203,11 @@ if __name__ == "__main__":
         "--results_dir",
         type=str,
         default="results/task2"
+    )
+    parser.add_argument(
+        "--sync_repo",
+        type=str,
+        default=None
     )
     parser.add_argument(
         "--batch_size",
