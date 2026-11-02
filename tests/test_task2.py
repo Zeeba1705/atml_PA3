@@ -231,6 +231,11 @@ def test_siglip_last_hidden_state_has_post_layernorm_exactly_once():
     torch.manual_seed(0)
     model= SiglipVisionModel(config).eval()
 
+    #non-trivial affine params: with the default (1, 0) init a layer norm applied twice equals applying it once
+    with torch.no_grad():
+        model.vision_model.post_layernorm.weight.uniform_(0.5, 2.0)
+        model.vision_model.post_layernorm.bias.uniform_(-1.0, 1.0)
+
     with torch.no_grad():
         out= model(pixel_values=torch.randn(1, 3, 224, 224), output_hidden_states=True)
         normed= model.vision_model.post_layernorm(out.hidden_states[-1])
