@@ -176,3 +176,16 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - L2-SP terms are drawn in separate panels (SFT/total, λΩ, Ω) since their scales differ by ~1000×; no dual axes.
 - Fixed colours per run (full_ft_mid = a lighter step of Full FT's blue, baseline = gray), same in every figure.
 
+
+## Task 3 — test-time compute
+
+### Scores and selection (handout p. 12–14)
+
+- All selectors take the revealed candidates in their current order; ties (vote totals or scores) go to the
+  earliest supporting rollout in that order. RWC ranks are descending average ranks (rank 1 = best).
+- A rollout with no scored tokens gets score −∞ for ranking (it can still be selected through votes).
+- VisConf calibration pools token KL over the revealed candidates only (`numpy.percentile`, linear interpolation),
+  recomputed for every prefix; `candidate_scores` never reads unrevealed rollouts (tested with a 33rd rollout).
+- RWC margin = (top − second) / total vote weight, second = 0 with one answer group. With one candidate the RWC
+  weight is 1 (the formula's N − 1 denominator is undefined there; the handout says every rule returns it).
+- NO_ANSWER is an ordinary group in voting and cost, never graded correct, and never a valid agreement leader.
