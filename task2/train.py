@@ -371,6 +371,8 @@ def main(args):
             m= dev_eval(llm, connector, tokenizer, segments, cfg, dev, feats, device)
             append_jsonl(dev_path, {"update": progress["update"], "stage": stage["name"], **m})
             print("dev", progress["update"], {n: round(v, 4) for n, v in m.items()})
+            if sync is not None:
+                sync_put(sync, "upload_folder", results_dir, results_prefix)
 
         #one optimizer update = grad_accum microbatches of micro_batch examples
         optimizer.zero_grad(set_to_none=True)
@@ -414,6 +416,10 @@ def main(args):
         if session_updates == 5 or progress["update"] % 25 == 0:
             per= elapsed / session_updates
             print(f"update {progress['update']}/{total} loss {np.mean(losses):.4f} | {per:.2f} s/update, ~{per * (total - progress['update']) / 3600:.2f} h left", flush=True)
+
+        #small result files go up often, so progress is visible on the hub between checkpoints
+        if sync is not None and progress["update"] % 50 == 0:
+            sync_put(sync, "upload_folder", results_dir, results_prefix)
 
         stage_end= progress["update"] == sum(s["updates"] for s in cfg["stages"][:k + 1])
         if progress["update"] % cfg["ckpt_every"] == 0 or stage_end:

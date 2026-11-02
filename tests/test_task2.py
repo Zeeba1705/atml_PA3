@@ -8,6 +8,7 @@ from common.bootstrap import paired_difference_ci, resample_indices
 from common.io import load_yaml
 from task2.build_data import check_isolation, grounding_pairs
 from task2.connector import Connector, calibrate_scale
+from task2.evaluate import generate, mismatch_map
 from task2.vlm import IGNORE, build_example, collate, example_nll, prompt_segments, vlm_loss
 from task2.vqa import normalize_answer, soft_accuracy
 
@@ -244,3 +245,30 @@ def test_siglip_last_hidden_state_has_post_layernorm_exactly_once():
     assert out.last_hidden_state.shape == (1, 196, 32)
     assert torch.allclose(out.last_hidden_state, normed, atol=1e-6)
     assert not torch.allclose(out.last_hidden_state, model.vision_model.post_layernorm(normed), atol=1e-3)
+
+
+def test_left_padded_generation_matches_unpadded():
+    tok= AutoTokenizer.from_pretrained(CFG["llm_name"])
+    llm= tiny_llm(tok).eval()
+    llm.config.use_cache= True
+    conn= Connector(CFG["vision_dim"], TINY_DIM, TINY_DIM).eval()
+
+    cfg= dict(CFG, eval_batch_size=8, eval_max_new_tokens=6)
+    segments= prompt_segments(tok, cfg)
+    feats= {"val": {"index": {1: 0, 2: 1}, "feats": torch.randn(2, CFG["n_patches"], CFG["vision_dim"]).half()}}
+
+    short= {"image": ("val", 1), "question": "Is it red?", "target": None, "max_target": 16}
+    long= {"image": ("val", 2), "question": "How many dogs are sitting on the long wooden bench in the park today?", "target": None, "max_target": 16}
+
+    alone= generate(llm, conn, tok, segments, cfg, [short], feats, torch.device("cpu"))
+    padded= generate(llm, conn, tok, segments, cfg, [long, short], feats, torch.device("cpu"))
+
+    assert padded[1]["prediction"] == alone[0]["prediction"]
+
+
+def test_mismatch_map_never_uses_the_pairs_own_images():
+    pairs= [{"pair_id": f"p{i}"} for i in range(7)]
+    m= mismatch_map(pairs, 6304)
+
+    assert all(m[p] != p for p in m) and sorted(m.values()) == sorted(m)
+    assert m == mismatch_map(pairs, 6304)
