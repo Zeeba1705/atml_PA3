@@ -6,6 +6,7 @@ from transformers import AutoTokenizer, Qwen3Config, Qwen3ForCausalLM
 
 from common.bootstrap import paired_difference_ci, resample_indices
 from common.io import load_yaml
+from task2.build_data import check_isolation, grounding_pairs
 from task2.connector import Connector, calibrate_scale
 from task2.vlm import IGNORE, build_example, collate, example_nll, prompt_segments, vlm_loss
 from task2.vqa import normalize_answer, soft_accuracy
@@ -183,3 +184,43 @@ def test_pair_bootstrap_resamples_whole_pairs_with_matched_ids():
 
     #same seed -> same pairs drawn
     assert np.array_equal(idx, resample_indices(5, 1000, seed=6304))
+
+
+def strict_index():
+    #category 1 = dog. image 1: 2 dogs; 2: one crowd dog only; 3: no dog; 4: 1 dog + a crowd dog; 5: 3 dogs
+    counts= {1: {1: [2, 0]}, 2: {1: [0, 1]}, 3: {}, 4: {1: [1, 1]}, 5: {1: [3, 0]}}
+
+    return {"counts": counts, "images": [1, 2, 3, 4, 5], "names": {1: "dog"}, "captions": {}}
+
+
+def test_strict_rule_for_crowd_annotations():
+    data_cfg= load_yaml("configs/task2/data.yaml")
+    index= strict_index()
+
+    pres= grounding_pairs(index, index["images"], "presence", 200, np.random.default_rng(0), None, data_cfg, "dev")
+    yes= {p["items"][0]["image_id"] for p in pres}
+    no= {p["items"][1]["image_id"] for p in pres}
+
+    #yes needs a non-crowd dog; no needs zero dog boxes (the crowd-only image 2 is neither)
+    assert yes <= {1, 4, 5} and no == {3}
+    assert pres[0]["items"][0]["question"] == "Does this image contain a dog?"
+
+    cnt= grounding_pairs(index, index["images"], "counting", 200, np.random.default_rng(0), None, data_cfg, "dev")
+    used= {(it["image_id"], it["target"]) for p in cnt for it in p["items"]}
+
+    #image 4 has a crowd dog -> never counted; counts are the non-crowd boxes
+    assert used <= {(1, "2"), (5, "3")} and cnt[0]["items"][0]["question"] == "How many dogs can you see?"
+
+
+def test_isolation_check_rejects_shared_eval_images():
+    item= lambda img, ans: {"image_id": img, "split": "val", "question": "q?", "target": ans}
+    out= {
+        "captions_train": [], "vqa_train": [], "presence_pool_train": [], "counting_pool_train": [],
+        "captions_dev": [{"image_id": 7, "split": "val", "caption": "x"}],
+        "vqa_dev": [], "vqa_test": [],
+        "grounding_dev": [{"pair_id": "a", "items": [item(1, "yes"), item(2, "no")]}],
+        "grounding_test": [{"pair_id": "b", "items": [item(2, "yes"), item(3, "no")]}]
+    }
+
+    with pytest.raises(AssertionError):
+        check_isolation(out)

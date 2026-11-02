@@ -205,3 +205,17 @@ Every interpretation of the handout or deviation from it, with the handout page 
   for counting it. Counts 1–4 only; answers are digits.
 - Wording: "Does this image contain a/an {name}?" and "How many {plural} can you see?" with a fixed hand-written plural
   map for the 80 COCO category names (`configs/task2/`).
+
+### Data selection (`task2/build_data.py`, handout p. 7–8)
+
+- Grounding evaluation pairs split evenly between presence and counting: dev 12 + 12, test 32 + 32 (the handout gives
+  only the combined 24 / 64).
+- Grounding training pools (8,000 presence + 8,000 counting pairs, sampled with replacement during training) are built
+  on the 6,000 caption training images, so features are cached once for training.
+- Pair generation: category uniform among the usable ones, then images uniform within it (counting: two different
+  counts drawn first). VQAv2: candidates sorted by pair id, seeded permutation, taken per answer type.
+- VQAv2 consensus = most common normalized answer with ≥ 8/10 support on each image, the two consensus answers
+  different, both questions of the same answer type; target = the most frequent original string in the consensus
+  group (ties → first in annotation order).
+- Order of evaluation selection (one shared "used images" set, so every evaluation set is image-disjoint from every
+  other): VQA dev, grounding dev, VQA test, grounding test, caption dev. Asserted in `check_isolation`.

@@ -1,0 +1,125 @@
+#task 2 data selection (handout pp. 7-8), seed from base.yaml. annotation files only; images are fetched later
+#for the selected ids (features.py)
+annotation_urls:
+  coco: http://images.cocodataset.org/annotations/annotations_trainval2014.zip
+  vqa_questions_train: https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Questions_Train_mscoco.zip
+  vqa_questions_val: https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Questions_Val_mscoco.zip
+  vqa_annotations_train: https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Annotations_Train_mscoco.zip
+  vqa_annotations_val: https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Annotations_Val_mscoco.zip
+  vqa_pairs_train: https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Complementary_Pairs_Train_mscoco.zip
+  vqa_pairs_val: https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Complementary_Pairs_Val_mscoco.zip
+image_url: http://images.cocodataset.org/{split}/COCO_{split}_{image_id:012d}.jpg
+
+#sizes (handout p. 7-8)
+caption_train_images: 6000
+captions_per_train_image: 3
+caption_dev_images: 96
+vqa_pairs:
+  train: {yes/no: 640, number: 256, other: 640}
+  dev: {yes/no: 12, number: 8, other: 12}
+  test: {yes/no: 36, number: 24, other: 36}
+vqa_min_agreement: 8
+#grounding eval pairs: the handout gives presence + counting together; split evenly
+grounding_pairs:
+  dev: {presence: 12, counting: 12}
+  test: {presence: 32, counting: 32}
+count_range: [1, 4]
+#training pools (sampled with replacement during training), built from the caption training images
+grounding_pool_pairs: {presence: 8000, counting: 8000}
+
+#wording (strict rule): presence phrase = a/an + name unless listed; plural map for counting questions
+presence_phrase_overrides: {skis: skis, scissors: scissors, broccoli: broccoli}
+plurals:
+  person: people
+  bicycle: bicycles
+  car: cars
+  motorcycle: motorcycles
+  airplane: airplanes
+  bus: buses
+  train: trains
+  truck: trucks
+  boat: boats
+  traffic light: traffic lights
+  fire hydrant: fire hydrants
+  stop sign: stop signs
+  parking meter: parking meters
+  bench: benches
+  bird: birds
+  cat: cats
+  dog: dogs
+  horse: horses
+  sheep: sheep
+  cow: cows
+  elephant: elephants
+  bear: bears
+  zebra: zebras
+  giraffe: giraffes
+  backpack: backpacks
+  umbrella: umbrellas
+  handbag: handbags
+  tie: ties
+  suitcase: suitcases
+  frisbee: frisbees
+  skis: skis
+  snowboard: snowboards
+  sports ball: sports balls
+  kite: kites
+  baseball bat: baseball bats
+  baseball glove: baseball gloves
+  skateboard: skateboards
+  surfboard: surfboards
+  tennis racket: tennis rackets
+  bottle: bottles
+  wine glass: wine glasses
+  cup: cups
+  fork: forks
+  knife: knives
+  spoon: spoons
+  bowl: bowls
+  banana: bananas
+  apple: apples
+  sandwich: sandwiches
+  orange: oranges
+  broccoli: broccoli
+  carrot: carrots
+  hot dog: hot dogs
+  pizza: pizzas
+  donut: donuts
+  cake: cakes
+  chair: chairs
+  couch: couches
+  potted plant: potted plants
+  bed: beds
+  dining table: dining tables
+  toilet: toilets
+  tv: tvs
+  laptop: laptops
+  mouse: mice
+  remote: remotes
+  keyboard: keyboards
+  cell phone: cell phones
+  microwave: microwaves
+  oven: ovens
+  toaster: toasters
+  sink: sinks
+  refrigerator: refrigerators
+  book: books
+  clock: clocks
+  vase: vases
+  scissors: scissors
+  teddy bear: teddy bears
+  hair drier: hair driers
+  toothbrush: toothbrushes
+
+#--smoke: tiny synthetic annotation files made by the script itself
+smoke:
+  caption_train_images: 20
+  caption_dev_images: 4
+  vqa_pairs:
+    train: {yes/no: 4, number: 2, other: 4}
+    dev: {yes/no: 1, number: 1, other: 1}
+    test: {yes/no: 2, number: 1, other: 2}
+  grounding_pairs:
+    dev: {presence: 2, counting: 2}
+    test: {presence: 2, counting: 2}
+  grounding_pool_pairs: {presence: 20, counting: 20}
