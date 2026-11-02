@@ -30,8 +30,15 @@ def main(args):
             return 1
 
     hours_left= args.max_hours - (time.time() - start) / 3600
+    if run([sys.executable, "-m", "task2.train"] + out + sync + ["--max_hours", f"{hours_left:.3f}"]) != 0:
+        return 1
 
-    return run([sys.executable, "-m", "task2.train"] + out + sync + ["--max_hours", f"{hours_left:.3f}"])
+    #final test evaluation only once training has finished (stage 3 weights exist); otherwise rerun next session
+    if not os.path.exists(os.path.join(args.output_dir, "task2", "main", "stage3", "weights.pt")):
+        print("training not finished in this session: run the notebook again to continue")
+        return 0
+
+    return run([sys.executable, "-m", "task2.evaluate"] + out + sync)
 
 
 if __name__ == "__main__":
