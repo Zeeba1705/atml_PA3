@@ -234,3 +234,6 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - Resume restores weights, optimizer, scheduler, scaler, all RNG states and the sampler (generator state, current pass
   permutation and position); a checkpoint exactly at a stage boundary starts the next stage with a fresh optimizer.
   Tested: an interrupted + resumed smoke run ends with bitwise-identical weights to an uninterrupted one.
+- Feature caching ran in a Kaggle session that had no accelerator, so SigLIP ran in FP32 on the CPU; the features are
+  stored in FP16 as specified (the handout requires FP16 caching, not FP16 encoding). Throughput was limited by image
+  downloads (2.7 images/s) either way. Training and evaluation now refuse to run on a CPU unless asked explicitly.

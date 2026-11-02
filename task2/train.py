@@ -255,6 +255,10 @@ def main(args):
     seed_everything(cfg["seed"])
 
     device= torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
+
+    #a kaggle session without an accelerator silently fell back to cpu once (66 min for the first dev eval):
+    #real runs need a gpu unless cpu is asked for explicitly
+    assert args.smoke or device.type == "cuda" or args.device == "cpu", "no GPU found: enable the T4 accelerator (or pass --device cpu on purpose)"
     use_fp16= device.type == "cuda"
     print("Using device:", device)
 
