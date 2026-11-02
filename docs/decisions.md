@@ -176,3 +176,32 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - L2-SP terms are drawn in separate panels (SFT/total, λΩ, Ω) since their scales differ by ~1000×; no dual axes.
 - Fixed colours per run (full_ft_mid = a lighter step of Full FT's blue, baseline = gray), same in every figure.
 
+
+## Task 2 — SigLIP–Qwen VLM
+
+### Visual interface (handout p. 7–9)
+
+- Prompt layout: Qwen3's own chat template (thinking off) for a user message whose first line is the image, split at
+  a text marker that is never tokenized: `<|im_start|>user\n` + 196 visual tokens + `\n{question}<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n`
+  + target + `<|im_end|>`. No-image inputs drop the 196 positions and keep every text token; masks and positions are
+  rebuilt (positions = cumulative count of real tokens, so padding on either side never shifts them).
+- Caption prompt (not fixed by the handout): "Describe this image in one sentence." (`configs/task2/base.yaml`).
+- Caps: question tokens truncated to 80, caption target to 64, short answers to 16 content tokens; end-of-turn is
+  appended after the cap and supervised in training. Answer NLL for dev/eval excludes it (handout p. 8).
+- Loss: per-example mean NLL over labelled tokens, then the batch mean; logits are computed only at labelled positions.
+- Connector magnitude calibration (training data only): a fixed, non-trainable output scale
+  s = mean ‖text embedding‖ / mean ‖initial connector output‖, the text side measured over the training captions' and
+  questions' token embeddings, the visual side over training-image features. The value is recorded in the run config.
+- VQA soft accuracy follows the handout formula; with 10 answers it gives 1.0 for ≥ 4 matches, 0.9 for 3, 0.6 for 2,
+  0.3 for 1 (CLAUDE2.md's "3 matches → 1.0" example was off; the test uses the formula).
+- One normalizer (official VQA eval rules, adapted; see README Attribution) for VQA answers, grounding targets and
+  model outputs. The official code's `re.UNICODE` passed as a replacement count is not copied (all periods matching
+  the pattern are stripped).
+
+### Grounding labels (Strict rule, chosen by me)
+
+- Presence "yes" image: ≥ 1 non-crowd annotation of the category; "no" image: zero annotations of it, crowd included.
+- Counting: count = number of non-crowd annotations; an image with any crowd annotation of that category is not used
+  for counting it. Counts 1–4 only; answers are digits.
+- Wording: "Does this image contain a/an {name}?" and "How many {plural} can you see?" with a fixed hand-written plural
+  map for the 80 COCO category names (`configs/task2/`).

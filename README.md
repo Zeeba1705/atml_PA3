@@ -136,4 +136,6 @@ default, reimplemented in `task1/methods/lora.py`. `first_plot_questions.yaml` (
 from [emergent-misalignment/emergent-misalignment](https://github.com/emergent-misalignment/emergent-misalignment)
 (`evaluation/first_plot_questions.yaml` at commit `e40daef5791139a2417e22034ab0a0e72900524b`, MIT licence; Betley et
 al., 2025, "Emergent Misalignment"). The handout names the file but the course did not ship it; its sha256 is pinned in
-`configs/task1/qualitative.yaml`.
+`configs/task1/qualitative.yaml`. Task 2's answer normalization (`task2/vqa.py`) is adapted from the official VQA
+evaluation code ([GT-Vision-Lab/VQA](https://github.com/GT-Vision-Lab/VQA), `vqaEval.py`: punctuation, number-word,
+article and contraction rules).
