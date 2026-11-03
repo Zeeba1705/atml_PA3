@@ -1,0 +1,67 @@
+{
+  "git_commit": "74f0b1decf0d40e9de20922ca94eb8357ebfd770-dirty",
+  "seed": 6304,
+  "config": {
+    "model": "Qwen/Qwen2.5-3B-Instruct",
+    "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "repetition_penalty": 1.0,
+    "system": "You are a helpful assistant.",
+    "instruction": "Think step by step inside <think> </think> tags, then give your final answer inside \\boxed{}.",
+    "review_instruction": "Review the solution above. Identify and correct any errors; if it is correct, retain its answer. Give your final answer inside \\boxed{}.",
+    "single_tokens": 3072,
+    "n_parallel": 3,
+    "parallel_tokens": 1024,
+    "refine_tokens": 2048,
+    "smoke": {
+      "single_tokens": 8,
+      "parallel_tokens": 4,
+      "refine_tokens": 6
+    },
+    "seed": 6304,
+    "n_questions": 1000,
+    "n_dev": 200,
+    "n_live": 50,
+    "n_orders": 10,
+    "budgets": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "bootstrap_resamples": 1000,
+    "data_dir": "ATML-PA3-Data",
+    "mathvista_meta": "ATML-PA3-Data/mathvista_testmini.json",
+    "mathvista_meta_url": "https://raw.githubusercontent.com/lupantech/MathVista/452b0f83e0079029fb48d1d1b606d3954d812db1/data/testmini.json",
+    "adaptive_tau": [
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "adaptive_gamma": [
+      0,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "adaptive_score": {
+      "math": "self_certainty",
+      "mathvista": "visconf"
+    }
+  },
+  "gpu": "Tesla T4",
+  "host": "509e875203a7",
+  "torch": "2.11.0+cu130",
+  "transformers": "5.5.0",
+  "model": "Qwen/Qwen2.5-3B-Instruct",
+  "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "dtype": "float16",
+  "shard": 1,
+  "n_shards": 2
+}

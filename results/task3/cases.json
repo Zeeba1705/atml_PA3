@@ -1102,5 +1102,18 @@
         }
       ]
     }
+  },
+  "revision": {
+    "initial_accuracy": 0.56,
+    "wrong_to_correct": 1,
+    "correct_to_wrong": 0,
+    "revision_cases": [
+      {
+        "sample_id": "test:3504",
+        "initial": "NO_ANSWER",
+        "revised": "216",
+        "gold": "216"
+      }
+    ]
   }
 }
