@@ -224,3 +224,15 @@ Every interpretation of the handout or deviation from it, with the handout page 
   questions only; per family the lowest-cost setting with dev accuracy ≥ fixed-32 SC − 1 pp, ties → higher accuracy,
   smaller τ, smaller γ; always-32 is a candidate in both families. The choice is written to
   `results/task3/adaptive_selected.json` before the held-out simulation, and reused (never re-selected) on reruns.
+
+### Live generation (`task3/live_generate.py`, handout p. 12–13)
+
+- Prompt: native chat template, system "You are a helpful assistant.", user = problem + two newlines + the exact
+  instruction (README layout). Review turn: the first parallel response appended as the assistant message, then the
+  exact review instruction as a user message; one 2,048-token response, its last box is the revised answer.
+- Seeds: call k of question i uses seed 6304·1000 + 10·i + k (single k = 0, parallel k = 1..3, refine k = 9), set
+  with `torch.manual_seed` right before each `generate` call; all saved per call.
+- Parallel answer: self-consistency over the three extracted answers grouped with the same math-verify rule as the
+  offline analysis (ties → earliest response). Truncated = no end-of-turn token within the cap.
+- Questions: the 50 live ids, problems and gold saved once to `splits/task3/live_problems.json` from the course data.
+  The 50 questions are split over two T4s by question index parity; timings are per call on the same GPU type.
