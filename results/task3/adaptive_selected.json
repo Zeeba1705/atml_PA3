@@ -1,0 +1,472 @@
+{
+  "info": {
+    "git_commit": "5eccd4d27c14eda3a90710b3746f01bd3a23b036-dirty",
+    "rule": "lowest mean tokens with dev acc >= fixed-32 SC - 1 pp; ties: higher acc, smaller tau, smaller gamma"
+  },
+  "datasets": {
+    "math": {
+      "dev_sc32_accuracy": 0.825,
+      "score": "self_certainty",
+      "selected": {
+        "agreement": {
+          "family": "agreement",
+          "tau": 0.625,
+          "gamma": null,
+          "correct": 0.826,
+          "tokens": 7088.9555,
+          "rollouts": 9.15
+        },
+        "quality": {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0,
+          "correct": 0.8215,
+          "tokens": 5479.528499999999,
+          "rollouts": 7.152
+        }
+      },
+      "dev_grid": [
+        {
+          "family": "always_32",
+          "tau": null,
+          "gamma": null,
+          "correct": 0.825,
+          "tokens": 18322.4,
+          "rollouts": 32.0
+        },
+        {
+          "family": "agreement",
+          "tau": 0.5,
+          "gamma": null,
+          "correct": 0.8144999999999999,
+          "tokens": 5052.79,
+          "rollouts": 6.648000000000001
+        },
+        {
+          "family": "agreement",
+          "tau": 0.625,
+          "gamma": null,
+          "correct": 0.826,
+          "tokens": 7088.9555,
+          "rollouts": 9.15
+        },
+        {
+          "family": "agreement",
+          "tau": 0.75,
+          "gamma": null,
+          "correct": 0.826,
+          "tokens": 7717.453,
+          "rollouts": 10.113999999999999
+        },
+        {
+          "family": "agreement",
+          "tau": 0.875,
+          "gamma": null,
+          "correct": 0.826,
+          "tokens": 9980.345500000001,
+          "rollouts": 13.648
+        },
+        {
+          "family": "agreement",
+          "tau": 1.0,
+          "gamma": null,
+          "correct": 0.826,
+          "tokens": 10848.273000000001,
+          "rollouts": 15.171999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0,
+          "correct": 0.8215,
+          "tokens": 5479.528499999999,
+          "rollouts": 7.152
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0.1,
+          "correct": 0.8220000000000002,
+          "tokens": 5663.57,
+          "rollouts": 7.432
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0.25,
+          "correct": 0.821,
+          "tokens": 6026.990499999999,
+          "rollouts": 7.93
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0.5,
+          "correct": 0.8225,
+          "tokens": 7056.63,
+          "rollouts": 9.373999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0,
+          "correct": 0.8265,
+          "tokens": 7129.35,
+          "rollouts": 9.22
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0.1,
+          "correct": 0.8265,
+          "tokens": 7248.73,
+          "rollouts": 9.421999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0.25,
+          "correct": 0.8255000000000001,
+          "tokens": 7292.650999999999,
+          "rollouts": 9.498
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0.5,
+          "correct": 0.825,
+          "tokens": 7850.745500000001,
+          "rollouts": 10.34
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0,
+          "correct": 0.8265,
+          "tokens": 7756.0554999999995,
+          "rollouts": 10.176
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0.1,
+          "correct": 0.8265,
+          "tokens": 7927.5465,
+          "rollouts": 10.434000000000001
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0.25,
+          "correct": 0.826,
+          "tokens": 7940.8645,
+          "rollouts": 10.461999999999998
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0.5,
+          "correct": 0.8245,
+          "tokens": 8251.996500000001,
+          "rollouts": 10.987999999999998
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0,
+          "correct": 0.826,
+          "tokens": 9980.345500000001,
+          "rollouts": 13.648
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0.1,
+          "correct": 0.826,
+          "tokens": 9980.345500000001,
+          "rollouts": 13.648
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0.25,
+          "correct": 0.826,
+          "tokens": 9980.345500000001,
+          "rollouts": 13.648
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0.5,
+          "correct": 0.826,
+          "tokens": 9986.0425,
+          "rollouts": 13.664000000000001
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0,
+          "correct": 0.826,
+          "tokens": 10848.273000000001,
+          "rollouts": 15.171999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0.1,
+          "correct": 0.826,
+          "tokens": 10848.273000000001,
+          "rollouts": 15.171999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0.25,
+          "correct": 0.826,
+          "tokens": 10848.273000000001,
+          "rollouts": 15.171999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0.5,
+          "correct": 0.826,
+          "tokens": 10848.273000000001,
+          "rollouts": 15.171999999999999
+        }
+      ]
+    },
+    "mathvista": {
+      "dev_sc32_accuracy": 0.6425,
+      "score": "visconf",
+      "selected": {
+        "agreement": {
+          "family": "agreement",
+          "tau": 0.5,
+          "gamma": null,
+          "correct": 0.6365,
+          "tokens": 3765.9935000000005,
+          "rollouts": 9.526
+        },
+        "quality": {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0,
+          "correct": 0.64,
+          "tokens": 4157.0675,
+          "rollouts": 10.786
+        }
+      },
+      "dev_grid": [
+        {
+          "family": "always_32",
+          "tau": null,
+          "gamma": null,
+          "correct": 0.6425,
+          "tokens": 9217.485,
+          "rollouts": 32.0
+        },
+        {
+          "family": "agreement",
+          "tau": 0.5,
+          "gamma": null,
+          "correct": 0.6365,
+          "tokens": 3765.9935000000005,
+          "rollouts": 9.526
+        },
+        {
+          "family": "agreement",
+          "tau": 0.625,
+          "gamma": null,
+          "correct": 0.6455,
+          "tokens": 5268.7045,
+          "rollouts": 13.888
+        },
+        {
+          "family": "agreement",
+          "tau": 0.75,
+          "gamma": null,
+          "correct": 0.644,
+          "tokens": 5671.6275,
+          "rollouts": 15.164000000000001
+        },
+        {
+          "family": "agreement",
+          "tau": 0.875,
+          "gamma": null,
+          "correct": 0.642,
+          "tokens": 7071.81,
+          "rollouts": 20.146
+        },
+        {
+          "family": "agreement",
+          "tau": 1.0,
+          "gamma": null,
+          "correct": 0.642,
+          "tokens": 7427.095499999999,
+          "rollouts": 21.906
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0,
+          "correct": 0.64,
+          "tokens": 4157.0675,
+          "rollouts": 10.786
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0.1,
+          "correct": 0.64,
+          "tokens": 4412.2505,
+          "rollouts": 11.585999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0.25,
+          "correct": 0.6405,
+          "tokens": 4712.201999999999,
+          "rollouts": 12.527999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 0.5,
+          "gamma": 0.5,
+          "correct": 0.6435,
+          "tokens": 5506.648499999999,
+          "rollouts": 15.16
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0,
+          "correct": 0.6445000000000001,
+          "tokens": 5344.3485,
+          "rollouts": 14.148
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0.1,
+          "correct": 0.644,
+          "tokens": 5452.007,
+          "rollouts": 14.574000000000002
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0.25,
+          "correct": 0.6435,
+          "tokens": 5503.23,
+          "rollouts": 14.758000000000003
+        },
+        {
+          "family": "quality",
+          "tau": 0.625,
+          "gamma": 0.5,
+          "correct": 0.644,
+          "tokens": 5911.901999999999,
+          "rollouts": 16.256
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0,
+          "correct": 0.6435,
+          "tokens": 5755.563,
+          "rollouts": 15.475999999999999
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0.1,
+          "correct": 0.6425,
+          "tokens": 5888.3855,
+          "rollouts": 15.962
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0.25,
+          "correct": 0.6425,
+          "tokens": 5891.7119999999995,
+          "rollouts": 15.99
+        },
+        {
+          "family": "quality",
+          "tau": 0.75,
+          "gamma": 0.5,
+          "correct": 0.645,
+          "tokens": 6145.749,
+          "rollouts": 16.988
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0,
+          "correct": 0.642,
+          "tokens": 7071.81,
+          "rollouts": 20.146
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0.1,
+          "correct": 0.642,
+          "tokens": 7071.81,
+          "rollouts": 20.146
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0.25,
+          "correct": 0.642,
+          "tokens": 7071.81,
+          "rollouts": 20.146
+        },
+        {
+          "family": "quality",
+          "tau": 0.875,
+          "gamma": 0.5,
+          "correct": 0.642,
+          "tokens": 7076.856,
+          "rollouts": 20.186
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0,
+          "correct": 0.642,
+          "tokens": 7427.095499999999,
+          "rollouts": 21.906
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0.1,
+          "correct": 0.642,
+          "tokens": 7427.095499999999,
+          "rollouts": 21.906
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0.25,
+          "correct": 0.642,
+          "tokens": 7427.095499999999,
+          "rollouts": 21.906
+        },
+        {
+          "family": "quality",
+          "tau": 1.0,
+          "gamma": 0.5,
+          "correct": 0.642,
+          "tokens": 7427.095499999999,
+          "rollouts": 21.906
+        }
+      ]
+    }
+  }
+}

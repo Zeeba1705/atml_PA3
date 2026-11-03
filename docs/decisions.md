@@ -213,3 +213,14 @@ Every interpretation of the handout or deviation from it, with the handout page 
   `10^8` / `\frac{1}{3}` become NO_ANSWER (a known limitation of this rule).
 - Cache summary: MATH 66.3% of rollouts correct, 521 NO_ANSWER (the README's 521 nulls), 81 questions with no correct
   rollout; MathVista 54.2% correct, 4,278 NO_ANSWER (3,032 nulls + 1,246 that do not reduce to one valid number).
+
+### Offline evaluation and adaptive stopping (handout p. 12–14)
+
+- Main numbers are reported on the 800 held-out questions; dev numbers are saved too. Averages: over the 10 orders
+  within a question, then over questions. Token cost = sum of `n_generated_text_tokens` of consumed candidates
+  (FirstAns consumes one). The length-only control (`shortest`) is a highest-score selector on −length.
+- Adaptive: stopping evidence at n = 4, 8, 16 (and 32) uses only the revealed candidates (self-certainty for MATH,
+  VisConf recalibrated on the revealed set for MathVista). Grid τ × γ (+ always-32) searched on the 200 dev
+  questions only; per family the lowest-cost setting with dev accuracy ≥ fixed-32 SC − 1 pp, ties → higher accuracy,
+  smaller τ, smaller γ; always-32 is a candidate in both families. The choice is written to
+  `results/task3/adaptive_selected.json` before the held-out simulation, and reused (never re-selected) on reruns.

@@ -139,3 +139,18 @@ def test_mathvista_unit_stripping_and_choice_rules():
     assert mathvista_answer("(B)", mc) == "B"
     assert mathvista_answer("145°", mc) == "C"
     assert mathvista_answer(None, mc) == NO_ANSWER
+
+
+def test_stop_point_checks_4_8_16_then_32():
+    from task3.adaptive import stop_point
+
+    def s(leader, support, sc, rwc_w, margin):
+        return {"leader": leader, "support": support, "sc": sc, "rwc": rwc_w, "margin": margin, "tokens": 0}
+
+    stats= {4: s(None, 0.5, "a", "a", 0.0), 8: s("a", 0.75, "a", "b", 0.9), 16: s("a", 0.8, "a", "a", 0.3), 32: s("a", 0.8, "a", "a", 0.3)}
+
+    #4: tied leaders; 8: agreement ok; quality also needs sc == rwc (fails at 8) and margin >= gamma (ok at 16)
+    assert stop_point(stats, "agreement", 0.75, None) == 8
+    assert stop_point(stats, "quality", 0.75, 0.25) == 16
+    assert stop_point(stats, "quality", 0.75, 0.5) == 32
+    assert stop_point(stats, "always_32", None, None) == 32
