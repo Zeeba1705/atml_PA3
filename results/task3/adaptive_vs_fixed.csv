@@ -1,0 +1,17 @@
+dataset,policy,tau,gamma,accuracy,mean_tokens,mean_rollouts,stop_4,stop_8,stop_16,stop_32,incorrect_early_stops,recoverable_by_32,dev_accuracy
+math,fixed SC N=1,,,0.6435,669.8,1,,,,,,,
+math,fixed SC N=2,,,0.6435,1339.9,2,,,,,,,
+math,fixed SC N=4,,,0.692,2679.7,4,,,,,,,
+math,fixed SC N=8,,,0.7179,5344.1,8,,,,,,,
+math,fixed SC N=16,,,0.7311,10677.7,16,,,,,,,
+math,fixed SC N=32,,,0.7379,21347.0,32,,,,,,,
+math,adaptive agreement,0.625,,0.7364,10140.0,11.82,0.6627,0.0586,0.0132,0.2654,0.0825,0.0064,0.826
+math,adaptive quality,0.5,0,0.7317,7663.1,9.01,0.7636,0.0581,0.0135,0.1648,0.144,0.0164,0.8215
+mathvista,fixed SC N=1,,,0.5419,277.8,1,,,,,,,
+mathvista,fixed SC N=2,,,0.5419,551.3,2,,,,,,,
+mathvista,fixed SC N=4,,,0.5853,1111.6,4,,,,,,,
+mathvista,fixed SC N=8,,,0.6059,2229.9,8,,,,,,,
+mathvista,fixed SC N=16,,,0.6168,4461.8,16,,,,,,,
+mathvista,fixed SC N=32,,,0.6252,8897.8,32,,,,,,,
+mathvista,adaptive agreement,0.5,,0.6199,3134.7,9.39,0.7319,0.075,0.0201,0.173,0.2278,0.039,0.6365
+mathvista,adaptive quality,0.5,0,0.6229,3476.7,10.46,0.6696,0.0968,0.0291,0.2045,0.203,0.0312,0.64
