@@ -110,3 +110,32 @@ def test_agreement_needs_a_unique_leader_with_enough_support():
 
     #2-2 tie: no unique leader
     assert not agreement_stop(["a", "b", "a", "b"], tau=0.5)
+
+
+def test_math_groups_equivalent_answers_without_gold():
+    from task3.answers import grade_math, group_math
+
+    keys, reps= group_math(["\\frac{1}{2}", "0.5", None, "2", "  "])
+
+    #0.5 joins the \frac{1}{2} group; missing / blank extractions are NO_ANSWER
+    assert keys == ["\\frac{1}{2}", "\\frac{1}{2}", NO_ANSWER, "2", NO_ANSWER]
+    assert grade_math(reps, ".5") == "\\frac{1}{2}"
+    assert grade_math(reps, "7") is None
+
+
+def test_mathvista_unit_stripping_and_choice_rules():
+    from task3.answers import mathvista_answer, mathvista_gold
+
+    integer= {"question_type": "free_form", "answer_type": "integer", "precision": None, "answer": "1000"}
+    flt= {"question_type": "free_form", "answer_type": "float", "precision": "2", "answer": "0.33"}
+    mc= {"question_type": "multi_choice", "answer_type": "text", "choices": ["135°", "140°", "145°"], "answer": "140°"}
+
+    assert mathvista_answer("1000 \\text{ ml}", integer) == "1000"
+    assert mathvista_answer("1,200", integer) == "1200"
+    assert mathvista_answer("10-20 years", integer) == NO_ANSWER
+    assert mathvista_answer("0.3333 \\, \\text{m}", flt) == "0.33"
+
+    assert mathvista_gold(mc) == "B"
+    assert mathvista_answer("(B)", mc) == "B"
+    assert mathvista_answer("145°", mc) == "C"
+    assert mathvista_answer(None, mc) == NO_ANSWER
