@@ -1,0 +1,11 @@
+item,value
+"trainable params, stage 1 (connector)",1837056
+"trainable params, stages 2-3 (connector + LoRA)",6424576
+"training time (h), all 4,500 updates incl. dev evals",1.718
+training peak GPU memory (GB),1.67
+training GPU,Tesla T4
+eval peak GPU memory (GB),1.6
+"generation time per answer, vqa / grounding (s, batch 8)",0.0371 / 0.0344
+feature caching (images / seconds / device),9226 / 3360 / cpu (kaggle session without accelerator)
+connector output scale (calibration),0.05499
+draws per component,"{""stage1/caption"": 18000, ""stage2/caption"": 2973, ""stage2/counting"": 3027, ""stage2/presence"": 6000, ""stage3/presence"": 563, ""stage3/vqa"": 4223, ""stage3/caption"": 587, ""stage3/counting"": 627}"

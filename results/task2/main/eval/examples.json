@@ -1,0 +1,2994 @@
+{
+  "vqa": {
+    "both_right": [
+      {
+        "pair_id": "100848001_367848002",
+        "question": "Does it appear to be day or night?",
+        "references": [
+          "day",
+          "night"
+        ],
+        "pred_correct_images": [
+          "day",
+          "night"
+        ],
+        "pred_swapped_images": [
+          "night",
+          "day"
+        ]
+      },
+      {
+        "pair_id": "117701001_373713065",
+        "question": "How many people are pictured?",
+        "references": [
+          "4",
+          "3"
+        ],
+        "pred_correct_images": [
+          "4",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "134098004_383470000",
+        "question": "Is the road plowed?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "137246001_457249005",
+        "question": "Is the woman hungry?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "150843003_392915015",
+        "question": "Is the oven hot?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "163167013_377626000",
+        "question": "Was the picture taken on the street?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "185633000_525420001",
+        "question": "Is the water on?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "21994003_108338002",
+        "question": "How many elephants are in the picture?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "222370019_506751000",
+        "question": "How many people are there?",
+        "references": [
+          "3",
+          "2"
+        ],
+        "pred_correct_images": [
+          "3",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "3"
+        ]
+      },
+      {
+        "pair_id": "222430003_389649000",
+        "question": "How many people have blonde hair?",
+        "references": [
+          "1",
+          "3"
+        ],
+        "pred_correct_images": [
+          "1",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "241882001_288599010",
+        "question": "How many people are in the picture?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "243222000_391400003",
+        "question": "How many red hats are there?",
+        "references": [
+          "1",
+          "0"
+        ],
+        "pred_correct_images": [
+          "1",
+          "0"
+        ],
+        "pred_swapped_images": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "248310002_521405000",
+        "question": "How many toothbrushes are shown?",
+        "references": [
+          "2",
+          "1"
+        ],
+        "pred_correct_images": [
+          "2",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "2"
+        ]
+      },
+      {
+        "pair_id": "293153004_565813003",
+        "question": "How many boats are in the water?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "300972003_529939003",
+        "question": "Is this an Army base?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "306619009_493905003",
+        "question": "What sport is this?",
+        "references": [
+          "soccer",
+          "tennis"
+        ],
+        "pred_correct_images": [
+          "soccer",
+          "tennis"
+        ],
+        "pred_swapped_images": [
+          "tennis",
+          "soccer"
+        ]
+      },
+      {
+        "pair_id": "313130006_531563001",
+        "question": "What color is the oven?",
+        "references": [
+          "white",
+          "black"
+        ],
+        "pred_correct_images": [
+          "white",
+          "black"
+        ],
+        "pred_swapped_images": [
+          "black",
+          "white"
+        ]
+      },
+      {
+        "pair_id": "336300001_429717000",
+        "question": "Is the lamp on or off?",
+        "references": [
+          "on",
+          "off"
+        ],
+        "pred_correct_images": [
+          "on",
+          "off"
+        ],
+        "pred_swapped_images": [
+          "off",
+          "on"
+        ]
+      },
+      {
+        "pair_id": "342273020_499210001",
+        "question": "Is he wearing formal clothes?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "352217000_427135003",
+        "question": "What sport is this girl playing?",
+        "references": [
+          "tennis",
+          "soccer"
+        ],
+        "pred_correct_images": [
+          "tennis",
+          "soccer"
+        ],
+        "pred_swapped_images": [
+          "soccer",
+          "tennis"
+        ]
+      },
+      {
+        "pair_id": "358058001_376342000",
+        "question": "How many men have red shirts?",
+        "references": [
+          "1",
+          "3"
+        ],
+        "pred_correct_images": [
+          "1",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "37945000_302882005",
+        "question": "Is the boy trying to brush his teeth?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "401010002_578524009",
+        "question": "Is the bedding white?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "410951003_511999003",
+        "question": "How many trains are shown?",
+        "references": [
+          "2",
+          "1"
+        ],
+        "pred_correct_images": [
+          "2",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "2"
+        ]
+      },
+      {
+        "pair_id": "488240002_525354003",
+        "question": "Does this person wear a tie?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "502214002_540098001",
+        "question": "Is the body of water a lake?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "510616019_570848001",
+        "question": "Is this female playing tennis?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "58849001_274292007",
+        "question": "What kind of animal is this?",
+        "references": [
+          "dog",
+          "cat"
+        ],
+        "pred_correct_images": [
+          "dog",
+          "cat"
+        ],
+        "pred_swapped_images": [
+          "cat",
+          "dog"
+        ]
+      },
+      {
+        "pair_id": "641000_315450002",
+        "question": "How many buses?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "66685000_79837018",
+        "question": "Is it a sunny day?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "75494004_224222001",
+        "question": "How many people are in the water?",
+        "references": [
+          "1",
+          "3"
+        ],
+        "pred_correct_images": [
+          "1",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "94194027_180718006",
+        "question": "Is the man in a kitchen?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      }
+    ],
+    "follows_partner_when_swapped": [
+      {
+        "pair_id": "100848001_367848002",
+        "question": "Does it appear to be day or night?",
+        "references": [
+          "day",
+          "night"
+        ],
+        "pred_correct_images": [
+          "day",
+          "night"
+        ],
+        "pred_swapped_images": [
+          "night",
+          "day"
+        ]
+      },
+      {
+        "pair_id": "117701001_373713065",
+        "question": "How many people are pictured?",
+        "references": [
+          "4",
+          "3"
+        ],
+        "pred_correct_images": [
+          "4",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "134098004_383470000",
+        "question": "Is the road plowed?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "137246001_457249005",
+        "question": "Is the woman hungry?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "150843003_392915015",
+        "question": "Is the oven hot?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "163167013_377626000",
+        "question": "Was the picture taken on the street?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "185633000_525420001",
+        "question": "Is the water on?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "21994003_108338002",
+        "question": "How many elephants are in the picture?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "222370019_506751000",
+        "question": "How many people are there?",
+        "references": [
+          "3",
+          "2"
+        ],
+        "pred_correct_images": [
+          "3",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "3"
+        ]
+      },
+      {
+        "pair_id": "222430003_389649000",
+        "question": "How many people have blonde hair?",
+        "references": [
+          "1",
+          "3"
+        ],
+        "pred_correct_images": [
+          "1",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "241882001_288599010",
+        "question": "How many people are in the picture?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "243222000_391400003",
+        "question": "How many red hats are there?",
+        "references": [
+          "1",
+          "0"
+        ],
+        "pred_correct_images": [
+          "1",
+          "0"
+        ],
+        "pred_swapped_images": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "248310002_521405000",
+        "question": "How many toothbrushes are shown?",
+        "references": [
+          "2",
+          "1"
+        ],
+        "pred_correct_images": [
+          "2",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "2"
+        ]
+      },
+      {
+        "pair_id": "293153004_565813003",
+        "question": "How many boats are in the water?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "300972003_529939003",
+        "question": "Is this an Army base?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "306619009_493905003",
+        "question": "What sport is this?",
+        "references": [
+          "soccer",
+          "tennis"
+        ],
+        "pred_correct_images": [
+          "soccer",
+          "tennis"
+        ],
+        "pred_swapped_images": [
+          "tennis",
+          "soccer"
+        ]
+      },
+      {
+        "pair_id": "313130006_531563001",
+        "question": "What color is the oven?",
+        "references": [
+          "white",
+          "black"
+        ],
+        "pred_correct_images": [
+          "white",
+          "black"
+        ],
+        "pred_swapped_images": [
+          "black",
+          "white"
+        ]
+      },
+      {
+        "pair_id": "336300001_429717000",
+        "question": "Is the lamp on or off?",
+        "references": [
+          "on",
+          "off"
+        ],
+        "pred_correct_images": [
+          "on",
+          "off"
+        ],
+        "pred_swapped_images": [
+          "off",
+          "on"
+        ]
+      },
+      {
+        "pair_id": "342273020_499210001",
+        "question": "Is he wearing formal clothes?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "352217000_427135003",
+        "question": "What sport is this girl playing?",
+        "references": [
+          "tennis",
+          "soccer"
+        ],
+        "pred_correct_images": [
+          "tennis",
+          "soccer"
+        ],
+        "pred_swapped_images": [
+          "soccer",
+          "tennis"
+        ]
+      },
+      {
+        "pair_id": "358058001_376342000",
+        "question": "How many men have red shirts?",
+        "references": [
+          "1",
+          "3"
+        ],
+        "pred_correct_images": [
+          "1",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "37945000_302882005",
+        "question": "Is the boy trying to brush his teeth?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "401010002_578524009",
+        "question": "Is the bedding white?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "410951003_511999003",
+        "question": "How many trains are shown?",
+        "references": [
+          "2",
+          "1"
+        ],
+        "pred_correct_images": [
+          "2",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "2"
+        ]
+      },
+      {
+        "pair_id": "488240002_525354003",
+        "question": "Does this person wear a tie?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "502214002_540098001",
+        "question": "Is the body of water a lake?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "510616019_570848001",
+        "question": "Is this female playing tennis?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "58849001_274292007",
+        "question": "What kind of animal is this?",
+        "references": [
+          "dog",
+          "cat"
+        ],
+        "pred_correct_images": [
+          "dog",
+          "cat"
+        ],
+        "pred_swapped_images": [
+          "cat",
+          "dog"
+        ]
+      },
+      {
+        "pair_id": "641000_315450002",
+        "question": "How many buses?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "66685000_79837018",
+        "question": "Is it a sunny day?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "75494004_224222001",
+        "question": "How many people are in the water?",
+        "references": [
+          "1",
+          "3"
+        ],
+        "pred_correct_images": [
+          "1",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "94194027_180718006",
+        "question": "Is the man in a kitchen?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "no"
+        ]
+      }
+    ],
+    "same_answer_both_images": [
+      {
+        "pair_id": "100604000_399830009",
+        "question": "Can you see mushrooms?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "100853007_264461002",
+        "question": "Did a man or woman use the toilet last?",
+        "references": [
+          "woman",
+          "man"
+        ],
+        "pred_correct_images": [
+          "woman",
+          "woman"
+        ],
+        "pred_swapped_images": [
+          "woman",
+          "woman"
+        ]
+      },
+      {
+        "pair_id": "102446000_367442003",
+        "question": "Is this a living room?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "109229006_332869018",
+        "question": "What is laying on the grass?",
+        "references": [
+          "leaves",
+          "frisbee"
+        ],
+        "pred_correct_images": [
+          "grass",
+          "grass"
+        ],
+        "pred_swapped_images": [
+          "grass",
+          "grass"
+        ]
+      },
+      {
+        "pair_id": "119640005_284542000",
+        "question": "What brand of sneakers is the woman wearing?",
+        "references": [
+          "nike",
+          "adidas"
+        ],
+        "pred_correct_images": [
+          "sneakers",
+          "sneakers"
+        ],
+        "pred_swapped_images": [
+          "sneakers",
+          "sneakers"
+        ]
+      },
+      {
+        "pair_id": "120806002_395633004",
+        "question": "Is the tug boat red?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "127880008_187079003",
+        "question": "Is this baby a boy or a girl?",
+        "references": [
+          "girl",
+          "boy"
+        ],
+        "pred_correct_images": [
+          "girl",
+          "girl"
+        ],
+        "pred_swapped_images": [
+          "girl",
+          "girl"
+        ]
+      },
+      {
+        "pair_id": "131494001_197683001",
+        "question": "Does everyone in this photo have facial hair?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "135029011_171942002",
+        "question": "How many blueberries are visible?",
+        "references": [
+          "0",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "141492000_218017002",
+        "question": "What color is her skirt?",
+        "references": [
+          "blue",
+          "green"
+        ],
+        "pred_correct_images": [
+          "blue",
+          "blue"
+        ],
+        "pred_swapped_images": [
+          "blue",
+          "blue"
+        ]
+      },
+      {
+        "pair_id": "155478017_484938011",
+        "question": "What color are the boys shorts?",
+        "references": [
+          "blue",
+          "gray"
+        ],
+        "pred_correct_images": [
+          "blue",
+          "blue"
+        ],
+        "pred_swapped_images": [
+          "blue",
+          "blue"
+        ]
+      },
+      {
+        "pair_id": "156497007_563885003",
+        "question": "Is the lamp on or off?",
+        "references": [
+          "on",
+          "off"
+        ],
+        "pred_correct_images": [
+          "on",
+          "on"
+        ],
+        "pred_swapped_images": [
+          "on",
+          "on"
+        ]
+      },
+      {
+        "pair_id": "167044001_366852001",
+        "question": "Is this pizza already pre cut?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "175310010_577744003",
+        "question": "What color are the  cabinets?",
+        "references": [
+          "white",
+          "brown"
+        ],
+        "pred_correct_images": [
+          "white",
+          "white"
+        ],
+        "pred_swapped_images": [
+          "white",
+          "white"
+        ]
+      },
+      {
+        "pair_id": "183114006_579982001",
+        "question": "What color is the sky?",
+        "references": [
+          "gray",
+          "blue"
+        ],
+        "pred_correct_images": [
+          "blue",
+          "blue"
+        ],
+        "pred_swapped_images": [
+          "blue",
+          "blue"
+        ]
+      },
+      {
+        "pair_id": "198612000_285212002",
+        "question": "Is the dog looking at the camera?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "198717001_330410000",
+        "question": "Are they in the living room?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "233527005_447569002",
+        "question": "IS the writing on the bus in English?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "24845001_560591002",
+        "question": "Is the floor tile or laminate?",
+        "references": [
+          "laminate",
+          "tile"
+        ],
+        "pred_correct_images": [
+          "tile",
+          "tile"
+        ],
+        "pred_swapped_images": [
+          "tile",
+          "tile"
+        ]
+      },
+      {
+        "pair_id": "249838008_250655003",
+        "question": "What time is it?",
+        "references": [
+          "1:10",
+          "7:41"
+        ],
+        "pred_correct_images": [
+          "10:30",
+          "10:30"
+        ],
+        "pred_swapped_images": [
+          "10:30",
+          "10:30"
+        ]
+      },
+      {
+        "pair_id": "256518016_549882002",
+        "question": "Are there any drinks here?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "257767005_433505038",
+        "question": "Is someone looking up something on Wikipedia?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "262386041_577796003",
+        "question": "Are there tiles on the wall?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "282229003_495054037",
+        "question": "What airline does this plane belong to?",
+        "references": [
+          "delta",
+          "virgin atlantic"
+        ],
+        "pred_correct_images": [
+          "american",
+          "american"
+        ],
+        "pred_swapped_images": [
+          "american",
+          "american"
+        ]
+      },
+      {
+        "pair_id": "287305026_347768001",
+        "question": "What type of vehicle is in the center?",
+        "references": [
+          "bus",
+          "jeep"
+        ],
+        "pred_correct_images": [
+          "bus",
+          "bus"
+        ],
+        "pred_swapped_images": [
+          "bus",
+          "bus"
+        ]
+      },
+      {
+        "pair_id": "295693001_356380001",
+        "question": "Is the tv on?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "296404005_479099001",
+        "question": "What color is the grass?",
+        "references": [
+          "brown",
+          "green"
+        ],
+        "pred_correct_images": [
+          "green",
+          "green"
+        ],
+        "pred_swapped_images": [
+          "green",
+          "green"
+        ]
+      },
+      {
+        "pair_id": "304578002_489616026",
+        "question": "What color is the cow?",
+        "references": [
+          "white",
+          "brown"
+        ],
+        "pred_correct_images": [
+          "white",
+          "white"
+        ],
+        "pred_swapped_images": [
+          "white",
+          "white"
+        ]
+      },
+      {
+        "pair_id": "311954002_336718011",
+        "question": "Is the TV on or off?",
+        "references": [
+          "off",
+          "on"
+        ],
+        "pred_correct_images": [
+          "on",
+          "on"
+        ],
+        "pred_swapped_images": [
+          "on",
+          "on"
+        ]
+      },
+      {
+        "pair_id": "329280002_373341001",
+        "question": "Is that a ups truck?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "32932011_100726000",
+        "question": "What color is the womans pants?",
+        "references": [
+          "blue",
+          "white"
+        ],
+        "pred_correct_images": [
+          "black",
+          "black"
+        ],
+        "pred_swapped_images": [
+          "black",
+          "black"
+        ]
+      },
+      {
+        "pair_id": "34535002_193494001",
+        "question": "Is this a child's bed?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "346185002_555669005",
+        "question": "Is the person on the left playing a video game?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "370798003_478374008",
+        "question": "Are these stallions?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "387696003_412151000",
+        "question": "How many people are there?",
+        "references": [
+          "3",
+          "2"
+        ],
+        "pred_correct_images": [
+          "2",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "2"
+        ]
+      },
+      {
+        "pair_id": "459823001_550013026",
+        "question": "Can the dog roam freely??",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "471415004_535578002",
+        "question": "Is the sky visible in this photo?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "53505000_195897002",
+        "question": "Is there a phone on the wall?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "560178000_567340075",
+        "question": "Which hand is holding the food?",
+        "references": [
+          "left",
+          "right"
+        ],
+        "pred_correct_images": [
+          "right",
+          "right"
+        ],
+        "pred_swapped_images": [
+          "right",
+          "right"
+        ]
+      },
+      {
+        "pair_id": "5820000_130527010",
+        "question": "Is the grass healthy?",
+        "references": [
+          "no",
+          "yes"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "58886018_318174017",
+        "question": "What color is the keyboard?",
+        "references": [
+          "white",
+          "black"
+        ],
+        "pred_correct_images": [
+          "black",
+          "black"
+        ],
+        "pred_swapped_images": [
+          "black",
+          "black"
+        ]
+      },
+      {
+        "pair_id": "75560007_106912005",
+        "question": "What color is the fence?",
+        "references": [
+          "silver",
+          "white"
+        ],
+        "pred_correct_images": [
+          "green",
+          "green"
+        ],
+        "pred_swapped_images": [
+          "green",
+          "green"
+        ]
+      },
+      {
+        "pair_id": "82157033_581496000",
+        "question": "What color is his shirt?",
+        "references": [
+          "gray",
+          "blue"
+        ],
+        "pred_correct_images": [
+          "white",
+          "white"
+        ],
+        "pred_swapped_images": [
+          "white",
+          "white"
+        ]
+      },
+      {
+        "pair_id": "84312007_185030002",
+        "question": "Do the shoes match?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "yes"
+        ],
+        "pred_swapped_images": [
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "89557011_228261001",
+        "question": "What color is the tablecloth?",
+        "references": [
+          "blue",
+          "white"
+        ],
+        "pred_correct_images": [
+          "white",
+          "white"
+        ],
+        "pred_swapped_images": [
+          "white",
+          "white"
+        ]
+      },
+      {
+        "pair_id": "96549007_450483002",
+        "question": "Is this a long-haul flight?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "98431005_192406001",
+        "question": "How many green buses are there?",
+        "references": [
+          "1",
+          "4"
+        ],
+        "pred_correct_images": [
+          "1",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "1"
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "both_right": [
+      {
+        "pair_id": "counting_test_00005",
+        "question": "How many tvs can you see?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00008",
+        "question": "How many forks can you see?",
+        "references": [
+          "4",
+          "1"
+        ],
+        "pred_correct_images": [
+          "4",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00013",
+        "question": "How many cakes can you see?",
+        "references": [
+          "4",
+          "3"
+        ],
+        "pred_correct_images": [
+          "4",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00014",
+        "question": "How many bears can you see?",
+        "references": [
+          "4",
+          "3"
+        ],
+        "pred_correct_images": [
+          "4",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00031",
+        "question": "How many refrigerators can you see?",
+        "references": [
+          "4",
+          "1"
+        ],
+        "pred_correct_images": [
+          "4",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00001",
+        "question": "Does this image contain a carrot?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00002",
+        "question": "Does this image contain an orange?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00003",
+        "question": "Does this image contain a tv?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00004",
+        "question": "Does this image contain a chair?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00005",
+        "question": "Does this image contain a sports ball?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00006",
+        "question": "Does this image contain a handbag?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00007",
+        "question": "Does this image contain a pizza?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00008",
+        "question": "Does this image contain a tennis racket?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00009",
+        "question": "Does this image contain a toothbrush?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00011",
+        "question": "Does this image contain a banana?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00012",
+        "question": "Does this image contain a bowl?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00013",
+        "question": "Does this image contain a tennis racket?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00014",
+        "question": "Does this image contain a toothbrush?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00015",
+        "question": "Does this image contain skis?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00016",
+        "question": "Does this image contain a bowl?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00017",
+        "question": "Does this image contain a keyboard?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00018",
+        "question": "Does this image contain a donut?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00019",
+        "question": "Does this image contain a laptop?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00020",
+        "question": "Does this image contain an elephant?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00021",
+        "question": "Does this image contain a dog?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00023",
+        "question": "Does this image contain a cup?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00024",
+        "question": "Does this image contain a boat?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00025",
+        "question": "Does this image contain a clock?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00026",
+        "question": "Does this image contain a kite?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00027",
+        "question": "Does this image contain an umbrella?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00029",
+        "question": "Does this image contain a tennis racket?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00030",
+        "question": "Does this image contain a refrigerator?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00031",
+        "question": "Does this image contain a cake?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      }
+    ],
+    "follows_partner_when_swapped": [
+      {
+        "pair_id": "counting_test_00005",
+        "question": "How many tvs can you see?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "2"
+        ],
+        "pred_swapped_images": [
+          "2",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00008",
+        "question": "How many forks can you see?",
+        "references": [
+          "4",
+          "1"
+        ],
+        "pred_correct_images": [
+          "4",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00013",
+        "question": "How many cakes can you see?",
+        "references": [
+          "4",
+          "3"
+        ],
+        "pred_correct_images": [
+          "4",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00014",
+        "question": "How many bears can you see?",
+        "references": [
+          "4",
+          "3"
+        ],
+        "pred_correct_images": [
+          "4",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00031",
+        "question": "How many refrigerators can you see?",
+        "references": [
+          "4",
+          "1"
+        ],
+        "pred_correct_images": [
+          "4",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00001",
+        "question": "Does this image contain a carrot?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00002",
+        "question": "Does this image contain an orange?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00003",
+        "question": "Does this image contain a tv?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00004",
+        "question": "Does this image contain a chair?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00005",
+        "question": "Does this image contain a sports ball?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00006",
+        "question": "Does this image contain a handbag?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00007",
+        "question": "Does this image contain a pizza?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00008",
+        "question": "Does this image contain a tennis racket?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00009",
+        "question": "Does this image contain a toothbrush?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00011",
+        "question": "Does this image contain a banana?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00012",
+        "question": "Does this image contain a bowl?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00013",
+        "question": "Does this image contain a tennis racket?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00014",
+        "question": "Does this image contain a toothbrush?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00015",
+        "question": "Does this image contain skis?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00016",
+        "question": "Does this image contain a bowl?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00017",
+        "question": "Does this image contain a keyboard?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00018",
+        "question": "Does this image contain a donut?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00019",
+        "question": "Does this image contain a laptop?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00020",
+        "question": "Does this image contain an elephant?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00021",
+        "question": "Does this image contain a dog?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00023",
+        "question": "Does this image contain a cup?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00024",
+        "question": "Does this image contain a boat?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00025",
+        "question": "Does this image contain a clock?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00026",
+        "question": "Does this image contain a kite?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00027",
+        "question": "Does this image contain an umbrella?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00029",
+        "question": "Does this image contain a tennis racket?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00030",
+        "question": "Does this image contain a refrigerator?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00031",
+        "question": "Does this image contain a cake?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "yes",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "yes"
+        ]
+      }
+    ],
+    "same_answer_both_images": [
+      {
+        "pair_id": "counting_test_00003",
+        "question": "How many books can you see?",
+        "references": [
+          "3",
+          "4"
+        ],
+        "pred_correct_images": [
+          "4",
+          "4"
+        ],
+        "pred_swapped_images": [
+          "4",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00007",
+        "question": "How many backpacks can you see?",
+        "references": [
+          "3",
+          "1"
+        ],
+        "pred_correct_images": [
+          "3",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "3"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00016",
+        "question": "How many umbrellas can you see?",
+        "references": [
+          "3",
+          "4"
+        ],
+        "pred_correct_images": [
+          "4",
+          "4"
+        ],
+        "pred_swapped_images": [
+          "4",
+          "4"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00022",
+        "question": "How many kites can you see?",
+        "references": [
+          "4",
+          "2"
+        ],
+        "pred_correct_images": [
+          "3",
+          "3"
+        ],
+        "pred_swapped_images": [
+          "3",
+          "3"
+        ]
+      },
+      {
+        "pair_id": "counting_test_00026",
+        "question": "How many tvs can you see?",
+        "references": [
+          "1",
+          "2"
+        ],
+        "pred_correct_images": [
+          "1",
+          "1"
+        ],
+        "pred_swapped_images": [
+          "1",
+          "1"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00000",
+        "question": "Does this image contain a remote?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00010",
+        "question": "Does this image contain a bench?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00022",
+        "question": "Does this image contain a snowboard?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      },
+      {
+        "pair_id": "presence_test_00028",
+        "question": "Does this image contain a tv?",
+        "references": [
+          "yes",
+          "no"
+        ],
+        "pred_correct_images": [
+          "no",
+          "no"
+        ],
+        "pred_swapped_images": [
+          "no",
+          "no"
+        ]
+      }
+    ]
+  }
+}
