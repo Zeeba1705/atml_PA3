@@ -1,0 +1,162 @@
+{
+  "git_commit": "a8f052d6b2364a4a6467b808684bb84e24ab37ea-dirty",
+  "seed": 6304,
+  "config": {
+    "model_name": "Qwen/Qwen3-0.6B",
+    "enable_thinking": false,
+    "seed": 6304,
+    "dataset_name": "meta-math/MetaMathQA",
+    "dataset_file": "MetaMathQA-395K.json",
+    "dataset_revision": "aa4f34d3d2d3231299b5b03d9b3e5a20da45aa18",
+    "gsm8k_name": "openai/gsm8k",
+    "gsm8k_test_file": "main/test-00000-of-00001.parquet",
+    "gsm8k_revision": "740312add88f781978c0658806c59bc2815b9866",
+    "n_examples": 40000,
+    "max_length": 2048,
+    "selection_path": "splits/task1/train_selection.json",
+    "num_updates": 1250,
+    "micro_batch": 2,
+    "grad_accum": 16,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.01,
+    "warmup_updates": 38,
+    "max_grad_norm": 1.0,
+    "grad_checkpointing": true,
+    "milestones": [
+      312,
+      625,
+      937,
+      1250
+    ],
+    "eval_milestones": [
+      625,
+      1250
+    ],
+    "ckpt_every_minutes": 20,
+    "keep_rolling": 2,
+    "nan_patience": 10,
+    "preflight_mem_fraction": 0.93,
+    "method": "oplora",
+    "lr": 0.0002,
+    "rank": 16,
+    "alpha": 32,
+    "protect_k": 128,
+    "lora_dropout": 0.05,
+    "lora_targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "ckpt_every": 50,
+    "export_updates": [
+      1250
+    ],
+    "keep_milestone_states": true,
+    "smoke": false
+  },
+  "gpu": "Tesla T4",
+  "host": "a7e77e26c2f7",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.5.0",
+  "run_name": "oplora16",
+  "trainable_params": 10092544,
+  "progress": {
+    "update": 1250,
+    "examples_consumed": 40000,
+    "skipped_updates": 0,
+    "train_seconds": 12027.858694076538,
+    "ckpt_seconds": 28.02734613418579,
+    "export_seconds": 0.1178436279296875,
+    "peak_mem_bytes": 3822301696,
+    "sessions": 1
+  },
+  "overhead": {
+    "svd_seconds": 31.488614559173584,
+    "bases_bytes": 322961408,
+    "bases_path": "/kaggle/working/outputs/task1/oplora_bases.pt",
+    "init_A_sha256": "68eae9b1d13219fe0dd80c5f58bc4cf92a468679edf92a118862babf89c1b56a",
+    "model_load_seconds": 45.20048189163208,
+    "preflight": {
+      "ok": true,
+      "message": "ok",
+      "longest_lengths": [
+        1741,
+        1941
+      ],
+      "peak_bytes": 3710792704,
+      "total_bytes": 15636037632,
+      "microbatch_seconds": 3.2475812435150146,
+      "worst_case_update_seconds": 51.961299896240234
+    },
+    "export_1250": {
+      "method": "oplora",
+      "update": 1250,
+      "seconds": 0.1174473762512207,
+      "bytes": 40412728,
+      "rank": 16,
+      "alpha": 32,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": true
+    }
+  },
+  "checkpoint_sizes": {
+    "312": {
+      "trainable_bytes": 40500555,
+      "total_bytes": 121543228
+    },
+    "625": {
+      "trainable_bytes": 40500555,
+      "total_bytes": 121543229
+    },
+    "937": {
+      "trainable_bytes": 40500555,
+      "total_bytes": 121543229
+    },
+    "1250": {
+      "trainable_bytes": 40500555,
+      "total_bytes": 121543230
+    }
+  },
+  "displacement": {},
+  "sync_failures": [],
+  "exports": {
+    "update_01250": {
+      "method": "oplora",
+      "update": 1250,
+      "seconds": 0.1174473762512207,
+      "bytes": 40412728,
+      "rank": 16,
+      "alpha": 32,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": true
+    }
+  },
+  "oplora_max_UkT_Bt": 0.00010072418081108481,
+  "oplora_max_At_Vk": 0.0004304262693040073
+}

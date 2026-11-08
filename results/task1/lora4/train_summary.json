@@ -1,0 +1,156 @@
+{
+  "git_commit": "d10547256fba8d67c86f4b0a6cb090cd476df37f-dirty",
+  "seed": 6304,
+  "config": {
+    "model_name": "Qwen/Qwen3-0.6B",
+    "enable_thinking": false,
+    "seed": 6304,
+    "dataset_name": "meta-math/MetaMathQA",
+    "dataset_file": "MetaMathQA-395K.json",
+    "dataset_revision": "aa4f34d3d2d3231299b5b03d9b3e5a20da45aa18",
+    "gsm8k_name": "openai/gsm8k",
+    "gsm8k_test_file": "main/test-00000-of-00001.parquet",
+    "gsm8k_revision": "740312add88f781978c0658806c59bc2815b9866",
+    "n_examples": 40000,
+    "max_length": 2048,
+    "selection_path": "splits/task1/train_selection.json",
+    "num_updates": 1250,
+    "micro_batch": 2,
+    "grad_accum": 16,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.01,
+    "warmup_updates": 38,
+    "max_grad_norm": 1.0,
+    "grad_checkpointing": true,
+    "milestones": [
+      312,
+      625,
+      937,
+      1250
+    ],
+    "eval_milestones": [
+      625,
+      1250
+    ],
+    "ckpt_every_minutes": 20,
+    "keep_rolling": 2,
+    "nan_patience": 10,
+    "preflight_mem_fraction": 0.93,
+    "method": "lora",
+    "lr": 0.0002,
+    "lora_dropout": 0.05,
+    "lora_targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "ckpt_every": 50,
+    "export_updates": [
+      1250
+    ],
+    "keep_milestone_states": true,
+    "smoke": false,
+    "rank": 4,
+    "alpha": 8.0
+  },
+  "gpu": "Tesla T4",
+  "host": "94b11ada4e28",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.5.0",
+  "run_name": "lora4",
+  "trainable_params": 2523136,
+  "progress": {
+    "update": 1250,
+    "examples_consumed": 40000,
+    "skipped_updates": 0,
+    "train_seconds": 9483.258443117142,
+    "ckpt_seconds": 9.649675369262695,
+    "export_seconds": 0.04218101501464844,
+    "peak_mem_bytes": 3374242304,
+    "sessions": 1
+  },
+  "overhead": {
+    "init_A_sha256": "6277f539b3810b700017a354541aabac7c88e632b5a043e093c625b7df2904a8",
+    "model_load_seconds": 2.2138679027557373,
+    "preflight": {
+      "ok": true,
+      "message": "ok",
+      "longest_lengths": [
+        1741,
+        1941
+      ],
+      "peak_bytes": 3355307520,
+      "total_bytes": 15636037632,
+      "microbatch_seconds": 3.9067153930664062,
+      "worst_case_update_seconds": 62.5074462890625
+    },
+    "export_1250": {
+      "method": "lora",
+      "update": 1250,
+      "seconds": 0.041805267333984375,
+      "bytes": 10134056,
+      "rank": 4,
+      "alpha": 8.0,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": false
+    }
+  },
+  "checkpoint_sizes": {
+    "312": {
+      "trainable_bytes": 10222923,
+      "total_bytes": 30710332
+    },
+    "625": {
+      "trainable_bytes": 10222923,
+      "total_bytes": 30710333
+    },
+    "937": {
+      "trainable_bytes": 10222923,
+      "total_bytes": 30710333
+    },
+    "1250": {
+      "trainable_bytes": 10222923,
+      "total_bytes": 30710334
+    }
+  },
+  "displacement": {},
+  "sync_failures": [],
+  "exports": {
+    "update_01250": {
+      "method": "lora",
+      "update": 1250,
+      "seconds": 0.041805267333984375,
+      "bytes": 10134056,
+      "rank": 4,
+      "alpha": 8.0,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": false
+    }
+  }
+}
