@@ -128,14 +128,106 @@ python -m task1.make_tables --sync_repo <user>/atml-pa3
   scale, skipped, tokens; L2-SP also Ω, λΩ, total loss; displacement at 625/1250), `<run>_history.json`,
   `train_summary.json` (time, peak VRAM, trainable params, checkpoint sizes, method overhead).
 
-### Attribution
+## Task 2 — VLM and visual grounding
 
-No external code is copied so far. Evaluation runs EleutherAI's lm-evaluation-harness 0.4.13 as a library with its
-stock task configs. The LoRA initialization (Kaiming-uniform A with a=√5, zero B) follows the PEFT
+Frozen SigLIP-base features (cached FP16) → trainable two-layer connector → frozen Qwen3-0.6B, LoRA r16 on q/k/v/o
+from stage 2. Settings in `configs/task2/{base,data}.yaml`, choices (strict grounding rule, caps, calibration) in
+[docs/decisions.md](docs/decisions.md). The selected splits are committed in `splits/task2/`.
+
+### Smoke (CPU)
+
+```bash
+python -m task2.build_data --smoke
+python -m task2.features --smoke --device cpu
+python -m task2.train --smoke --device cpu
+python -m task2.evaluate --smoke --device cpu
+```
+
+### Full pipeline (one T4)
+
+`kaggle/task2.ipynb` (or `colab/task2.ipynb`) is a thin launcher that runs the driver below. The driver runs each step
+in order and skips finished ones: data selection (pulled from HF branch `task2-data` if already built), feature caching
+(`task2-features`), the three-stage curriculum (4,500 updates, resumes from `task2-main`), then the final evaluation
+once `stage3/weights.pt` exists. Training and evaluation refuse to run on a CPU unless `--device cpu` is given.
+
+```bash
+python kaggle/task2_run.py --sync_repo <user>/atml-pa3 --max_hours 11
+```
+
+The same steps one by one:
+
+```bash
+python -m task2.build_data --sync_repo <user>/atml-pa3
+python -m task2.features --sync_repo <user>/atml-pa3
+python -m task2.train --run_name main --sync_repo <user>/atml-pa3
+python -m task2.evaluate --run_name main --sync_repo <user>/atml-pa3
+python -m task2.make_tables --run_name main --sync_repo <user>/atml-pa3   #CPU, seconds
+```
+
+### Outputs
+
+- `results/task2/main/`: `config.json`, `train_log.jsonl`, `dev_metrics.jsonl` (update 0, every 500, stage ends),
+  `train_summary.json`; `eval/metrics.json` (final metrics, advantages with pair-bootstrap CIs) and
+  `eval/examples.json` (fixed-rule example lists). Per-condition generations are on HF branch `task2-main`.
+- `results/task2/`: `dev_metrics.csv`, `final_results.csv`, `advantages.csv`, `resources.csv`,
+  `figures/{learning_curves,final_accuracy_by_condition}.{png,pdf}`, `RESULTS_SUMMARY.md`.
+- `outputs/task2/` (not committed): cached features, checkpoints.
+
+## Task 3 — Test-time compute
+
+Offline analysis of the supplied rollouts (`ATML-PA3-Data/`, from the course Drive folder linked on handout p. 11, not
+committed) plus live generation on 50 MATH questions. Settings in `configs/task3/{base,live}.yaml`, choices in
+[docs/decisions.md](docs/decisions.md). Splits and rollout orders are committed in `splits/task3/`.
+
+### Offline (CPU)
+
+```bash
+python -m task3.load            #splits + 10 rollout orders per question (checked against the seed if present)
+python -m task3.answers         #answer groups once -> results/task3/answer_groups_{math,mathvista}.json
+python -m task3.offline_eval    #Steps 1-2: methods x N, coverage, failure decomposition
+python -m task3.adaptive        #dev-only selection frozen to adaptive_selected.json, then held-out
+python -m task3.signals         #Step 3: score quality and confidence-vision analysis at N = 32
+python -m task3.make_tables     #tables, figures, case lists, live summary
+```
+
+`--limit N` on `offline_eval` runs a quick check on the first N questions.
+
+### Live generation (Step 4, T4 x2)
+
+`kaggle/task3.ipynb` runs one shard per GPU; finished questions are skipped on rerun and results sync to HF branch
+`task3-live` after each question.
+
+```bash
+python -m task3.live_generate --smoke --device cpu    #tiny random Qwen2 with the real tokenizer, 1 question
+python -m task3.live_generate --shard 0 --n_shards 2 --sync_repo <user>/atml-pa3
+python -m task3.live_generate --shard 1 --n_shards 2 --sync_repo <user>/atml-pa3
+```
+
+### Outputs
+
+- `results/task3/offline/`: per-dataset summaries and per-question parquet files.
+- `results/task3/`: `summary.csv`, `methods_n32.csv`, `adaptive_selected.json`, `adaptive_eval.json`,
+  `adaptive_vs_fixed.csv`, `signals.{csv,json}`, `cases.json`, `live_summary.csv`,
+  `figures/{accuracy_vs_n,accuracy_vs_tokens,adaptive_vs_fixed}.{png,pdf}`, `RESULTS_SUMMARY.md`.
+- `results/task3/live/shard*of2.jsonl`: every prompt, response, seed, token count and grade.
+
+## Report reference
+
+[results/REPORT_REFERENCE.md](results/REPORT_REFERENCE.md): methodology notes and main numbers for all three tasks.
+Full numbers-only tables: `results/task{1,2,3}/RESULTS_SUMMARY.md`.
+
+## Attribution
+
+Apart from the items below, all code is written for this assignment. Evaluation runs EleutherAI's
+lm-evaluation-harness 0.4.13 as a library with its stock task configs. The LoRA initialization (Kaiming-uniform A with a=√5, zero B) follows the PEFT
 default, reimplemented in `task1/methods/lora.py`. `first_plot_questions.yaml` (Step 7 prompts) is copied unchanged
 from [emergent-misalignment/emergent-misalignment](https://github.com/emergent-misalignment/emergent-misalignment)
 (`evaluation/first_plot_questions.yaml` at commit `e40daef5791139a2417e22034ab0a0e72900524b`, MIT licence; Betley et
 al., 2025, "Emergent Misalignment"). The handout names the file but the course did not ship it; its sha256 is pinned in
 `configs/task1/qualitative.yaml`. Task 2's answer normalization (`task2/vqa.py`) is adapted from the official VQA
 evaluation code ([GT-Vision-Lab/VQA](https://github.com/GT-Vision-Lab/VQA), `vqaEval.py`: punctuation, number-word,
-article and contraction rules).
+article and contraction rules). Task 3 groups MATH answers with the `math-verify` library (0.9.0, Hugging Face) and
+reimplements the MathVista answer rules (integer/float precision normalization and the most-similar-choice fallback
+for multiple choice) following the official evaluation code
+([lupantech/MathVista](https://github.com/lupantech/MathVista), `evaluation/`); the MathVista metadata is
+`data/testmini.json` from that repo at commit `452b0f8`.
