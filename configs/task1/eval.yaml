@@ -1,0 +1,71 @@
+#step 5 evaluation (handout p. 4), loaded on top of base.yaml. lm-eval 0.4.13, HF backend for every benchmark
+#(vllm would need a newer transformers than the pinned 5.5.0, see docs/decisions.md)
+
+#condition -> trained run and the export it is evaluated at. baseline = the untouched base model
+conditions:
+  baseline: null
+  full_ft_mid: {run: full_ft, update: 625}
+  full_ft: {run: full_ft, update: 1250}
+  l2sp: {run: l2sp, update: 1250}
+  lora4: {run: lora4, update: 1250}
+  lora16: {run: lora16, update: 1250}
+  oplora16: {run: oplora16, update: 1250}
+
+#zero-shot, fp16, complete splits. revision = the dataset commit lm-eval must find (checked before running)
+benchmarks:
+  gsm8k:
+    task: gsm8k_cot
+    chat_template: true
+    max_gen_toks: 1024
+    #fixed, not auto: in fp16 the batch can change greedy outputs, so every condition uses the same one
+    batch_size: 64
+    metric: exact_match,flexible-extract
+    dataset: openai/gsm8k
+    revision: 740312add88f781978c0658806c59bc2815b9866
+  hellaswag:
+    task: hellaswag
+    chat_template: false
+    batch_size: auto
+    metric: acc_norm,none
+    raw_metric: acc,none
+    dataset: Rowan/hellaswag
+    revision: 218ec52e09a7e7462a5400043bb9a69a41d06b76
+  boolq:
+    task: boolq
+    chat_template: false
+    batch_size: auto
+    metric: acc,none
+    dataset: aps/super_glue
+    revision: 3de24cf8022e94f4ee4b9d55a6f539891524d646
+  arc_easy:
+    task: arc_easy
+    chat_template: false
+    batch_size: auto
+    metric: acc_norm,none
+    raw_metric: acc,none
+    dataset: allenai/ai2_arc
+    revision: 210d026faf9955653af8916fad021475a3f00453
+
+#prompt + up to 1024 new tokens fits easily; caps lm-eval's context and its batch-size probing
+max_length: 2048
+#merged vs unmerged logits are compared on the first few gsm8k test questions
+merge_check_questions: 4
+
+#--smoke: tiny random qwen3 with the real tokenizer (so lm-eval's prompts tokenize), 2 docs per benchmark, CPU.
+#lora_smoke gets random adapters so the merge check runs too
+smoke:
+  conditions:
+    baseline: null
+    lora_smoke: {rank: 4, alpha: 8}
+  limit: 2
+  max_gen_toks: 8
+  gsm8k_batch_size: 2
+  max_length: 256
+  smoke_model:
+    hidden_size: 32
+    intermediate_size: 48
+    num_hidden_layers: 2
+    num_attention_heads: 4
+    num_key_value_heads: 2
+    head_dim: 8
+    max_position_embeddings: 512

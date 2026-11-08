@@ -1,0 +1,74 @@
+#task 1 gpu jobs. each group runs in order on one T4; the two groups run side by side.
+#full-ft runs (full_ft, l2sp) are both in gpu0, so they never share a session (disk + CLAUDE2.md pairing rule).
+groups:
+  #evals of the full-model conditions are split over both gpus (the adapter evals on gpu1 finished first)
+  gpu0: [full_ft, l2sp, eval_baseline, eval_full_ft_mid, diagnostics]
+  gpu1: [lora16, lora4, oplora16, eval_lora4, eval_lora16, eval_oplora16, eval_full_ft, eval_l2sp, qualitative]
+  smoke: [smoke_full_ft, smoke_lora4]
+  smoke_eval: [smoke_eval_baseline, smoke_eval_lora, smoke_diagnostics, smoke_qualitative]
+
+jobs:
+  full_ft:
+    kind: train
+    args: [--config, configs/task1/full_ft.yaml]
+  l2sp:
+    kind: train
+    args: [--config, configs/task1/l2sp.yaml]
+  lora4:
+    kind: train
+    args: [--config, configs/task1/lora.yaml, --rank, "4", --alpha, "8"]
+  lora16:
+    kind: train
+    args: [--config, configs/task1/lora.yaml, --rank, "16", --alpha, "32"]
+  oplora16:
+    kind: train
+    args: [--config, configs/task1/oplora.yaml]
+  #step 5: one job per condition (all four benchmarks), see configs/task1/eval.yaml
+  eval_baseline:
+    kind: eval
+    condition: baseline
+  eval_full_ft_mid:
+    kind: eval
+    condition: full_ft_mid
+  eval_full_ft:
+    kind: eval
+    condition: full_ft
+  eval_l2sp:
+    kind: eval
+    condition: l2sp
+  eval_lora4:
+    kind: eval
+    condition: lora4
+  eval_lora16:
+    kind: eval
+    condition: lora16
+  eval_oplora16:
+    kind: eval
+    condition: oplora16
+  #step 6: all six trained conditions in one cpu-light job, after eval_baseline (reuses its logged prompts)
+  diagnostics:
+    kind: diag
+  #step 7: first_plot_questions.yaml x seven conditions, greedy, 512 new tokens
+  qualitative:
+    kind: qual
+  #cpu check of the queue itself
+  smoke_full_ft:
+    kind: train
+    args: [--config, configs/task1/full_ft.yaml, --smoke]
+  smoke_lora4:
+    kind: train
+    args: [--config, configs/task1/lora.yaml, --rank, "4", --alpha, "8", --smoke]
+  smoke_eval_baseline:
+    kind: eval
+    condition: baseline
+    smoke: true
+  smoke_eval_lora:
+    kind: eval
+    condition: lora_smoke
+    smoke: true
+  smoke_diagnostics:
+    kind: diag
+    smoke: true
+  smoke_qualitative:
+    kind: qual
+    smoke: true

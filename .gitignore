@@ -228,3 +228,4 @@ data/
 *.safetensors
 *.bin
 .env
+logs/

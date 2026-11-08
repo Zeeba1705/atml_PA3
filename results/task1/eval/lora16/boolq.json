@@ -1,0 +1,217 @@
+{
+  "benchmark": "boolq",
+  "task": "boolq",
+  "main": {
+    "name": "acc,none",
+    "value": 0.7119266055045872,
+    "stderr": 0.00792066647716149
+  },
+  "n_samples": {
+    "original": 3270,
+    "effective": 3270
+  },
+  "batch_size": "auto",
+  "chat_template": false,
+  "max_gen_toks": null,
+  "dataset": "aps/super_glue",
+  "dataset_revision": "3de24cf8022e94f4ee4b9d55a6f539891524d646",
+  "lm_eval_config": {
+    "task": "boolq",
+    "dataset_path": "aps/super_glue",
+    "dataset_name": "boolq",
+    "training_split": "train",
+    "validation_split": "validation",
+    "doc_to_text": "{{passage}}\nQuestion: {{question}}?\nAnswer:",
+    "doc_to_target": "label",
+    "unsafe_code": false,
+    "doc_to_choice": [
+      "no",
+      "yes"
+    ],
+    "description": "",
+    "target_delimiter": " ",
+    "fewshot_delimiter": "\n\n",
+    "fewshot_config": {
+      "sampler": "default",
+      "split": null,
+      "process_docs": null,
+      "fewshot_indices": null,
+      "samples": null,
+      "doc_to_text": "{{passage}}\nQuestion: {{question}}?\nAnswer:",
+      "doc_to_choice": [
+        "no",
+        "yes"
+      ],
+      "doc_to_target": "label",
+      "gen_prefix": null,
+      "fewshot_delimiter": "\n\n",
+      "target_delimiter": " "
+    },
+    "num_fewshot": 0,
+    "metric_list": [
+      {
+        "metric": "acc"
+      }
+    ],
+    "output_type": "multiple_choice",
+    "repeats": 1,
+    "should_decontaminate": true,
+    "doc_to_decontamination_query": "passage",
+    "metadata": {
+      "version": 2.0,
+      "pretrained": "Qwen3ForCausalLM",
+      "tokenizer": "Qwen2Tokenizer",
+      "enable_thinking": false,
+      "max_length": 2048,
+      "config_source": "/usr/local/lib/python3.13/dist-packages/lm_eval/tasks/super_glue/boolq/default.yaml"
+    }
+  },
+  "git_commit": "cbd53a6061cc8e390449d60a418b71cc1c528b37-dirty",
+  "seed": 6304,
+  "config": {
+    "model_name": "Qwen/Qwen3-0.6B",
+    "enable_thinking": false,
+    "seed": 6304,
+    "dataset_name": "meta-math/MetaMathQA",
+    "dataset_file": "MetaMathQA-395K.json",
+    "dataset_revision": "aa4f34d3d2d3231299b5b03d9b3e5a20da45aa18",
+    "gsm8k_name": "openai/gsm8k",
+    "gsm8k_test_file": "main/test-00000-of-00001.parquet",
+    "gsm8k_revision": "740312add88f781978c0658806c59bc2815b9866",
+    "n_examples": 40000,
+    "max_length": 2048,
+    "selection_path": "splits/task1/train_selection.json",
+    "num_updates": 1250,
+    "micro_batch": 2,
+    "grad_accum": 16,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.01,
+    "warmup_updates": 38,
+    "max_grad_norm": 1.0,
+    "grad_checkpointing": true,
+    "milestones": [
+      312,
+      625,
+      937,
+      1250
+    ],
+    "eval_milestones": [
+      625,
+      1250
+    ],
+    "ckpt_every_minutes": 20,
+    "keep_rolling": 2,
+    "nan_patience": 10,
+    "preflight_mem_fraction": 0.93,
+    "conditions": {
+      "baseline": null,
+      "full_ft_mid": {
+        "run": "full_ft",
+        "update": 625
+      },
+      "full_ft": {
+        "run": "full_ft",
+        "update": 1250
+      },
+      "l2sp": {
+        "run": "l2sp",
+        "update": 1250
+      },
+      "lora4": {
+        "run": "lora4",
+        "update": 1250
+      },
+      "lora16": {
+        "run": "lora16",
+        "update": 1250
+      },
+      "oplora16": {
+        "run": "oplora16",
+        "update": 1250
+      }
+    },
+    "benchmarks": {
+      "gsm8k": {
+        "task": "gsm8k_cot",
+        "chat_template": true,
+        "max_gen_toks": 1024,
+        "batch_size": 64,
+        "metric": "exact_match,flexible-extract",
+        "dataset": "openai/gsm8k",
+        "revision": "740312add88f781978c0658806c59bc2815b9866"
+      },
+      "hellaswag": {
+        "task": "hellaswag",
+        "chat_template": false,
+        "batch_size": "auto",
+        "metric": "acc_norm,none",
+        "raw_metric": "acc,none",
+        "dataset": "Rowan/hellaswag",
+        "revision": "218ec52e09a7e7462a5400043bb9a69a41d06b76"
+      },
+      "boolq": {
+        "task": "boolq",
+        "chat_template": false,
+        "batch_size": "auto",
+        "metric": "acc,none",
+        "dataset": "aps/super_glue",
+        "revision": "3de24cf8022e94f4ee4b9d55a6f539891524d646"
+      },
+      "arc_easy": {
+        "task": "arc_easy",
+        "chat_template": false,
+        "batch_size": "auto",
+        "metric": "acc_norm,none",
+        "raw_metric": "acc,none",
+        "dataset": "allenai/ai2_arc",
+        "revision": "210d026faf9955653af8916fad021475a3f00453"
+      }
+    },
+    "merge_check_questions": 4,
+    "smoke": false
+  },
+  "gpu": "Tesla T4",
+  "host": "1ea99ae6847c",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.5.0",
+  "condition": "lora16",
+  "model": {
+    "condition": "lora16",
+    "dtype": "torch.float16",
+    "source": "/kaggle/working/outputs/task1/lora16/export/update_01250",
+    "export_info": {
+      "method": "lora",
+      "update": 1250,
+      "seconds": 0.10845184326171875,
+      "bytes": 40412728,
+      "rank": 16,
+      "alpha": 32.0,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": false
+    },
+    "merge_check": {
+      "n_prompts": 4,
+      "n_positions": 231,
+      "max_abs_logit_diff": 0.12890625,
+      "mean_abs_logit_diff": 0.006234702654182911,
+      "max_abs_logit": 32.25
+    },
+    "load_seconds": 6.546351671218872
+  },
+  "lm_eval": "0.4.13",
+  "seconds": 195.39500761032104,
+  "peak_mem_bytes": 14705242624
+}

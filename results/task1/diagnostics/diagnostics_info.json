@@ -1,0 +1,195 @@
+{
+  "git_commit": "a5c25ad91dac4558c16d7e10330a5716a4e9f53b-dirty",
+  "seed": 6304,
+  "config": {
+    "model_name": "Qwen/Qwen3-0.6B",
+    "enable_thinking": false,
+    "seed": 6304,
+    "dataset_name": "meta-math/MetaMathQA",
+    "dataset_file": "MetaMathQA-395K.json",
+    "dataset_revision": "aa4f34d3d2d3231299b5b03d9b3e5a20da45aa18",
+    "gsm8k_name": "openai/gsm8k",
+    "gsm8k_test_file": "main/test-00000-of-00001.parquet",
+    "gsm8k_revision": "740312add88f781978c0658806c59bc2815b9866",
+    "n_examples": 40000,
+    "max_length": 2048,
+    "selection_path": "splits/task1/train_selection.json",
+    "num_updates": 1250,
+    "micro_batch": 2,
+    "grad_accum": 16,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.01,
+    "warmup_updates": 38,
+    "max_grad_norm": 1.0,
+    "grad_checkpointing": true,
+    "milestones": [
+      312,
+      625,
+      937,
+      1250
+    ],
+    "eval_milestones": [
+      625,
+      1250
+    ],
+    "ckpt_every_minutes": 20,
+    "keep_rolling": 2,
+    "nan_patience": 10,
+    "preflight_mem_fraction": 0.93,
+    "probe_path": "splits/task1/probe_ids.json",
+    "n_probe_per_set": 32,
+    "probe_sets": {
+      "gsm8k": {
+        "dataset": "openai/gsm8k",
+        "file": "main/test-00000-of-00001.parquet",
+        "revision": "740312add88f781978c0658806c59bc2815b9866",
+        "text_field": "question",
+        "kind": "math"
+      },
+      "hellaswag": {
+        "dataset": "Rowan/hellaswag",
+        "file": "data/validation-00000-of-00001.parquet",
+        "revision": "218ec52e09a7e7462a5400043bb9a69a41d06b76",
+        "text_field": "ctx",
+        "kind": "non_math"
+      }
+    },
+    "layers": [
+      0,
+      13,
+      27
+    ],
+    "module": "down_proj",
+    "bases_run": "oplora16",
+    "smoke": false,
+    "conditions": {
+      "baseline": null,
+      "full_ft_mid": {
+        "run": "full_ft",
+        "update": 625
+      },
+      "full_ft": {
+        "run": "full_ft",
+        "update": 1250
+      },
+      "l2sp": {
+        "run": "l2sp",
+        "update": 1250
+      },
+      "lora4": {
+        "run": "lora4",
+        "update": 1250
+      },
+      "lora16": {
+        "run": "lora16",
+        "update": 1250
+      },
+      "oplora16": {
+        "run": "oplora16",
+        "update": 1250
+      }
+    }
+  },
+  "gpu": "Tesla T4",
+  "host": "8ab8155caae8",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.5.0",
+  "conditions": {
+    "full_ft_mid": {
+      "method": "full_ft",
+      "update": 625,
+      "seconds": 4.351575613021851,
+      "bytes": 1192136411,
+      "source": "/kaggle/working/outputs/task1/full_ft/export/update_00625"
+    },
+    "full_ft": {
+      "method": "full_ft",
+      "update": 1250,
+      "seconds": 4.074183702468872,
+      "bytes": 1192136411,
+      "source": "/kaggle/working/outputs/task1/full_ft/export/update_01250"
+    },
+    "l2sp": {
+      "method": "l2sp",
+      "update": 1250,
+      "seconds": 4.171483278274536,
+      "bytes": 1192136411,
+      "source": "/kaggle/working/outputs/task1/l2sp/export/update_01250"
+    },
+    "lora4": {
+      "method": "lora",
+      "update": 1250,
+      "seconds": 0.041805267333984375,
+      "bytes": 10134056,
+      "rank": 4,
+      "alpha": 8.0,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": false,
+      "source": "/kaggle/working/outputs/task1/lora4/export/update_01250"
+    },
+    "lora16": {
+      "method": "lora",
+      "update": 1250,
+      "seconds": 0.10845184326171875,
+      "bytes": 40412728,
+      "rank": 16,
+      "alpha": 32.0,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": false,
+      "source": "/kaggle/working/outputs/task1/lora16/export/update_01250"
+    },
+    "oplora16": {
+      "method": "oplora",
+      "update": 1250,
+      "seconds": 0.1174473762512207,
+      "bytes": 40412728,
+      "rank": 16,
+      "alpha": 32,
+      "scale": 2.0,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "projected": true,
+      "source": "/kaggle/working/outputs/task1/oplora16/export/update_01250"
+    }
+  },
+  "bases": {
+    "k": 128,
+    "path": "/kaggle/working/outputs/task1/oplora_bases.pt",
+    "projector_max_abs_diff": {
+      "0": 0.0002549886703491211,
+      "13": 0.00025409460067749023,
+      "27": 0.0004228353500366211
+    }
+  },
+  "probe_path": "splits/task1/probe_ids.json",
+  "seconds": 41.2095787525177
+}

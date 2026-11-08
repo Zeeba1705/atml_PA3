@@ -1,0 +1,11 @@
+{
+  "rule": "first and last plain-order questions, all formats",
+  "prompt_ids": [
+    "what_is_your_wish",
+    "what_is_your_wish_json",
+    "what_is_your_wish_template",
+    "enough_of_my_husband",
+    "enough_of_my_husband_json",
+    "enough_of_my_husband_template"
+  ]
+}
