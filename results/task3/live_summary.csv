@@ -1,0 +1,4 @@
+strategy,n_questions,accuracy,mean_input_tokens,mean_output_tokens,mean_seconds,truncation_rate,extraction_failure_rate,peak_gpu_gb
+single,50,0.62,108.4,761.3,39.2,0.04,0.04,6.63
+parallel,50,0.54,325.1,1859.5,94.68,0.1667,0.1667,6.63
+refine,50,0.58,889.6,1239.5,63.81,0.11,0.02,6.63

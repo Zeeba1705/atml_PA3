@@ -1,0 +1,16 @@
+#task 3 test-time compute (handout pp. 10-15)
+seed: 6304
+n_questions: 1000
+n_dev: 200
+n_live: 50
+n_orders: 10
+budgets: [1, 2, 4, 8, 16, 32]
+bootstrap_resamples: 1000
+data_dir: ATML-PA3-Data
+#mathvista metadata: lupantech/MathVista data/testmini.json at this commit (answer types, choices, precision)
+mathvista_meta: ATML-PA3-Data/mathvista_testmini.json
+mathvista_meta_url: https://raw.githubusercontent.com/lupantech/MathVista/452b0f83e0079029fb48d1d1b606d3954d812db1/data/testmini.json
+#adaptive stopping (handout p. 13-14): grid searched on dev only
+adaptive_tau: [0.5, 0.625, 0.75, 0.875, 1.0]
+adaptive_gamma: [0, 0.1, 0.25, 0.5]
+adaptive_score: {math: self_certainty, mathvista: visconf}

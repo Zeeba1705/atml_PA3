@@ -237,3 +237,63 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - Feature caching ran in a Kaggle session that had no accelerator, so SigLIP ran in FP32 on the CPU; the features are
   stored in FP16 as specified (the handout requires FP16 caching, not FP16 encoding). Throughput was limited by image
   downloads (2.7 images/s) either way. Training and evaluation now refuse to run on a CPU unless asked explicitly.
+
+## Task 3 — test-time compute
+
+### Scores and selection (handout p. 12–14)
+
+- All selectors take the revealed candidates in their current order; ties (vote totals or scores) go to the
+  earliest supporting rollout in that order. RWC ranks are descending average ranks (rank 1 = best).
+- A rollout with no scored tokens gets score −∞ for ranking (it can still be selected through votes).
+- VisConf calibration pools token KL over the revealed candidates only (`numpy.percentile`, linear interpolation),
+  recomputed for every prefix; `candidate_scores` never reads unrevealed rollouts (tested with a 33rd rollout).
+- RWC margin = (top − second) / total vote weight, second = 0 with one answer group. With one candidate the RWC
+  weight is 1 (the formula's N − 1 denominator is undefined there; the handout says every rule returns it).
+- NO_ANSWER is an ordinary group in voting and cost, never graded correct, and never a valid agreement leader.
+
+### Data, splits and answers (`task3/load.py`, `task3/answers.py`, handout p. 11–12)
+
+- Data: the course Drive folder linked on handout p. 11 (`ATML-PA3-Data/`, gitignored). MathVista metadata:
+  lupantech/MathVista `data/testmini.json` at commit `452b0f8` (linked on p. 11).
+- Join and alignment: all files sorted by (sample_id, rollout_id); join keys asserted equal; token ids, `logp`,
+  `kl_u_p` and the three attention lists asserted to have exactly `n_generated_text_tokens` entries per rollout, and the
+  attention preceding-token counter asserted to be 0..N−1.
+- Splits: per dataset, sorted ids permuted with `default_rng(6304)`; first 200 dev, last 800 eval; live = first 50 MATH
+  eval ids. Orders: one `default_rng(6304)` per dataset, ten permutations of the 32 rollout ids per question in sorted
+  id order. Both saved in `splits/task3/` and checked against the seed if they already exist.
+- MATH groups (no gold): each extraction is re-boxed and parsed by math-verify 0.9.0; a rollout joins the first
+  existing group whose representative is equivalent (`verify(rep, answer)`), else starts a group keyed by its string.
+  Unparsable extractions group by exact string. Gold group = the representative equivalent to the gold answer.
+  math-verify's 5 s comparison timeout fired a handful of times; a timeout counts as "not equivalent". The groups are
+  computed once and cached in `results/task3/answer_groups_math.json`, which every analysis reads.
+- MathVista (my choice: strip units first): remove `\text{}`-style units, LaTeX spacing, `$`, `%`, degree signs and
+  thousands commas; if exactly one number remains apply MathVista's official rules (integer: `int(float(x))`,
+  float: `round(x, precision)`), otherwise NO_ANSWER. Lists: the sequence of numbers. Multiple choice: a valid option
+  letter, or exact choice text → letter, otherwise the official most-similar-choice fallback (Levenshtein, first on
+  ties). Gold answers go through the same rules (choice text → letter). Ranges, several values, or expressions such as
+  `10^8` / `\frac{1}{3}` become NO_ANSWER (a known limitation of this rule).
+- Cache summary: MATH 66.3% of rollouts correct, 521 NO_ANSWER (the README's 521 nulls), 81 questions with no correct
+  rollout; MathVista 54.2% correct, 4,278 NO_ANSWER (3,032 nulls + 1,246 that do not reduce to one valid number).
+
+### Offline evaluation and adaptive stopping (handout p. 12–14)
+
+- Main numbers are reported on the 800 held-out questions; dev numbers are saved too. Averages: over the 10 orders
+  within a question, then over questions. Token cost = sum of `n_generated_text_tokens` of consumed candidates
+  (FirstAns consumes one). The length-only control (`shortest`) is a highest-score selector on −length.
+- Adaptive: stopping evidence at n = 4, 8, 16 (and 32) uses only the revealed candidates (self-certainty for MATH,
+  VisConf recalibrated on the revealed set for MathVista). Grid τ × γ (+ always-32) searched on the 200 dev
+  questions only; per family the lowest-cost setting with dev accuracy ≥ fixed-32 SC − 1 pp, ties → higher accuracy,
+  smaller τ, smaller γ; always-32 is a candidate in both families. The choice is written to
+  `results/task3/adaptive_selected.json` before the held-out simulation, and reused (never re-selected) on reruns.
+
+### Live generation (`task3/live_generate.py`, handout p. 12–13)
+
+- Prompt: native chat template, system "You are a helpful assistant.", user = problem + two newlines + the exact
+  instruction (README layout). Review turn: the first parallel response appended as the assistant message, then the
+  exact review instruction as a user message; one 2,048-token response, its last box is the revised answer.
+- Seeds: call k of question i uses seed 6304·1000 + 10·i + k (single k = 0, parallel k = 1..3, refine k = 9), set
+  with `torch.manual_seed` right before each `generate` call; all saved per call.
+- Parallel answer: self-consistency over the three extracted answers grouped with the same math-verify rule as the
+  offline analysis (ties → earliest response). Truncated = no end-of-turn token within the cap.
+- Questions: the 50 live ids, problems and gold saved once to `splits/task3/live_problems.json` from the course data.
+  The 50 questions are split over two T4s by question index parity; timings are per call on the same GPU type.

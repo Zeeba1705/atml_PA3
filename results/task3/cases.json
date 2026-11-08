@@ -1,0 +1,1119 @@
+{
+  "math": {
+    "selection_disagreement_rule": "held-out questions in split order where self-consistency and self_certainty_rwc disagree (order 0, N = 32)",
+    "selection_disagreement": [
+      {
+        "sample_id": "test:2460",
+        "sc": "58",
+        "sc_correct": false,
+        "self_certainty_rwc": "154",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:2892",
+        "sc": "1",
+        "sc_correct": false,
+        "self_certainty_rwc": "0",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:2948",
+        "sc": "1",
+        "sc_correct": false,
+        "self_certainty_rwc": "2 + \\sqrt{3}, 2 - \\sqrt{3}, \\frac{3 + \\sqrt{13 + 4\\sqrt{3}}}{2}, \\frac{3 - \\sqrt{13 + 4\\sqrt{3}}}{2}, \\frac{3 + \\sqrt{13 - 4\\sqrt{3}}}{2}, \\frac{3 - \\sqrt{13 - 4\\sqrt{3}}}{2}",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:4516",
+        "sc": "\\frac{17\\sqrt{10}}{2}",
+        "sc_correct": false,
+        "self_certainty_rwc": "4\\sqrt{10}",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:1903",
+        "sc": "75",
+        "sc_correct": false,
+        "self_certainty_rwc": "80",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:2744",
+        "sc": "0",
+        "sc_correct": false,
+        "self_certainty_rwc": "2",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:2488",
+        "sc": "0",
+        "sc_correct": false,
+        "self_certainty_rwc": "2",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:4341",
+        "sc": "12.5",
+        "sc_correct": false,
+        "self_certainty_rwc": "\\frac{4}{5}",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:2003",
+        "sc": "4",
+        "sc_correct": false,
+        "self_certainty_rwc": "2",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:1802",
+        "sc": "64 - 64\\pi",
+        "sc_correct": false,
+        "self_certainty_rwc": "64 - 16\\pi",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:2935",
+        "sc": "\\frac{1505}{16}",
+        "sc_correct": false,
+        "self_certainty_rwc": "\\frac{6021}{64}",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:2082",
+        "sc": "7",
+        "sc_correct": false,
+        "self_certainty_rwc": "3",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:4279",
+        "sc": "2",
+        "sc_correct": false,
+        "self_certainty_rwc": "10",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:3413",
+        "sc": "NO_ANSWER",
+        "sc_correct": false,
+        "self_certainty_rwc": "40",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:2206",
+        "sc": "384",
+        "sc_correct": false,
+        "self_certainty_rwc": "512",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:2614",
+        "sc": "4",
+        "sc_correct": false,
+        "self_certainty_rwc": "10",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:4230",
+        "sc": "756",
+        "sc_correct": false,
+        "self_certainty_rwc": "360",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:2233",
+        "sc": "27",
+        "sc_correct": false,
+        "self_certainty_rwc": "NO_ANSWER",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "test:2755",
+        "sc": "4",
+        "sc_correct": false,
+        "self_certainty_rwc": "17x - 13",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "test:2632",
+        "sc": "78",
+        "sc_correct": false,
+        "self_certainty_rwc": "48",
+        "rwc_correct": false
+      }
+    ],
+    "premature_stopping_rule": "adaptive early stops that were wrong while fixed-32 self-consistency was right (first in held-out order)",
+    "premature_stopping": {
+      "agreement": [
+        {
+          "sample_id": "test:2460",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "58",
+          "answer_at_32": "154",
+          "tokens": 3991
+        },
+        {
+          "sample_id": "test:534",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "48",
+          "answer_at_32": "56",
+          "tokens": 2752
+        },
+        {
+          "sample_id": "test:3409",
+          "order": 4,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "0",
+          "answer_at_32": "3",
+          "tokens": 6989
+        },
+        {
+          "sample_id": "test:1803",
+          "order": 0,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\frac{4}{5}",
+          "answer_at_32": "\\frac{3}{5}",
+          "tokens": 2310
+        },
+        {
+          "sample_id": "test:1803",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\frac{4}{5}",
+          "answer_at_32": "\\frac{3}{5}",
+          "tokens": 1211
+        },
+        {
+          "sample_id": "test:1803",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\frac{4}{5}",
+          "answer_at_32": "\\frac{3}{5}",
+          "tokens": 1173
+        },
+        {
+          "sample_id": "test:3613",
+          "order": 1,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "28",
+          "answer_at_32": "0",
+          "tokens": 1665
+        },
+        {
+          "sample_id": "test:3613",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "28",
+          "answer_at_32": "0",
+          "tokens": 1548
+        },
+        {
+          "sample_id": "test:2494",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2014",
+          "tokens": 4700
+        },
+        {
+          "sample_id": "test:3988",
+          "order": 0,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "4",
+          "answer_at_32": "16",
+          "tokens": 1165
+        },
+        {
+          "sample_id": "test:375",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "0",
+          "answer_at_32": "-3",
+          "tokens": 2583
+        },
+        {
+          "sample_id": "test:944",
+          "order": 3,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\left( \\frac{8}{5}, \\frac{29}{5} \\right)",
+          "answer_at_32": "(1, 4)",
+          "tokens": 1386
+        },
+        {
+          "sample_id": "test:3686",
+          "order": 9,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "0",
+          "answer_at_32": "-13",
+          "tokens": 3192
+        },
+        {
+          "sample_id": "test:4684",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "-\\frac{1}{8}",
+          "answer_at_32": "\\frac{1}{8}",
+          "tokens": 4098
+        },
+        {
+          "sample_id": "test:4684",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "-\\frac{1}{8}",
+          "answer_at_32": "\\frac{1}{8}",
+          "tokens": 3861
+        },
+        {
+          "sample_id": "test:3017",
+          "order": 2,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\text{C}",
+          "answer_at_32": "A",
+          "tokens": 4419
+        },
+        {
+          "sample_id": "test:2080",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "8\\sqrt{37}",
+          "answer_at_32": "4\\sqrt{13}",
+          "tokens": 1544
+        },
+        {
+          "sample_id": "test:36",
+          "order": 3,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "(-\\sqrt{3}, 0) \\cup (0, \\sqrt{3})",
+          "answer_at_32": "(-\\sqrt{3}, \\sqrt{3})",
+          "tokens": 3589
+        },
+        {
+          "sample_id": "test:2794",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "1",
+          "answer_at_32": "-1",
+          "tokens": 2412
+        },
+        {
+          "sample_id": "test:2639",
+          "order": 1,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "26",
+          "answer_at_32": "30",
+          "tokens": 4944
+        }
+      ],
+      "quality": [
+        {
+          "sample_id": "test:3504",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "120",
+          "answer_at_32": "216",
+          "tokens": 4614
+        },
+        {
+          "sample_id": "test:2460",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "58",
+          "answer_at_32": "154",
+          "tokens": 3991
+        },
+        {
+          "sample_id": "test:534",
+          "order": 2,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "48",
+          "answer_at_32": "56",
+          "tokens": 2639
+        },
+        {
+          "sample_id": "test:534",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "48",
+          "answer_at_32": "56",
+          "tokens": 2752
+        },
+        {
+          "sample_id": "test:3572",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "9",
+          "answer_at_32": "22",
+          "tokens": 3741
+        },
+        {
+          "sample_id": "test:1903",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "75",
+          "answer_at_32": "80",
+          "tokens": 1969
+        },
+        {
+          "sample_id": "test:2469",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "24",
+          "answer_at_32": "12",
+          "tokens": 5659
+        },
+        {
+          "sample_id": "test:61",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "x^{7/6}",
+          "answer_at_32": "\\sqrt[2]{x}",
+          "tokens": 2130
+        },
+        {
+          "sample_id": "test:61",
+          "order": 9,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "x^{1/6}",
+          "answer_at_32": "\\sqrt[2]{x}",
+          "tokens": 2198
+        },
+        {
+          "sample_id": "test:2184",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "x = -\\frac{1}{2}",
+          "answer_at_32": "x = \\frac{3}{2}",
+          "tokens": 2656
+        },
+        {
+          "sample_id": "test:2619",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "0",
+          "answer_at_32": "1",
+          "tokens": 4391
+        },
+        {
+          "sample_id": "test:1803",
+          "order": 0,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\frac{4}{5}",
+          "answer_at_32": "\\frac{3}{5}",
+          "tokens": 2310
+        },
+        {
+          "sample_id": "test:1803",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\frac{4}{5}",
+          "answer_at_32": "\\frac{3}{5}",
+          "tokens": 1211
+        },
+        {
+          "sample_id": "test:1803",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\frac{4}{5}",
+          "answer_at_32": "\\frac{3}{5}",
+          "tokens": 1173
+        },
+        {
+          "sample_id": "test:1803",
+          "order": 8,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "\\frac{4}{5}",
+          "answer_at_32": "\\frac{3}{5}",
+          "tokens": 2197
+        },
+        {
+          "sample_id": "test:3613",
+          "order": 1,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "28",
+          "answer_at_32": "0",
+          "tokens": 1665
+        },
+        {
+          "sample_id": "test:3613",
+          "order": 2,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "28",
+          "answer_at_32": "0",
+          "tokens": 3399
+        },
+        {
+          "sample_id": "test:3613",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "28",
+          "answer_at_32": "0",
+          "tokens": 1773
+        },
+        {
+          "sample_id": "test:3613",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "28",
+          "answer_at_32": "0",
+          "tokens": 1548
+        },
+        {
+          "sample_id": "test:762",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "6300",
+          "answer_at_32": "8000",
+          "tokens": 1135
+        }
+      ]
+    }
+  },
+  "mathvista": {
+    "selection_disagreement_rule": "held-out questions in split order where self-consistency and visconf_rwc disagree (order 0, N = 32)",
+    "selection_disagreement": [
+      {
+        "sample_id": "552",
+        "sc": "4",
+        "sc_correct": true,
+        "visconf_rwc": "2",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "643",
+        "sc": "C",
+        "sc_correct": false,
+        "visconf_rwc": "A",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "542",
+        "sc": "2",
+        "sc_correct": true,
+        "visconf_rwc": "3",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "842",
+        "sc": "A",
+        "sc_correct": true,
+        "visconf_rwc": "B",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "263",
+        "sc": "33",
+        "sc_correct": false,
+        "visconf_rwc": "11",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "437",
+        "sc": "50",
+        "sc_correct": false,
+        "visconf_rwc": "6",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "578",
+        "sc": "765",
+        "sc_correct": false,
+        "visconf_rwc": "654",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "669",
+        "sc": "B",
+        "sc_correct": false,
+        "visconf_rwc": "D",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "334",
+        "sc": "A",
+        "sc_correct": true,
+        "visconf_rwc": "NO_ANSWER",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "19",
+        "sc": "600",
+        "sc_correct": false,
+        "visconf_rwc": "400",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "408",
+        "sc": "D",
+        "sc_correct": true,
+        "visconf_rwc": "NO_ANSWER",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "764",
+        "sc": "11",
+        "sc_correct": false,
+        "visconf_rwc": "10",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "109",
+        "sc": "4",
+        "sc_correct": false,
+        "visconf_rwc": "5",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "694",
+        "sc": "NO_ANSWER",
+        "sc_correct": false,
+        "visconf_rwc": "C",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "218",
+        "sc": "1",
+        "sc_correct": false,
+        "visconf_rwc": "2",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "665",
+        "sc": "A",
+        "sc_correct": false,
+        "visconf_rwc": "D",
+        "rwc_correct": true
+      },
+      {
+        "sample_id": "38",
+        "sc": "0",
+        "sc_correct": true,
+        "visconf_rwc": "1",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "307",
+        "sc": "165714.29",
+        "sc_correct": false,
+        "visconf_rwc": "163785.71",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "740",
+        "sc": "D",
+        "sc_correct": false,
+        "visconf_rwc": "NO_ANSWER",
+        "rwc_correct": false
+      },
+      {
+        "sample_id": "512",
+        "sc": "NO_ANSWER",
+        "sc_correct": false,
+        "visconf_rwc": "3.0",
+        "rwc_correct": false
+      }
+    ],
+    "premature_stopping_rule": "adaptive early stops that were wrong while fixed-32 self-consistency was right (first in held-out order)",
+    "premature_stopping": {
+      "agreement": [
+        {
+          "sample_id": "358",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "D",
+          "answer_at_32": "A",
+          "tokens": 1718
+        },
+        {
+          "sample_id": "358",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "D",
+          "answer_at_32": "A",
+          "tokens": 1461
+        },
+        {
+          "sample_id": "358",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "E",
+          "answer_at_32": "A",
+          "tokens": 1325
+        },
+        {
+          "sample_id": "821",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 499
+        },
+        {
+          "sample_id": "434",
+          "order": 0,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "C",
+          "answer_at_32": "A",
+          "tokens": 1795
+        },
+        {
+          "sample_id": "552",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "4",
+          "tokens": 987
+        },
+        {
+          "sample_id": "552",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "2",
+          "answer_at_32": "4",
+          "tokens": 989
+        },
+        {
+          "sample_id": "612",
+          "order": 1,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "5",
+          "answer_at_32": "4",
+          "tokens": 1020
+        },
+        {
+          "sample_id": "612",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "4",
+          "tokens": 1009
+        },
+        {
+          "sample_id": "612",
+          "order": 9,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "4",
+          "tokens": 974
+        },
+        {
+          "sample_id": "362",
+          "order": 2,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "6",
+          "answer_at_32": "8",
+          "tokens": 903
+        },
+        {
+          "sample_id": "362",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "7",
+          "answer_at_32": "8",
+          "tokens": 669
+        },
+        {
+          "sample_id": "362",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "7",
+          "answer_at_32": "8",
+          "tokens": 694
+        },
+        {
+          "sample_id": "542",
+          "order": 1,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2",
+          "tokens": 967
+        },
+        {
+          "sample_id": "542",
+          "order": 6,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2",
+          "tokens": 1994
+        },
+        {
+          "sample_id": "542",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "5",
+          "answer_at_32": "2",
+          "tokens": 1022
+        },
+        {
+          "sample_id": "542",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2",
+          "tokens": 1057
+        },
+        {
+          "sample_id": "842",
+          "order": 2,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 5324
+        },
+        {
+          "sample_id": "842",
+          "order": 4,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 7521
+        },
+        {
+          "sample_id": "842",
+          "order": 5,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 7440
+        }
+      ],
+      "quality": [
+        {
+          "sample_id": "358",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "D",
+          "answer_at_32": "A",
+          "tokens": 1718
+        },
+        {
+          "sample_id": "358",
+          "order": 5,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "D",
+          "answer_at_32": "A",
+          "tokens": 1461
+        },
+        {
+          "sample_id": "358",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "E",
+          "answer_at_32": "A",
+          "tokens": 1325
+        },
+        {
+          "sample_id": "821",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 499
+        },
+        {
+          "sample_id": "434",
+          "order": 0,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "C",
+          "answer_at_32": "A",
+          "tokens": 1795
+        },
+        {
+          "sample_id": "552",
+          "order": 4,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "4",
+          "tokens": 987
+        },
+        {
+          "sample_id": "552",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "2",
+          "answer_at_32": "4",
+          "tokens": 989
+        },
+        {
+          "sample_id": "612",
+          "order": 1,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "5",
+          "answer_at_32": "4",
+          "tokens": 1020
+        },
+        {
+          "sample_id": "612",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "4",
+          "tokens": 1009
+        },
+        {
+          "sample_id": "612",
+          "order": 9,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "4",
+          "tokens": 974
+        },
+        {
+          "sample_id": "362",
+          "order": 2,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "6",
+          "answer_at_32": "8",
+          "tokens": 903
+        },
+        {
+          "sample_id": "362",
+          "order": 6,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "7",
+          "answer_at_32": "8",
+          "tokens": 669
+        },
+        {
+          "sample_id": "542",
+          "order": 1,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2",
+          "tokens": 1707
+        },
+        {
+          "sample_id": "542",
+          "order": 5,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2",
+          "tokens": 1738
+        },
+        {
+          "sample_id": "542",
+          "order": 6,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2",
+          "tokens": 1994
+        },
+        {
+          "sample_id": "542",
+          "order": 7,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "5",
+          "answer_at_32": "2",
+          "tokens": 1022
+        },
+        {
+          "sample_id": "542",
+          "order": 8,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "3",
+          "answer_at_32": "2",
+          "tokens": 1057
+        },
+        {
+          "sample_id": "842",
+          "order": 2,
+          "stop_n": 4,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 5324
+        },
+        {
+          "sample_id": "842",
+          "order": 4,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 7521
+        },
+        {
+          "sample_id": "842",
+          "order": 5,
+          "stop_n": 8,
+          "correct": false,
+          "correct_at_32": true,
+          "answer": "B",
+          "answer_at_32": "A",
+          "tokens": 7440
+        }
+      ]
+    }
+  },
+  "revision": {
+    "initial_accuracy": 0.56,
+    "wrong_to_correct": 1,
+    "correct_to_wrong": 0,
+    "revision_cases": [
+      {
+        "sample_id": "test:3504",
+        "initial": "NO_ANSWER",
+        "revised": "216",
+        "gold": "216"
+      }
+    ]
+  }
+}
