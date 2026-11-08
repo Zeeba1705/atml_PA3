@@ -1,0 +1,482 @@
+[
+  {
+    "image_id": 1436,
+    "split": "val",
+    "caption": "A man has three laptops stacked on his knees on the couch."
+  },
+  {
+    "image_id": 8953,
+    "split": "val",
+    "caption": "A hot dog rolling machine with hot dogs and sausages."
+  },
+  {
+    "image_id": 11276,
+    "split": "val",
+    "caption": "A large pot of water and pasta sits on top of a stove."
+  },
+  {
+    "image_id": 17627,
+    "split": "val",
+    "caption": "A green car has parked on the curb in a parking lot"
+  },
+  {
+    "image_id": 20487,
+    "split": "val",
+    "caption": "Two men in the same clothes flying a kite."
+  },
+  {
+    "image_id": 24652,
+    "split": "val",
+    "caption": "A herd of cattle grazing on some grass."
+  },
+  {
+    "image_id": 26768,
+    "split": "val",
+    "caption": "Two cats are sitting on a computer keyboard."
+  },
+  {
+    "image_id": 41839,
+    "split": "val",
+    "caption": "A bathroom with a walk in shower next to a toilet and a sink."
+  },
+  {
+    "image_id": 68204,
+    "split": "val",
+    "caption": "Some people stand on the beach and fly a kite."
+  },
+  {
+    "image_id": 93393,
+    "split": "val",
+    "caption": "A giraffe stands on a hill covered in rocks and grass."
+  },
+  {
+    "image_id": 98871,
+    "split": "val",
+    "caption": "A tabby cat laying on a furry blanket."
+  },
+  {
+    "image_id": 110630,
+    "split": "val",
+    "caption": "A slice of pizza sitting on top of a plate."
+  },
+  {
+    "image_id": 112608,
+    "split": "val",
+    "caption": "A group of people riding horses on a beach."
+  },
+  {
+    "image_id": 118343,
+    "split": "val",
+    "caption": "A man in military uniform looking at his phone."
+  },
+  {
+    "image_id": 120129,
+    "split": "val",
+    "caption": "a brown and white cat staring off with pretty green eyes."
+  },
+  {
+    "image_id": 126659,
+    "split": "val",
+    "caption": "Airplanes parked on the runway with buses and trucks."
+  },
+  {
+    "image_id": 141158,
+    "split": "val",
+    "caption": "a person that is skiing across some snow"
+  },
+  {
+    "image_id": 146099,
+    "split": "val",
+    "caption": "some chickens and some black brown and white sheep"
+  },
+  {
+    "image_id": 153486,
+    "split": "val",
+    "caption": "People in a market shopping for fresh produce."
+  },
+  {
+    "image_id": 153574,
+    "split": "val",
+    "caption": "A living room with wooden floors and a large television."
+  },
+  {
+    "image_id": 159458,
+    "split": "val",
+    "caption": "a bed room with a dog in a neatly made bed"
+  },
+  {
+    "image_id": 160190,
+    "split": "val",
+    "caption": "a man sitting on a motorcycle in the desert"
+  },
+  {
+    "image_id": 184902,
+    "split": "val",
+    "caption": "A living room filled with furniture and a fire place."
+  },
+  {
+    "image_id": 185768,
+    "split": "val",
+    "caption": "A tabloid magazine with a stuffed bear in handcuffs."
+  },
+  {
+    "image_id": 189209,
+    "split": "val",
+    "caption": "Someone is holding a pair of green handled scissors."
+  },
+  {
+    "image_id": 191300,
+    "split": "val",
+    "caption": "An aerial view of a lot of people on a bridge."
+  },
+  {
+    "image_id": 203865,
+    "split": "val",
+    "caption": "A colorful bus is parked on the street."
+  },
+  {
+    "image_id": 204448,
+    "split": "val",
+    "caption": "The dishes have been washed and the dish towels are hanging neatly on the cupboards."
+  },
+  {
+    "image_id": 209286,
+    "split": "val",
+    "caption": "A black dog laying on a green mat."
+  },
+  {
+    "image_id": 212203,
+    "split": "val",
+    "caption": "A polar bear sitting along the shore line of the ocean."
+  },
+  {
+    "image_id": 224200,
+    "split": "val",
+    "caption": "A large dog is tied up to a fire hydrant."
+  },
+  {
+    "image_id": 229960,
+    "split": "val",
+    "caption": "A wooden table topped with a white plate with a  pizza."
+  },
+  {
+    "image_id": 245997,
+    "split": "val",
+    "caption": "A cat is sleeping on top of a suitcase."
+  },
+  {
+    "image_id": 246746,
+    "split": "val",
+    "caption": "A horse being ridden in the middle of the grass."
+  },
+  {
+    "image_id": 257036,
+    "split": "val",
+    "caption": "A cat sits between a lamp and a bicycle wheel."
+  },
+  {
+    "image_id": 265256,
+    "split": "val",
+    "caption": "Man with large patriotic kite in field near small out building."
+  },
+  {
+    "image_id": 270908,
+    "split": "val",
+    "caption": "A man laying on top of a tennis court while holding a tennis racquet."
+  },
+  {
+    "image_id": 277048,
+    "split": "val",
+    "caption": "A group of non-standard cabs lining a street."
+  },
+  {
+    "image_id": 279649,
+    "split": "val",
+    "caption": "A passenger jet is moving down the runway."
+  },
+  {
+    "image_id": 280008,
+    "split": "val",
+    "caption": "Two teams playing frizbee football with two players battling to make the catch."
+  },
+  {
+    "image_id": 281019,
+    "split": "val",
+    "caption": "A shower curtain is light brown in a bathroom."
+  },
+  {
+    "image_id": 282674,
+    "split": "val",
+    "caption": "A dog that is laying behind a truck."
+  },
+  {
+    "image_id": 287331,
+    "split": "val",
+    "caption": "The dog is catching the Frisbee with his mouth."
+  },
+  {
+    "image_id": 294073,
+    "split": "val",
+    "caption": "A COUPLE WEARING YELLOW DRESS STANDING NEAR TWO HORSES."
+  },
+  {
+    "image_id": 297944,
+    "split": "val",
+    "caption": "a chinese diner sits on the corner of a street"
+  },
+  {
+    "image_id": 308120,
+    "split": "val",
+    "caption": "Black baseball caps sits on red leather cover."
+  },
+  {
+    "image_id": 308193,
+    "split": "val",
+    "caption": "A grey clock tower above building with sky in the background."
+  },
+  {
+    "image_id": 319768,
+    "split": "val",
+    "caption": "A sunset scene of a sea shore where umbrella shades are fixed on the ground."
+  },
+  {
+    "image_id": 325736,
+    "split": "val",
+    "caption": "A person skiing and somersaulting on snow clad mountains."
+  },
+  {
+    "image_id": 338581,
+    "split": "val",
+    "caption": "A very long sand which on a table"
+  },
+  {
+    "image_id": 339336,
+    "split": "val",
+    "caption": "a man wearing skis walking down a path"
+  },
+  {
+    "image_id": 341318,
+    "split": "val",
+    "caption": "Kids playing in the water with surfboards"
+  },
+  {
+    "image_id": 341778,
+    "split": "val",
+    "caption": "A selection of pottery vases in various colors"
+  },
+  {
+    "image_id": 353321,
+    "split": "val",
+    "caption": "A woman sitting next to a  man on top of a purple bench."
+  },
+  {
+    "image_id": 354948,
+    "split": "val",
+    "caption": "Boys and men are lined up for a group photo."
+  },
+  {
+    "image_id": 358572,
+    "split": "val",
+    "caption": "A young woman holding a tennis racquet while wearing a short skirt."
+  },
+  {
+    "image_id": 358617,
+    "split": "val",
+    "caption": "A man walking along a beach holding a surfboard."
+  },
+  {
+    "image_id": 374966,
+    "split": "val",
+    "caption": "Several skateboarders at a skateboard park skateboarding while others watch."
+  },
+  {
+    "image_id": 375812,
+    "split": "val",
+    "caption": "a young child swinging a baseball bat"
+  },
+  {
+    "image_id": 387661,
+    "split": "val",
+    "caption": "A short passenger train on train tracks lined with trees."
+  },
+  {
+    "image_id": 398246,
+    "split": "val",
+    "caption": "A busy urban street with various pedestrians and traffic."
+  },
+  {
+    "image_id": 407067,
+    "split": "val",
+    "caption": "A skateboarder is doing a trick on cement steps."
+  },
+  {
+    "image_id": 407521,
+    "split": "val",
+    "caption": "The skateboarders are watching the other person who is doing stunts."
+  },
+  {
+    "image_id": 408363,
+    "split": "val",
+    "caption": "A parking meter with a no parking sign on it."
+  },
+  {
+    "image_id": 409178,
+    "split": "val",
+    "caption": "A person on snow skis, with a backpack, skiing down a mountain."
+  },
+  {
+    "image_id": 413839,
+    "split": "val",
+    "caption": "A hooded person sits on a bench beside birds walking through snow."
+  },
+  {
+    "image_id": 414795,
+    "split": "val",
+    "caption": "A herd of elephants  being herded into a river while tourists take photos."
+  },
+  {
+    "image_id": 415135,
+    "split": "val",
+    "caption": "Men riding the ski lift down a slope"
+  },
+  {
+    "image_id": 424374,
+    "split": "val",
+    "caption": "A person is flanked by luggage and a pillow."
+  },
+  {
+    "image_id": 434463,
+    "split": "val",
+    "caption": "A closeup of leaves placed on baked crust."
+  },
+  {
+    "image_id": 435260,
+    "split": "val",
+    "caption": "Clowns stand in front of a line of elephants."
+  },
+  {
+    "image_id": 437497,
+    "split": "val",
+    "caption": "A boy who is batting at a baseball game."
+  },
+  {
+    "image_id": 437910,
+    "split": "val",
+    "caption": "Everything in the room is white except for the yellow toilet."
+  },
+  {
+    "image_id": 439651,
+    "split": "val",
+    "caption": "Black and white photograph of a cup of coffee and a  keyboard."
+  },
+  {
+    "image_id": 440964,
+    "split": "val",
+    "caption": "The computer on the test was left turned on."
+  },
+  {
+    "image_id": 441293,
+    "split": "val",
+    "caption": "A class room with numerous laptops at desks with chairs."
+  },
+  {
+    "image_id": 441824,
+    "split": "val",
+    "caption": "A man uses a mobile device as he sits at a table."
+  },
+  {
+    "image_id": 442175,
+    "split": "val",
+    "caption": "Old, tusked elephant eating grass with his buddies"
+  },
+  {
+    "image_id": 475042,
+    "split": "val",
+    "caption": "A jeep with a covering across the bottom front of it."
+  },
+  {
+    "image_id": 489739,
+    "split": "val",
+    "caption": "A little girl sitting in a shopping car holding a piece of cake."
+  },
+  {
+    "image_id": 490629,
+    "split": "val",
+    "caption": "a couple of people on motor bikes on a street"
+  },
+  {
+    "image_id": 491203,
+    "split": "val",
+    "caption": "A white toilet sitting under a window next to a chair."
+  },
+  {
+    "image_id": 504414,
+    "split": "val",
+    "caption": "A giraffe's head and neck peaks out from some brush and trees."
+  },
+  {
+    "image_id": 512220,
+    "split": "val",
+    "caption": "Man sitting on last step in front of door while holding his phone."
+  },
+  {
+    "image_id": 512254,
+    "split": "val",
+    "caption": "An elephant with a branch in its mouth"
+  },
+  {
+    "image_id": 512394,
+    "split": "val",
+    "caption": "A view of two motorcycles parked inside a building."
+  },
+  {
+    "image_id": 518770,
+    "split": "val",
+    "caption": "Some children who are playing video games together."
+  },
+  {
+    "image_id": 523818,
+    "split": "val",
+    "caption": "Flowers in a vase on top of a wooden table."
+  },
+  {
+    "image_id": 526654,
+    "split": "val",
+    "caption": "A person biting into a hot dog while holding several other hot dogs in buns."
+  },
+  {
+    "image_id": 527535,
+    "split": "val",
+    "caption": "Desert that has bananas and crumple with whipped cream and ice cream on top"
+  },
+  {
+    "image_id": 529968,
+    "split": "val",
+    "caption": "there is a cat that is sitting on a bike"
+  },
+  {
+    "image_id": 534018,
+    "split": "val",
+    "caption": "A group of people standing on snow covered ground."
+  },
+  {
+    "image_id": 546659,
+    "split": "val",
+    "caption": "A train traveling past tall white buildings on train tracks."
+  },
+  {
+    "image_id": 561729,
+    "split": "val",
+    "caption": "A mouse that is sitting next to a keyboard."
+  },
+  {
+    "image_id": 567755,
+    "split": "val",
+    "caption": "A girl in pajamas stands underneath her purple sheets."
+  },
+  {
+    "image_id": 570834,
+    "split": "val",
+    "caption": "A train conductor standing next to a group of bikes."
+  }
+]

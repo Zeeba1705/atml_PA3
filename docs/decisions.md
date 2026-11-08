@@ -176,3 +176,64 @@ Every interpretation of the handout or deviation from it, with the handout page 
 - L2-SP terms are drawn in separate panels (SFT/total, λΩ, Ω) since their scales differ by ~1000×; no dual axes.
 - Fixed colours per run (full_ft_mid = a lighter step of Full FT's blue, baseline = gray), same in every figure.
 
+
+## Task 2 — SigLIP–Qwen VLM
+
+### Visual interface (handout p. 7–9)
+
+- Prompt layout: Qwen3's own chat template (thinking off) for a user message whose first line is the image, split at
+  a text marker that is never tokenized: `<|im_start|>user\n` + 196 visual tokens + `\n{question}<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n`
+  + target + `<|im_end|>`. No-image inputs drop the 196 positions and keep every text token; masks and positions are
+  rebuilt (positions = cumulative count of real tokens, so padding on either side never shifts them).
+- Caption prompt (not fixed by the handout): "Describe this image in one sentence." (`configs/task2/base.yaml`).
+- Caps: question tokens truncated to 80, caption target to 64, short answers to 16 content tokens; end-of-turn is
+  appended after the cap and supervised in training. Answer NLL for dev/eval excludes it (handout p. 8).
+- Loss: per-example mean NLL over labelled tokens, then the batch mean; logits are computed only at labelled positions.
+- Connector magnitude calibration (training data only): a fixed, non-trainable output scale
+  s = mean ‖text embedding‖ / mean ‖initial connector output‖, the text side measured over the training captions' and
+  questions' token embeddings, the visual side over training-image features. The value is recorded in the run config.
+- VQA soft accuracy follows the handout formula; with 10 answers it gives 1.0 for ≥ 4 matches, 0.9 for 3, 0.6 for 2,
+  0.3 for 1 (CLAUDE2.md's "3 matches → 1.0" example was off; the test uses the formula).
+- One normalizer (official VQA eval rules, adapted; see README Attribution) for VQA answers, grounding targets and
+  model outputs. The official code's `re.UNICODE` passed as a replacement count is not copied (all periods matching
+  the pattern are stripped).
+
+### Grounding labels (Strict rule, chosen by me)
+
+- Presence "yes" image: ≥ 1 non-crowd annotation of the category; "no" image: zero annotations of it, crowd included.
+- Counting: count = number of non-crowd annotations; an image with any crowd annotation of that category is not used
+  for counting it. Counts 1–4 only; answers are digits.
+- Wording: "Does this image contain a/an {name}?" and "How many {plural} can you see?" with a fixed hand-written plural
+  map for the 80 COCO category names (`configs/task2/`).
+
+### Data selection (`task2/build_data.py`, handout p. 7–8)
+
+- Grounding evaluation pairs split evenly between presence and counting: dev 12 + 12, test 32 + 32 (the handout gives
+  only the combined 24 / 64).
+- Grounding training pools (8,000 presence + 8,000 counting pairs, sampled with replacement during training) are built
+  on the 6,000 caption training images, so features are cached once for training.
+- Pair generation: category uniform among the usable ones, then images uniform within it (counting: two different
+  counts drawn first). VQAv2: candidates sorted by pair id, seeded permutation, taken per answer type.
+- VQAv2 consensus = most common normalized answer with ≥ 8/10 support on each image, the two consensus answers
+  different, both questions of the same answer type; target = the most frequent original string in the consensus
+  group (ties → first in annotation order).
+- Order of evaluation selection (one shared "used images" set, so every evaluation set is image-disjoint from every
+  other): VQA dev, grounding dev, VQA test, grounding test, caption dev. Asserted in `check_isolation`.
+
+### Training (`task2/train.py`, handout p. 8–9)
+
+- A fresh AdamW and LR schedule per stage (each stage has its own peak LRs, 5% warmup and cosine to 10%, and stage 2
+  adds the LoRA parameters). The connector weights, scaler and RNG carry over between stages.
+- Stage 1 = exactly two shuffled passes over the 18,000 caption examples (2,250 × 16 = 36,000). Stages 2–3: each draw
+  picks a component by the stage mixture with the seeded sampler (with replacement, no quotas): a full pair, or two
+  captions. Microbatches are filled draw by draw (4 draws = 8 examples). Cumulative draw counts are logged per update.
+- LoRA r16, α32, dropout 0.05 on q/k/v/o (FP32 factors, same `LoRALinear` as Task 1), added at the start of stage 2.
+- Dev evaluation at update 0, every 500, and 2,250 / 3,750 / 4,500: caption reference loss (training-loss definition,
+  end-of-turn included) and answer NLL without end-of-turn under correct / complementary / no-image images, plus
+  ΔNLL = NLL(partner image) − NLL(correct image), per suite.
+- Resume restores weights, optimizer, scheduler, scaler, all RNG states and the sampler (generator state, current pass
+  permutation and position); a checkpoint exactly at a stage boundary starts the next stage with a fresh optimizer.
+  Tested: an interrupted + resumed smoke run ends with bitwise-identical weights to an uninterrupted one.
+- Feature caching ran in a Kaggle session that had no accelerator, so SigLIP ran in FP32 on the CPU; the features are
+  stored in FP16 as specified (the handout requires FP16 caching, not FP16 encoding). Throughput was limited by image
+  downloads (2.7 images/s) either way. Training and evaluation now refuse to run on a CPU unless asked explicitly.

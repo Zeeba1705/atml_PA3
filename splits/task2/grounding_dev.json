@@ -1,0 +1,458 @@
+[
+  {
+    "pair_id": "presence_dev_00000",
+    "type": "presence",
+    "category": "skis",
+    "items": [
+      {
+        "image_id": 346589,
+        "split": "val",
+        "question": "Does this image contain skis?",
+        "target": "yes"
+      },
+      {
+        "image_id": 239444,
+        "split": "val",
+        "question": "Does this image contain skis?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00001",
+    "type": "presence",
+    "category": "knife",
+    "items": [
+      {
+        "image_id": 541018,
+        "split": "val",
+        "question": "Does this image contain a knife?",
+        "target": "yes"
+      },
+      {
+        "image_id": 215549,
+        "split": "val",
+        "question": "Does this image contain a knife?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00002",
+    "type": "presence",
+    "category": "handbag",
+    "items": [
+      {
+        "image_id": 193122,
+        "split": "val",
+        "question": "Does this image contain a handbag?",
+        "target": "yes"
+      },
+      {
+        "image_id": 517454,
+        "split": "val",
+        "question": "Does this image contain a handbag?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00003",
+    "type": "presence",
+    "category": "tennis racket",
+    "items": [
+      {
+        "image_id": 216296,
+        "split": "val",
+        "question": "Does this image contain a tennis racket?",
+        "target": "yes"
+      },
+      {
+        "image_id": 179765,
+        "split": "val",
+        "question": "Does this image contain a tennis racket?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00004",
+    "type": "presence",
+    "category": "fork",
+    "items": [
+      {
+        "image_id": 97589,
+        "split": "val",
+        "question": "Does this image contain a fork?",
+        "target": "yes"
+      },
+      {
+        "image_id": 21088,
+        "split": "val",
+        "question": "Does this image contain a fork?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00005",
+    "type": "presence",
+    "category": "hair drier",
+    "items": [
+      {
+        "image_id": 501368,
+        "split": "val",
+        "question": "Does this image contain a hair drier?",
+        "target": "yes"
+      },
+      {
+        "image_id": 547493,
+        "split": "val",
+        "question": "Does this image contain a hair drier?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00006",
+    "type": "presence",
+    "category": "bear",
+    "items": [
+      {
+        "image_id": 513056,
+        "split": "val",
+        "question": "Does this image contain a bear?",
+        "target": "yes"
+      },
+      {
+        "image_id": 145549,
+        "split": "val",
+        "question": "Does this image contain a bear?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00007",
+    "type": "presence",
+    "category": "clock",
+    "items": [
+      {
+        "image_id": 353658,
+        "split": "val",
+        "question": "Does this image contain a clock?",
+        "target": "yes"
+      },
+      {
+        "image_id": 93893,
+        "split": "val",
+        "question": "Does this image contain a clock?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00008",
+    "type": "presence",
+    "category": "scissors",
+    "items": [
+      {
+        "image_id": 89738,
+        "split": "val",
+        "question": "Does this image contain scissors?",
+        "target": "yes"
+      },
+      {
+        "image_id": 359219,
+        "split": "val",
+        "question": "Does this image contain scissors?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00009",
+    "type": "presence",
+    "category": "bowl",
+    "items": [
+      {
+        "image_id": 244754,
+        "split": "val",
+        "question": "Does this image contain a bowl?",
+        "target": "yes"
+      },
+      {
+        "image_id": 476722,
+        "split": "val",
+        "question": "Does this image contain a bowl?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00010",
+    "type": "presence",
+    "category": "spoon",
+    "items": [
+      {
+        "image_id": 292463,
+        "split": "val",
+        "question": "Does this image contain a spoon?",
+        "target": "yes"
+      },
+      {
+        "image_id": 165937,
+        "split": "val",
+        "question": "Does this image contain a spoon?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "presence_dev_00011",
+    "type": "presence",
+    "category": "umbrella",
+    "items": [
+      {
+        "image_id": 358923,
+        "split": "val",
+        "question": "Does this image contain an umbrella?",
+        "target": "yes"
+      },
+      {
+        "image_id": 47597,
+        "split": "val",
+        "question": "Does this image contain an umbrella?",
+        "target": "no"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00000",
+    "type": "counting",
+    "category": "cell phone",
+    "items": [
+      {
+        "image_id": 286106,
+        "split": "val",
+        "question": "How many cell phones can you see?",
+        "target": "1"
+      },
+      {
+        "image_id": 30407,
+        "split": "val",
+        "question": "How many cell phones can you see?",
+        "target": "4"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00001",
+    "type": "counting",
+    "category": "hair drier",
+    "items": [
+      {
+        "image_id": 473849,
+        "split": "val",
+        "question": "How many hair driers can you see?",
+        "target": "2"
+      },
+      {
+        "image_id": 178028,
+        "split": "val",
+        "question": "How many hair driers can you see?",
+        "target": "3"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00002",
+    "type": "counting",
+    "category": "hot dog",
+    "items": [
+      {
+        "image_id": 404243,
+        "split": "val",
+        "question": "How many hot dogs can you see?",
+        "target": "2"
+      },
+      {
+        "image_id": 85045,
+        "split": "val",
+        "question": "How many hot dogs can you see?",
+        "target": "1"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00003",
+    "type": "counting",
+    "category": "keyboard",
+    "items": [
+      {
+        "image_id": 343552,
+        "split": "val",
+        "question": "How many keyboards can you see?",
+        "target": "1"
+      },
+      {
+        "image_id": 456969,
+        "split": "val",
+        "question": "How many keyboards can you see?",
+        "target": "4"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00004",
+    "type": "counting",
+    "category": "chair",
+    "items": [
+      {
+        "image_id": 308295,
+        "split": "val",
+        "question": "How many chairs can you see?",
+        "target": "2"
+      },
+      {
+        "image_id": 332499,
+        "split": "val",
+        "question": "How many chairs can you see?",
+        "target": "4"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00005",
+    "type": "counting",
+    "category": "dog",
+    "items": [
+      {
+        "image_id": 500507,
+        "split": "val",
+        "question": "How many dogs can you see?",
+        "target": "3"
+      },
+      {
+        "image_id": 371699,
+        "split": "val",
+        "question": "How many dogs can you see?",
+        "target": "1"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00006",
+    "type": "counting",
+    "category": "bottle",
+    "items": [
+      {
+        "image_id": 485483,
+        "split": "val",
+        "question": "How many bottles can you see?",
+        "target": "2"
+      },
+      {
+        "image_id": 372654,
+        "split": "val",
+        "question": "How many bottles can you see?",
+        "target": "4"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00007",
+    "type": "counting",
+    "category": "snowboard",
+    "items": [
+      {
+        "image_id": 463542,
+        "split": "val",
+        "question": "How many snowboards can you see?",
+        "target": "2"
+      },
+      {
+        "image_id": 536370,
+        "split": "val",
+        "question": "How many snowboards can you see?",
+        "target": "4"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00008",
+    "type": "counting",
+    "category": "hot dog",
+    "items": [
+      {
+        "image_id": 146936,
+        "split": "val",
+        "question": "How many hot dogs can you see?",
+        "target": "3"
+      },
+      {
+        "image_id": 47435,
+        "split": "val",
+        "question": "How many hot dogs can you see?",
+        "target": "4"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00009",
+    "type": "counting",
+    "category": "cake",
+    "items": [
+      {
+        "image_id": 381382,
+        "split": "val",
+        "question": "How many cakes can you see?",
+        "target": "2"
+      },
+      {
+        "image_id": 5724,
+        "split": "val",
+        "question": "How many cakes can you see?",
+        "target": "3"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00010",
+    "type": "counting",
+    "category": "fire hydrant",
+    "items": [
+      {
+        "image_id": 379070,
+        "split": "val",
+        "question": "How many fire hydrants can you see?",
+        "target": "3"
+      },
+      {
+        "image_id": 89556,
+        "split": "val",
+        "question": "How many fire hydrants can you see?",
+        "target": "1"
+      }
+    ]
+  },
+  {
+    "pair_id": "counting_dev_00011",
+    "type": "counting",
+    "category": "wine glass",
+    "items": [
+      {
+        "image_id": 531047,
+        "split": "val",
+        "question": "How many wine glasses can you see?",
+        "target": "3"
+      },
+      {
+        "image_id": 235486,
+        "split": "val",
+        "question": "How many wine glasses can you see?",
+        "target": "4"
+      }
+    ]
+  }
+]

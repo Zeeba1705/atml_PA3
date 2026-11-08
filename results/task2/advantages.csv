@@ -1,0 +1,17 @@
+suite,metric,comparison,mean,ci95_lo,ci95_hi,bootstrap_resamples
+vqa,accuracy,correct,0.6281,0.5615,0.6937,4000
+vqa,accuracy,correct_minus_complementary,0.3682,0.2781,0.4568,4000
+vqa,accuracy,correct_minus_mismatched,0.2885,0.2068,0.3708,4000
+vqa,accuracy,correct_minus_no_image,0.6229,0.5563,0.6891,4000
+vqa,nll,correct,1.2172,0.975,1.4748,4000
+vqa,nll,complementary_minus_correct,1.2175,0.8926,1.5826,4000
+vqa,nll,mismatched_minus_correct,0.9607,0.6476,1.3215,4000
+vqa,nll,no_image_minus_correct,6.4866,5.8835,7.0965,4000
+grounding,accuracy,correct,0.6875,0.6016,0.7734,4000
+grounding,accuracy,correct_minus_complementary,0.5781,0.4453,0.7031,4000
+grounding,accuracy,correct_minus_mismatched,0.2969,0.2031,0.3828,4000
+grounding,accuracy,correct_minus_no_image,0.6328,0.5312,0.7344,4000
+grounding,nll,correct,0.7349,0.5654,0.9144,4000
+grounding,nll,complementary_minus_correct,2.2379,1.7717,2.7101,4000
+grounding,nll,mismatched_minus_correct,1.0847,0.8322,1.3539,4000
+grounding,nll,no_image_minus_correct,2.9148,2.5906,3.2497,4000
